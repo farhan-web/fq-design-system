@@ -1,0 +1,114 @@
+.fq-input-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: 100%;
+}
+
+.fq-input-field__label {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+}
+
+.fq-input-field__required {
+  font-size: 14px;
+}
+
+.fq-input-field__control {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.fq-input {
+  width: 100%;
+  min-height: 40px;
+  padding: 8px 12px;
+  border: 1px solid #d0d5dd;
+  border-radius: 6px;
+  background: #fff;
+  color: #101828;
+  font: inherit;
+  line-height: 24px;
+  outline: none;
+  box-sizing: border-box;
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease,
+    background-color 0.15s ease;
+}
+
+.fq-input::placeholder {
+  color: #98a2b3;
+}
+
+.fq-input:hover:not(:disabled) {
+  border-color: #98a2b3;
+}
+
+.fq-input:focus {
+  border-color: #6941c6;
+  box-shadow: 0 0 0 3px rgb(105 65 198 / 15%);
+}
+
+.fq-input:disabled {
+  cursor: not-allowed;
+  background: #f2f4f7;
+  color: #98a2b3;
+}
+
+.fq-input:read-only {
+  background: #f9fafb;
+}
+
+.fq-input--error {
+  border-color: #d92d20;
+}
+
+.fq-input--error:focus {
+  border-color: #d92d20;
+  box-shadow: 0 0 0 3px rgb(217 45 32 / 15%);
+}
+
+.fq-input-field__icon {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.fq-input-field__icon svg {
+  width: 18px;
+  height: 18px;
+}
+
+.fq-input-field__icon--start {
+  left: 12px;
+}
+
+.fq-input-field__icon--end {
+  right: 12px;
+}
+
+.fq-input--has-start-icon {
+  padding-left: 40px;
+}
+
+.fq-input--has-end-icon {
+  padding-right: 40px;
+}
+
+.fq-input-field__message {
+  margin: 0;
+  font-size: 13px;
+  line-height: 18px;
+}
+
+.fq-input-field__message--error {
+  color: #d92d20;
+}
