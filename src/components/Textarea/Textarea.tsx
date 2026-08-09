@@ -1,8 +1,9 @@
 import {
-  useId,
   type TextareaHTMLAttributes,
   type ReactNode,
 } from 'react';
+
+import { useFormField } from '../../hooks/useFormField';
 
 import './Textarea.css';
 
@@ -18,18 +19,21 @@ export function Textarea({
   helperText,
   error,
   id,
+  'aria-describedby': ariaDescribedBy,
   ...props
 }: TextareaProps) {
-  const generatedId = useId();
-  const textareaId = id ?? generatedId;
-
-  const messageId =
-    helperText || error
-      ? `${textareaId}-message`
-      : undefined;
-
-  const describedBy =
-    props['aria-describedby'] ?? messageId;
+  const {
+    id: textareaId,
+    message,
+    messageId,
+    describedBy,
+    invalid,
+  } = useFormField({
+    id,
+    helperText,
+    error,
+    describedBy: ariaDescribedBy,
+  });
 
   return (
     <div
@@ -60,16 +64,16 @@ export function Textarea({
         {...props}
         id={textareaId}
         className="fq-textarea"
-        aria-invalid={error ? 'true' : undefined}
+        aria-invalid={invalid || undefined}
         aria-describedby={describedBy}
       />
 
-      {(error || helperText) && (
+      {message && (
         <div
           id={messageId}
           className="fq-textarea-field__message"
         >
-          {error ?? helperText}
+          {message}
         </div>
       )}
     </div>
