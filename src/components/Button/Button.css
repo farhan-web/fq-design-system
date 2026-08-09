@@ -1,0 +1,166 @@
+.fq-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+
+  border: 1px solid transparent;
+  border-radius: var(--radius-md);
+
+  font-family: var(--font-family);
+  font-weight: var(--font-weight-medium);
+
+  cursor: pointer;
+
+  transition:
+    background-color 120ms ease,
+    border-color 120ms ease,
+    color 120ms ease,
+    box-shadow 120ms ease,
+    transform 120ms ease;
+}
+
+.fq-button:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+.fq-button:active:not(:disabled) {
+  transform: translateY(1px);
+}
+
+.fq-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+/* ================================
+   Size
+   ================================ */
+
+.fq-button--sm {
+  min-height: 32px;
+  padding: 0 var(--space-3);
+
+  font-size: var(--font-size-sm);
+}
+
+.fq-button--md {
+  min-height: 40px;
+  padding: 0 var(--space-4);
+
+  font-size: var(--font-size-md);
+}
+
+.fq-button--lg {
+  min-height: 48px;
+  padding: 0 var(--space-6);
+
+  font-size: var(--font-size-lg);
+}
+
+/* ================================
+   Primary
+   ================================ */
+
+.fq-button--primary {
+  background: var(--color-primary);
+  color: white;
+}
+
+.fq-button--primary:hover:not(:disabled) {
+  background: var(--color-primary-hover);
+}
+
+/* ================================
+   Secondary
+   ================================ */
+
+.fq-button--secondary {
+  background: var(--color-background);
+  border-color: var(--color-border);
+  color: var(--color-text-primary);
+}
+
+.fq-button--secondary:hover:not(:disabled) {
+  background: var(--color-surface);
+}
+
+/* ================================
+   Ghost
+   ================================ */
+
+.fq-button--ghost {
+  background: transparent;
+  color: var(--color-text-primary);
+}
+
+.fq-button--ghost:hover:not(:disabled) {
+  background: var(--color-surface);
+}
+
+/* ================================
+   Danger
+   ================================ */
+
+.fq-button--danger {
+  background: #dc2626;
+  color: white;
+}
+
+.fq-button--danger:hover:not(:disabled) {
+  background: #b91c1c;
+}
+
+/* ================================
+   Loading
+   ================================ */
+
+.fq-button__content--loading {
+  opacity: 0.7;
+}
+
+.fq-button__spinner {
+  width: 14px;
+  height: 14px;
+
+  border: 2px solid currentColor;
+  border-top-color: transparent;
+
+  border-radius: 50%;
+
+  animation: fq-button-spin 700ms linear infinite;
+}
+
+@keyframes fq-button-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.fq-button svg {
+  width: 1em;
+  height: 1em;
+  flex-shrink: 0;
+}
+
+.fq-button--full-width {
+  width: 100%;
+}
+
+.fq-button--icon-only {
+  aspect-ratio: 1;
+  padding: 0;
+}
+
+.fq-button--icon-only.fq-button--sm {
+  width: 32px;
+}
+
+.fq-button--icon-only.fq-button--md {
+  width: 40px;
+}
+
+.fq-button--icon-only.fq-button--lg {
+  width: 48px;
+}
