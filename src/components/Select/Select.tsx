@@ -20,7 +20,7 @@ export function Select({
   error,
   id,
   children,
-  'aria-describedby': ariaDescribedBy,
+  'aria-describedby': externalDescribedBy,
   ...props
 }: SelectProps) {
   const {
@@ -33,7 +33,7 @@ export function Select({
     id,
     helperText,
     error,
-    describedBy: ariaDescribedBy,
+    describedBy: externalDescribedBy,
   });
 
   return (

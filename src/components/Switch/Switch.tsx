@@ -22,7 +22,7 @@ export function Switch({
   helperText,
   error,
   id,
-  'aria-describedby': ariaDescribedBy,
+  'aria-describedby': externalDescribedBy,
   ...props
 }: SwitchProps) {
   const {
@@ -35,7 +35,7 @@ export function Switch({
     id,
     helperText,
     error,
-    describedBy: ariaDescribedBy,
+    describedBy: externalDescribedBy,
   });
 
   return (

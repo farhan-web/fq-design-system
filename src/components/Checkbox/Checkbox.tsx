@@ -28,7 +28,7 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
       error,
       indeterminate = false,
       disabled,
-      'aria-describedby': ariaDescribedBy,
+      'aria-describedby': externalDescribedBy,
       ...props
     },
     ref,
@@ -43,7 +43,7 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
       id,
       helperText,
       error,
-      describedBy: ariaDescribedBy,
+      describedBy: externalDescribedBy,
     });
 
     const inputRef = useRef<HTMLInputElement>(null);

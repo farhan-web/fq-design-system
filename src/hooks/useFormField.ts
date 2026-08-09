@@ -23,11 +23,9 @@ export function useFormField({
     ? `${fieldId}-message`
     : undefined;
 
-  const internalDescribedBy = messageId;
-
   const combinedDescribedBy = [
     describedBy,
-    internalDescribedBy,
+    messageId,
   ]
     .filter(Boolean)
     .join(' ') || undefined;

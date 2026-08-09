@@ -22,7 +22,7 @@ export function Radio({
   helperText,
   error,
   id,
-  'aria-describedby': ariaDescribedBy,
+  'aria-describedby': externalDescribedBy,
   ...props
 }: RadioProps) {
   const {
@@ -35,7 +35,7 @@ export function Radio({
     id,
     helperText,
     error,
-    describedBy: ariaDescribedBy,
+    describedBy: externalDescribedBy,
   });
 
   return (

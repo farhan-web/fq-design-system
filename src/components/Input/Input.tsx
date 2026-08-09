@@ -26,7 +26,7 @@ export function Input({
   disabled,
   required,
   className,
-  'aria-describedby': ariaDescribedBy,
+  'aria-describedby': externalDescribedBy,
   ...props
 }: InputProps) {
   const {
@@ -39,7 +39,7 @@ export function Input({
     id,
     helperText,
     error,
-    describedBy: ariaDescribedBy,
+    describedBy: externalDescribedBy,
   });
 
   const inputClassName = [

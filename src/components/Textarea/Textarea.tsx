@@ -19,7 +19,7 @@ export function Textarea({
   helperText,
   error,
   id,
-  'aria-describedby': ariaDescribedBy,
+  'aria-describedby': externalDescribedBy,
   ...props
 }: TextareaProps) {
   const {
@@ -32,7 +32,7 @@ export function Textarea({
     id,
     helperText,
     error,
-    describedBy: ariaDescribedBy,
+    describedBy: externalDescribedBy,
   });
 
   return (
