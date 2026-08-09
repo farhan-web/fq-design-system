@@ -100,4 +100,38 @@ describe('useFormField', () => {
     expect(result.current.messageId).toBeUndefined();
     expect(result.current.describedBy).toBeUndefined();
   });
+  it('clears error state when error is removed', () => {
+    type Props = {
+      error?: string;
+    };
+
+    const { result, rerender } = renderHook<
+      ReturnType<typeof useFormField>,
+      Props
+    >(
+      ({ error }) =>
+        useFormField({
+          id: 'email',
+          helperText: 'Helper',
+          error,
+        }),
+      {
+        initialProps: {
+          error: 'Invalid email',
+        } satisfies Props,
+      },
+    );
+
+    expect(result.current.invalid).toBe(true);
+    expect(result.current.message).toBe(
+      'Invalid email',
+    );
+
+    rerender({
+      error: undefined,
+    });
+
+    expect(result.current.invalid).toBe(false);
+    expect(result.current.message).toBe('Helper');
+  });
 });
