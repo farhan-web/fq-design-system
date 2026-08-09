@@ -285,7 +285,11 @@ describe('Checkbox', () => {
 
 
   it('forwards onChange event', () => {
-    const handleChange = vi.fn();
+    let checked = false;
+
+    const handleChange = vi.fn((event) => {
+      checked = event.target.checked;
+    });
 
     render(
       <Checkbox
@@ -299,6 +303,7 @@ describe('Checkbox', () => {
     );
 
     expect(handleChange).toHaveBeenCalledTimes(1);
+    expect(checked).toBe(true);
   });
 
 
@@ -316,7 +321,11 @@ describe('Checkbox', () => {
   });
 
   it('supports controlled checked state', () => {
-    const handleChange = vi.fn();
+    let checked = true;
+
+    const handleChange = vi.fn((event) => {
+      checked = event.target.checked;
+    });
 
     render(
       <Checkbox
@@ -326,9 +335,16 @@ describe('Checkbox', () => {
       />,
     );
 
-    expect(
-      screen.getByRole('checkbox'),
-    ).toBeChecked();
+    const checkbox = screen.getByRole('checkbox');
+
+    expect(checkbox).toBeChecked();
+
+    fireEvent.click(checkbox);
+
+    expect(handleChange).toHaveBeenCalledTimes(1);
+    expect(checked).toBe(false);
+
+    expect(checkbox).toBeChecked();
   });
 
 });

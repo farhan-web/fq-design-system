@@ -349,7 +349,13 @@ describe('Radio', () => {
   });
 
   it('forwards onChange event', () => {
-    const handleChange = vi.fn();
+    let selectedValue = '';
+    let checked = false;
+
+    const handleChange = vi.fn((event) => {
+      selectedValue = event.target.value;
+      checked = event.target.checked;
+    });
 
     render(
       <Radio
@@ -365,6 +371,8 @@ describe('Radio', () => {
     );
 
     expect(handleChange).toHaveBeenCalledTimes(1);
+    expect(selectedValue).toBe('cash');
+    expect(checked).toBe(true);
   });
 
 
@@ -384,21 +392,32 @@ describe('Radio', () => {
   });
 
   it('supports controlled checked state', () => {
-    const handleChange = vi.fn();
+    let checked = false;
+
+    const handleChange = vi.fn((event) => {
+      checked = event.target.checked;
+    });
 
     render(
       <Radio
         label="Cash"
         name="payment"
         value="cash"
-        checked
+        checked={false}
         onChange={handleChange}
       />,
     );
 
-    expect(
-      screen.getByRole('radio'),
-    ).toBeChecked();
+    const radio = screen.getByRole('radio');
+
+    expect(radio).not.toBeChecked();
+
+    fireEvent.click(radio);
+
+    expect(handleChange).toHaveBeenCalledTimes(1);
+    expect(checked).toBe(true);
+
+    expect(radio).not.toBeChecked();
   });
 
 });

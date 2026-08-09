@@ -334,19 +334,30 @@ describe('Switch', () => {
   });
 
   it('supports controlled checked state', () => {
-    const handleChange = vi.fn();
+    let checked = false;
+
+    const handleChange = vi.fn((event) => {
+      checked = event.target.checked;
+    });
 
     render(
       <Switch
         label="Notifications"
-        checked
+        checked={false}
         onChange={handleChange}
       />,
     );
 
-    expect(
-      screen.getByRole('switch'),
-    ).toBeChecked();
+    const switchElement = screen.getByRole('switch');
+
+    expect(switchElement).not.toBeChecked();
+
+    fireEvent.click(switchElement);
+
+    expect(handleChange).toHaveBeenCalledTimes(1);
+    expect(checked).toBe(true);
+
+    expect(switchElement).not.toBeChecked();
   });
 
 });

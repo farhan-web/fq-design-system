@@ -408,10 +408,21 @@ describe('Textarea', () => {
 
     fireEvent.change(
       screen.getByRole('textbox'),
-      { target: { value: 'hello' } },
+      {
+        target: {
+          value: 'hello',
+        },
+      },
     );
 
     expect(handleChange).toHaveBeenCalledTimes(1);
+    expect(handleChange).toHaveBeenCalledWith(
+      expect.objectContaining({
+        target: expect.objectContaining({
+          value: 'hello',
+        }),
+      }),
+    );
   });
 
   it('forwards onBlur event', () => {
@@ -459,7 +470,11 @@ describe('Textarea', () => {
   });
 
   it('supports controlled value', () => {
-    const handleChange = vi.fn();
+    let changedValue = '';
+
+    const handleChange = vi.fn((event) => {
+      changedValue = event.target.value;
+    });
 
     render(
       <Textarea
@@ -469,9 +484,23 @@ describe('Textarea', () => {
       />,
     );
 
-    expect(
-      screen.getByRole('textbox'),
-    ).toHaveValue('Controlled text');
+    const textarea = screen.getByRole('textbox');
+
+    expect(textarea).toHaveValue('Controlled text');
+
+    fireEvent.change(
+      textarea,
+      {
+        target: {
+          value: 'Changed text',
+        },
+      },
+    );
+
+    expect(handleChange).toHaveBeenCalledTimes(1);
+    expect(changedValue).toBe('Changed text');
+
+    expect(textarea).toHaveValue('Controlled text');
   });
 
 });

@@ -271,10 +271,21 @@ describe('Input', () => {
 
     fireEvent.change(
       screen.getByRole('textbox'),
-      { target: { value: 'hello@example.com' } },
+      {
+        target: {
+          value: 'hello@example.com',
+        },
+      },
     );
 
     expect(handleChange).toHaveBeenCalledTimes(1);
+    expect(handleChange).toHaveBeenCalledWith(
+      expect.objectContaining({
+        target: expect.objectContaining({
+          value: 'hello@example.com',
+        }),
+      }),
+    );
   });
 
   it('forwards onBlur event', () => {

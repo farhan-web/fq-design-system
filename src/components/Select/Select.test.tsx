@@ -361,7 +361,11 @@ describe('Select', () => {
 
 
   it('forwards onChange event', () => {
-    const handleChange = vi.fn();
+    let changedValue = '';
+
+    const handleChange = vi.fn((event) => {
+      changedValue = event.target.value;
+    });
 
     render(
       <Select
@@ -376,15 +380,24 @@ describe('Select', () => {
 
     fireEvent.change(
       screen.getByRole('combobox'),
-      { target: { value: 'id' } },
+      {
+        target: {
+          value: 'id',
+        },
+      },
     );
 
     expect(handleChange).toHaveBeenCalledTimes(1);
+    expect(changedValue).toBe('id');
   });
 
 
   it('supports controlled value', () => {
-    const handleChange = vi.fn();
+    let changedValue = '';
+
+    const handleChange = vi.fn((event) => {
+      changedValue = event.target.value;
+    });
 
     render(
       <Select
@@ -398,9 +411,22 @@ describe('Select', () => {
       </Select>,
     );
 
-    expect(
-      screen.getByRole('combobox'),
-    ).toHaveValue('id');
+    const select = screen.getByRole('combobox');
+
+    expect(select).toHaveValue('id');
+
+    fireEvent.change(
+      select,
+      {
+        target: {
+          value: 'sg',
+        },
+      },
+    );
+
+    expect(handleChange).toHaveBeenCalledTimes(1);
+    expect(changedValue).toBe('sg');
+    expect(select).toHaveValue('id');
   });
 
 });
