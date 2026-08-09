@@ -1,0 +1,80 @@
+.fq-select-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: 100%;
+}
+
+.fq-select-field__label {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-normal);
+  color: var(--color-text-primary);
+}
+
+.fq-select-field__required {
+  color: #dc2626;
+}
+
+.fq-select {
+  width: 100%;
+  min-height: 40px;
+  padding: 8px 36px 8px 12px;
+
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+
+  background-color: var(--color-background);
+  color: var(--color-text-primary);
+
+  font-family: var(--font-family);
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-normal);
+
+  cursor: pointer;
+  outline: none;
+
+  transition:
+    border-color 120ms ease-in-out,
+    box-shadow 120ms ease-in-out;
+}
+
+.fq-select:hover:not(:disabled) {
+  border-color: var(--color-text-secondary);
+}
+
+.fq-select:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgb(37 99 235 / 15%);
+}
+
+.fq-select:disabled {
+  background: var(--color-surface);
+  color: var(--color-text-muted);
+  cursor: not-allowed;
+}
+
+.fq-select-field__message {
+  font-size: var(--font-size-xs);
+  line-height: var(--line-height-normal);
+  color: var(--color-text-secondary);
+}
+
+.fq-select-field--error
+  .fq-select {
+  border-color: #dc2626;
+}
+
+.fq-select-field--error
+  .fq-select:focus {
+  box-shadow: 0 0 0 3px rgb(220 38 38 / 15%);
+}
+
+.fq-select-field--error
+  .fq-select-field__message {
+  color: #dc2626;
+}

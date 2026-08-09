@@ -1,0 +1,263 @@
+import { render, screen } from '@testing-library/react';
+import { describe, expect, it } from 'vitest';
+
+import { Select } from './Select';
+
+const renderOptions = () => (
+  <>
+    <option value="">Select a country</option>
+    <option value="id">Indonesia</option>
+    <option value="sg">Singapore</option>
+  </>
+);
+
+describe('Select', () => {
+  it('renders label and select', () => {
+    render(
+      <Select label="Country">
+        {renderOptions()}
+      </Select>,
+    );
+
+    expect(
+      screen.getByRole('combobox', {
+        name: 'Country',
+      }),
+    ).toBeInTheDocument();
+  });
+
+  it('associates label with select', () => {
+    render(
+      <Select label="Country">
+        {renderOptions()}
+      </Select>,
+    );
+
+    const select = screen.getByRole('combobox', {
+      name: 'Country',
+    });
+
+    expect(select.id).not.toBe('');
+
+    expect(
+      document.querySelector(
+        `label[for="${select.id}"]`,
+      ),
+    ).toBeInTheDocument();
+  });
+
+  it('supports custom id', () => {
+    render(
+      <Select
+        id="country"
+        label="Country"
+      >
+        {renderOptions()}
+      </Select>,
+    );
+
+    expect(
+      screen.getByRole('combobox', {
+        name: 'Country',
+      }),
+    ).toHaveAttribute('id', 'country');
+  });
+
+  it('generates unique ids for multiple selects', () => {
+    render(
+      <>
+        <Select label="Country">
+          {renderOptions()}
+        </Select>
+
+        <Select label="Language">
+          <option value="">Select a language</option>
+          <option value="id">Indonesian</option>
+          <option value="en">English</option>
+        </Select>
+      </>,
+    );
+
+    const country = screen.getByRole('combobox', {
+      name: 'Country',
+    });
+
+    const language = screen.getByRole('combobox', {
+      name: 'Language',
+    });
+
+    expect(country.id).not.toBe('');
+    expect(language.id).not.toBe('');
+    expect(country.id).not.toBe(language.id);
+  });
+
+  it('supports selected value', () => {
+    render(
+      <Select
+        label="Country"
+        defaultValue="id"
+      >
+        {renderOptions()}
+      </Select>,
+    );
+
+    expect(
+      screen.getByRole('combobox', {
+        name: 'Country',
+      }),
+    ).toHaveValue('id');
+  });
+
+  it('supports required state', () => {
+    render(
+      <Select
+        label="Country"
+        required
+      >
+        {renderOptions()}
+      </Select>,
+    );
+
+    expect(
+      screen.getByRole('combobox', {
+        name: 'Country',
+      }),
+    ).toBeRequired();
+  });
+
+  it('supports disabled state', () => {
+    render(
+      <Select
+        label="Country"
+        disabled
+      >
+        {renderOptions()}
+      </Select>,
+    );
+
+    expect(
+      screen.getByRole('combobox', {
+        name: 'Country',
+      }),
+    ).toBeDisabled();
+  });
+
+  it('supports helper text', () => {
+    render(
+      <Select
+        label="Country"
+        helperText="Select your current country."
+      >
+        {renderOptions()}
+      </Select>,
+    );
+
+    const select = screen.getByRole('combobox', {
+      name: 'Country',
+    });
+
+    const message = screen.getByText(
+      'Select your current country.',
+    );
+
+    expect(message).toBeInTheDocument();
+
+    expect(select).toHaveAttribute(
+      'aria-describedby',
+      message.id,
+    );
+  });
+
+  it('exposes error state', () => {
+    render(
+      <Select
+        label="Country"
+        error="Country is required."
+      >
+        {renderOptions()}
+      </Select>,
+    );
+
+    const select = screen.getByRole('combobox', {
+      name: 'Country',
+    });
+
+    const message = screen.getByText(
+      'Country is required.',
+    );
+
+    expect(select).toHaveAttribute(
+      'aria-invalid',
+      'true',
+    );
+
+    expect(select).toHaveAttribute(
+      'aria-describedby',
+      message.id,
+    );
+  });
+
+  it('prioritizes error message over helper text', () => {
+    render(
+      <Select
+        label="Country"
+        helperText="Select your current country."
+        error="Country is required."
+      >
+        {renderOptions()}
+      </Select>,
+    );
+
+    expect(
+      screen.getByText(
+        'Country is required.',
+      ),
+    ).toBeInTheDocument();
+
+    expect(
+      screen.queryByText(
+        'Select your current country.',
+      ),
+    ).not.toBeInTheDocument();
+  });
+
+  it('preserves custom aria-describedby', () => {
+    render(
+      <Select
+        label="Country"
+        aria-describedby="custom-description"
+      >
+        {renderOptions()}
+      </Select>,
+    );
+
+    expect(
+      screen.getByRole('combobox', {
+        name: 'Country',
+      }),
+    ).toHaveAttribute(
+      'aria-describedby',
+      'custom-description',
+    );
+  });
+
+  it('renders provided options', () => {
+    render(
+      <Select label="Country">
+        {renderOptions()}
+      </Select>,
+    );
+
+    expect(
+      screen.getByRole('option', {
+        name: 'Indonesia',
+      }),
+    ).toBeInTheDocument();
+
+    expect(
+      screen.getByRole('option', {
+        name: 'Singapore',
+      }),
+    ).toBeInTheDocument();
+  });
+});
