@@ -29,6 +29,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
       required,
       className,
       'aria-describedby': externalDescribedBy,
+      'aria-invalid': externalInvalid,
       ...props
     },
     ref,
@@ -93,7 +94,11 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
             className={inputClassName}
             disabled={disabled}
             required={required}
-            aria-invalid={invalid || undefined}
+            aria-invalid={
+              invalid || externalInvalid
+                ? true
+                : undefined
+            }
             aria-describedby={describedBy}
           />
 
