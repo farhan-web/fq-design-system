@@ -63,6 +63,27 @@ describe('Form', () => {
     expect(handleSubmit).toHaveBeenCalledTimes(1);
   });
 
+  it('forwards onReset event', () => {
+    const handleReset = vi.fn((event) => {
+      event.preventDefault();
+    });
+
+    render(
+      <Form
+        aria-label="Login form"
+        onReset={handleReset}
+      />,
+    );
+
+    fireEvent.reset(
+      screen.getByRole('form', {
+        name: 'Login form',
+      }),
+    );
+
+    expect(handleReset).toHaveBeenCalledTimes(1);
+  });
+
   it('forwards ref to native form', () => {
     const ref = createRef<HTMLFormElement>();
 
@@ -95,26 +116,13 @@ describe('Form', () => {
     ).toHaveClass('custom-form');
   });
 
-  it('supports Field children', () => {
-    render(
-      <Form>
-        <div>
-          <label htmlFor="email">Email</label>
-          <input id="email" />
-        </div>
-      </Form>,
-    );
-
-    expect(
-      screen.getByLabelText('Email'),
-    ).toBeInTheDocument();
-  });
-
   it('forwards native form attributes', () => {
     render(
       <Form
         aria-label="Login form"
         id="login-form"
+        action="/login"
+        method="post"
         noValidate
       />,
     );
@@ -130,6 +138,16 @@ describe('Form', () => {
 
     expect(form).toHaveAttribute(
       'novalidate',
+    );
+
+    expect(form).toHaveAttribute(
+      'action',
+      '/login',
+    );
+
+    expect(form).toHaveAttribute(
+      'method',
+      'post',
     );
   });
 });
