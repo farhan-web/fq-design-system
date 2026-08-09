@@ -1,14 +1,14 @@
 .fq-input-field {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: var(--space-1-5);
   width: 100%;
 }
 
 .fq-input-field__label {
   display: inline-flex;
   align-items: center;
-  gap: 4px;
+  gap: var(--space-1);
   font-size: 14px;
   font-weight: 500;
   line-height: 20px;
@@ -28,10 +28,10 @@
   width: 100%;
   min-height: 40px;
   padding: 8px 12px;
-  border: 1px solid #d0d5dd;
-  border-radius: 6px;
-  background: #fff;
-  color: #101828;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-background);
+  color: var(--color-text-primary);
   font: inherit;
   line-height: 24px;
   outline: none;
@@ -43,35 +43,35 @@
 }
 
 .fq-input::placeholder {
-  color: #98a2b3;
+  color: var(--color-text-muted);
 }
 
 .fq-input:hover:not(:disabled) {
-  border-color: #98a2b3;
+  border-color: var(--color-border-hover);
 }
 
 .fq-input:focus {
-  border-color: #6941c6;
-  box-shadow: 0 0 0 3px rgb(105 65 198 / 15%);
+  border-color: var(--color-focus);
+  box-shadow: 0 0 0 3px rgb(37 99 235 / 15%);
 }
 
 .fq-input:disabled {
   cursor: not-allowed;
-  background: #f2f4f7;
-  color: #98a2b3;
+  background: var(--color-background-disabled);
+  color: var(--color-text-muted);
 }
 
 .fq-input:read-only {
-  background: #f9fafb;
+  background: var(--color-background-readonly);
 }
 
 .fq-input--error {
-  border-color: #d92d20;
+  border-color: var(--color-error);
 }
 
 .fq-input--error:focus {
-  border-color: #d92d20;
-  box-shadow: 0 0 0 3px rgb(217 45 32 / 15%);
+  border-color: var(--color-error);
+  box-shadow: 0 0 0 3px rgb(220 38 38 / 15%);
 }
 
 .fq-input-field__icon {
@@ -110,5 +110,5 @@
 }
 
 .fq-input-field__message--error {
-  color: #d92d20;
+  color: var(--color-error);
 }

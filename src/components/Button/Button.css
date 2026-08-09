@@ -104,12 +104,12 @@
    ================================ */
 
 .fq-button--danger {
-  background: #dc2626;
+  background: var(--color-error);
   color: white;
 }
 
 .fq-button--danger:hover:not(:disabled) {
-  background: #b91c1c;
+  background: var(--color-error-hover);
 }
 
 /* ================================

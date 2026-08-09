@@ -1,14 +1,14 @@
 .fq-textarea-field {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: var(--space-1-5);
   width: 100%;
 }
 
 .fq-textarea-field__label {
   display: inline-flex;
   align-items: center;
-  gap: 4px;
+  gap: var(--space-1);
 
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-medium);
@@ -17,7 +17,7 @@
 }
 
 .fq-textarea-field__required {
-  color: #dc2626;
+  color: var(--color-error);
 }
 
 .fq-textarea {
@@ -76,7 +76,7 @@
 
 .fq-textarea-field--error
   .fq-textarea {
-  border-color: #dc2626;
+  border-color: var(--color-error);
 }
 
 .fq-textarea-field--error
@@ -86,5 +86,5 @@
 
 .fq-textarea-field--error
   .fq-textarea-field__message {
-  color: #dc2626;
+  color: var(--color-error);
 }
