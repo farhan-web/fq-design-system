@@ -1,8 +1,9 @@
 import {
-  useId,
   type InputHTMLAttributes,
   type ReactNode,
 } from 'react';
+
+import { useFormField } from '../../hooks/useFormField';
 
 import './Switch.css';
 
@@ -21,18 +22,21 @@ export function Switch({
   helperText,
   error,
   id,
+  'aria-describedby': ariaDescribedBy,
   ...props
 }: SwitchProps) {
-  const generatedId = useId();
-  const switchId = id ?? generatedId;
-
-  const messageId =
-    helperText || error
-      ? `${switchId}-message`
-      : undefined;
-
-  const describedBy =
-    props['aria-describedby'] ?? messageId;
+  const {
+    id: switchId,
+    message,
+    messageId,
+    describedBy,
+    invalid,
+  } = useFormField({
+    id,
+    helperText,
+    error,
+    describedBy: ariaDescribedBy,
+  });
 
   return (
     <div
@@ -53,7 +57,7 @@ export function Switch({
           type="checkbox"
           role="switch"
           className="fq-switch__input"
-          aria-invalid={error ? 'true' : undefined}
+          aria-invalid={invalid || undefined}
           aria-describedby={describedBy}
         />
 
@@ -69,12 +73,12 @@ export function Switch({
         </span>
       </label>
 
-      {(error || helperText) && (
+      {message && (
         <div
           id={messageId}
           className="fq-switch-field__message"
         >
-          {error ?? helperText}
+          {message}
         </div>
       )}
     </div>
