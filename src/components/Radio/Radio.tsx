@@ -1,8 +1,9 @@
 import {
-  useId,
   type InputHTMLAttributes,
   type ReactNode,
 } from 'react';
+
+import { useFormField } from '../../hooks/useFormField';
 
 import './Radio.css';
 
@@ -21,16 +22,21 @@ export function Radio({
   helperText,
   error,
   id,
+  'aria-describedby': ariaDescribedBy,
   ...props
 }: RadioProps) {
-  const generatedId = useId();
-  const radioId = id ?? generatedId;
-
-  const messageId = helperText || error
-    ? `${radioId}-message`
-    : undefined;
-
-  const describedBy = props['aria-describedby'] ?? messageId;
+  const {
+    id: radioId,
+    message,
+    messageId,
+    describedBy,
+    invalid,
+  } = useFormField({
+    id,
+    helperText,
+    error,
+    describedBy: ariaDescribedBy,
+  });
 
   return (
     <div
@@ -50,23 +56,26 @@ export function Radio({
           id={radioId}
           type="radio"
           className="fq-radio__input"
-          aria-invalid={error ? 'true' : undefined}
+          aria-invalid={invalid || undefined}
           aria-describedby={describedBy}
         />
 
-        <span className="fq-radio__control" aria-hidden="true" />
+        <span
+          className="fq-radio__control"
+          aria-hidden="true"
+        />
 
         <span className="fq-radio__label">
           {label}
         </span>
       </label>
 
-      {(error || helperText) && (
+      {message && (
         <div
           id={messageId}
           className="fq-radio-field__message"
         >
-          {error ?? helperText}
+          {message}
         </div>
       )}
     </div>
