@@ -1,8 +1,9 @@
-import { useId } from 'react';
 import type {
   InputHTMLAttributes,
   ReactNode,
 } from 'react';
+
+import { useFormField } from '../../hooks/useFormField';
 
 import './Input.css';
 
@@ -25,15 +26,21 @@ export function Input({
   disabled,
   required,
   className,
+  'aria-describedby': ariaDescribedBy,
   ...props
 }: InputProps) {
-  const generatedId = useId();
-  const inputId = id ?? generatedId;
-
-  const message = error ?? helperText;
-  const messageId = message
-    ? `${inputId}-message`
-    : undefined;
+  const {
+    id: inputId,
+    message,
+    messageId,
+    describedBy,
+    invalid,
+  } = useFormField({
+    id,
+    helperText,
+    error,
+    describedBy: ariaDescribedBy,
+  });
 
   const inputClassName = [
     'fq-input',
@@ -80,8 +87,8 @@ export function Input({
           className={inputClassName}
           disabled={disabled}
           required={required}
-          aria-invalid={error ? true : undefined}
-          aria-describedby={messageId}
+          aria-invalid={invalid || undefined}
+          aria-describedby={describedBy}
           {...props}
         />
 
