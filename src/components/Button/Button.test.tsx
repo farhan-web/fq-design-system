@@ -1,5 +1,12 @@
-import { render, screen } from '@testing-library/react';
-import { describe, expect, it } from 'vitest';
+import {
+  render,
+  screen,
+} from '@testing-library/react';
+import {
+  describe,
+  expect,
+  it,
+} from 'vitest';
 
 import { Button } from './Button';
 
@@ -12,6 +19,30 @@ describe('Button', () => {
         name: 'Save',
       }),
     ).toBeInTheDocument();
+  });
+
+  it('uses button type by default', () => {
+    render(<Button>Save</Button>);
+
+    expect(
+      screen.getByRole('button', {
+        name: 'Save',
+      }),
+    ).toHaveAttribute('type', 'button');
+  });
+
+  it('supports native button type', () => {
+    render(
+      <Button type="submit">
+        Save
+      </Button>,
+    );
+
+    expect(
+      screen.getByRole('button', {
+        name: 'Save',
+      }),
+    ).toHaveAttribute('type', 'submit');
   });
 
   it('is disabled when disabled is true', () => {
@@ -44,6 +75,194 @@ describe('Button', () => {
     expect(button).toHaveAttribute(
       'aria-busy',
       'true',
+    );
+  });
+
+  it('does not expose aria-busy when not loading', () => {
+    render(<Button>Save</Button>);
+
+    expect(
+      screen.getByRole('button', {
+        name: 'Save',
+      }),
+    ).not.toHaveAttribute('aria-busy');
+  });
+
+  it('supports an accessible name for icon-only buttons', () => {
+    render(
+      <Button
+        iconOnly
+        aria-label="Delete"
+      >
+        🗑️
+      </Button>,
+    );
+
+    expect(
+      screen.getByRole('button', {
+        name: 'Delete',
+      }),
+    ).toBeInTheDocument();
+  });
+
+  it('supports variants', () => {
+    render(
+      <Button variant="danger">
+        Delete
+      </Button>,
+    );
+
+    expect(
+      screen.getByRole('button', {
+        name: 'Delete',
+      }),
+    ).toHaveClass('fq-button', 'fq-button--danger');
+  });
+
+  it('supports sizes', () => {
+    render(
+      <Button size="lg">
+        Save
+      </Button>,
+    );
+
+    expect(
+      screen.getByRole('button', {
+        name: 'Save',
+      }),
+    ).toHaveClass('fq-button--lg');
+  });
+
+  it('supports full width', () => {
+    render(
+      <Button fullWidth>
+        Save
+      </Button>,
+    );
+
+    expect(
+      screen.getByRole('button', {
+        name: 'Save',
+      }),
+    ).toHaveClass('fq-button--full-width');
+  });
+
+  it('supports start icon', () => {
+    render(
+      <Button
+        startIcon={
+          <span data-testid="start-icon">
+            +
+          </span>
+        }
+      >
+        Add
+      </Button>,
+    );
+
+    expect(
+      screen.getByTestId('start-icon'),
+    ).toBeInTheDocument();
+  });
+
+  it('supports end icon', () => {
+    render(
+      <Button
+        endIcon={
+          <span data-testid="end-icon">
+            →
+          </span>
+        }
+      >
+        Next
+      </Button>,
+    );
+
+    expect(
+      screen.getByTestId('end-icon'),
+    ).toBeInTheDocument();
+  });
+
+  it('supports ReactNode children', () => {
+    render(
+      <Button>
+        <span data-testid="button-content">
+          Save changes
+        </span>
+      </Button>,
+    );
+
+    expect(
+      screen.getByTestId('button-content'),
+    ).toBeInTheDocument();
+  });
+
+  it('hides icons while loading', () => {
+    render(
+      <Button
+        loading
+        startIcon={
+          <span data-testid="start-icon">
+            +
+          </span>
+        }
+        endIcon={
+          <span data-testid="end-icon">
+            →
+          </span>
+        }
+      >
+        Saving
+      </Button>,
+    );
+
+    expect(
+      screen.queryByTestId('start-icon'),
+    ).not.toBeInTheDocument();
+
+    expect(
+      screen.queryByTestId('end-icon'),
+    ).not.toBeInTheDocument();
+
+    expect(
+      screen.getByRole('button', {
+        name: 'Saving',
+      }),
+    ).toBeDisabled();
+  });
+
+  it('supports custom className', () => {
+    render(
+      <Button className="custom-button">
+        Save
+      </Button>,
+    );
+
+    expect(
+      screen.getByRole('button', {
+        name: 'Save',
+      }),
+    ).toHaveClass(
+      'fq-button',
+      'custom-button',
+    );
+  });
+
+  it('forwards ref to the native button', () => {
+    const ref = { current: null } as {
+      current: HTMLButtonElement | null;
+    };
+
+    render(
+      <Button ref={ref}>
+        Save
+      </Button>,
+    );
+
+    expect(ref.current).toBe(
+      screen.getByRole('button', {
+        name: 'Save',
+      }),
     );
   });
 });

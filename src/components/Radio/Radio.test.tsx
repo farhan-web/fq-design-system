@@ -1,4 +1,5 @@
 import { render, screen } from '@testing-library/react';
+import { createRef } from 'react';
 import { describe, expect, it } from 'vitest';
 
 import { Radio } from './Radio';
@@ -66,6 +67,42 @@ describe('Radio', () => {
     expect(cash.id).not.toBe('');
     expect(card.id).not.toBe('');
     expect(cash.id).not.toBe(card.id);
+  });
+
+  it('groups radios by name', () => {
+    render(
+      <>
+        <Radio
+          label="Cash"
+          name="payment"
+          value="cash"
+        />
+
+        <Radio
+          label="Card"
+          name="payment"
+          value="card"
+        />
+      </>,
+    );
+
+    const cash = screen.getByRole('radio', {
+      name: 'Cash',
+    });
+
+    const card = screen.getByRole('radio', {
+      name: 'Card',
+    });
+
+    expect(cash).toHaveAttribute(
+      'name',
+      'payment',
+    );
+
+    expect(card).toHaveAttribute(
+      'name',
+      'payment',
+    );
   });
 
   it('supports checked state', () => {
@@ -191,6 +228,80 @@ describe('Radio', () => {
         'Choose your preferred method.',
       ),
     ).not.toBeInTheDocument();
+  });
+
+  it('supports ReactNode label', () => {
+    render(
+      <Radio
+        label={
+          <>
+            Payment <strong>method</strong>
+          </>
+        }
+        name="payment"
+      />,
+    );
+
+    expect(
+      screen.getByText('method'),
+    ).toBeInTheDocument();
+  });
+
+  it('supports ReactNode helper text', () => {
+    render(
+      <Radio
+        label="Cash"
+        name="payment"
+        helperText={
+          <>
+            Pay with <strong>cash</strong>.
+          </>
+        }
+      />,
+    );
+
+    expect(
+      screen.getByText('cash'),
+    ).toBeInTheDocument();
+  });
+
+  it('supports ReactNode error', () => {
+    render(
+      <Radio
+        label="Cash"
+        name="payment"
+        error={
+          <>
+            Invalid payment.{' '}
+            <a href="/help">Learn more</a>
+          </>
+        }
+      />,
+    );
+
+    expect(
+      screen.getByRole('link', {
+        name: 'Learn more',
+      }),
+    ).toBeInTheDocument();
+  });
+
+  it('forwards ref to the native radio', () => {
+    const ref = createRef<HTMLInputElement>();
+
+    render(
+      <Radio
+        ref={ref}
+        label="Cash"
+        name="payment"
+      />,
+    );
+
+    expect(ref.current).toBe(
+      screen.getByRole('radio', {
+        name: 'Cash',
+      }),
+    );
   });
 
   it('preserves radio group name and value', () => {

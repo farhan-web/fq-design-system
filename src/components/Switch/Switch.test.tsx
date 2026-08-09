@@ -1,4 +1,5 @@
 import { render, screen } from '@testing-library/react';
+import { createRef } from 'react';
 import { describe, expect, it } from 'vitest';
 
 import { Switch } from './Switch';
@@ -181,6 +182,82 @@ describe('Switch', () => {
         'Choose whether to receive updates.',
       ),
     ).not.toBeInTheDocument();
+  });
+
+  it('supports ReactNode label', () => {
+    render(
+      <Switch
+        label={
+          <span data-testid="switch-label">
+            Notifications
+          </span>
+        }
+      />,
+    );
+
+    expect(
+      screen.getByTestId('switch-label'),
+    ).toBeInTheDocument();
+  });
+
+  it('supports ReactNode helper text', () => {
+    render(
+      <Switch
+        label="Notifications"
+        helperText={
+          <span data-testid="switch-helper">
+            Receive updates.
+          </span>
+        }
+      />,
+    );
+
+    expect(
+      screen.getByTestId('switch-helper'),
+    ).toBeInTheDocument();
+  });
+
+  it('supports ReactNode error', () => {
+    render(
+      <Switch
+        label="Notifications"
+        error={
+          <span data-testid="switch-error">
+            Preference is required.
+          </span>
+        }
+      />,
+    );
+
+    expect(
+      screen.getByTestId('switch-error'),
+    ).toBeInTheDocument();
+
+    expect(
+      screen.getByRole('switch', {
+        name: 'Notifications',
+      }),
+    ).toHaveAttribute(
+      'aria-invalid',
+      'true',
+    );
+  });
+
+  it('forwards ref to the native switch', () => {
+    const ref = createRef<HTMLInputElement>();
+
+    render(
+      <Switch
+        ref={ref}
+        label="Notifications"
+      />,
+    );
+
+    expect(ref.current).toBe(
+      screen.getByRole('switch', {
+        name: 'Notifications',
+      }),
+    );
   });
 
   it('uses switch semantics', () => {

@@ -190,4 +190,78 @@ describe('Checkbox', () => {
       (checkbox as HTMLInputElement).indeterminate,
     ).toBe(true);
   });
+  it('supports ReactNode label', () => {
+    render(
+      <Checkbox
+        label={
+          <>
+            Accept <strong>terms</strong>
+          </>
+        }
+      />,
+    );
+
+    expect(
+      screen.getByText('terms'),
+    ).toBeInTheDocument();
+  });
+
+  it('supports ReactNode helper text', () => {
+    render(
+      <Checkbox
+        label="Subscribe"
+        helperText={
+          <>
+            Receive <strong>product updates</strong>.
+          </>
+        }
+      />,
+    );
+
+    expect(
+      screen.getByText('product updates'),
+    ).toBeInTheDocument();
+  });
+
+  it('supports ReactNode error', () => {
+    render(
+      <Checkbox
+        label="Accept terms"
+        error={
+          <>
+            You must accept the terms.{' '}
+            <a href="/terms">Review terms</a>
+          </>
+        }
+      />,
+    );
+
+    expect(
+      screen.getByRole('link', {
+        name: 'Review terms',
+      }),
+    ).toBeInTheDocument();
+  });
+
+  it('forwards ref to the native checkbox', () => {
+    const ref = {
+      current: null,
+    } as {
+      current: HTMLInputElement | null;
+    };
+
+    render(
+      <Checkbox
+        ref={ref}
+        label="Remember me"
+      />,
+    );
+
+    expect(ref.current).toBe(
+      screen.getByRole('checkbox', {
+        name: 'Remember me',
+      }),
+    );
+  });
+
 });

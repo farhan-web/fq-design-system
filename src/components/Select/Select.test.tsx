@@ -260,4 +260,86 @@ describe('Select', () => {
       }),
     ).toBeInTheDocument();
   });
+  it('supports ReactNode label', () => {
+    render(
+      <Select
+        label={
+          <>
+            Country <strong>selection</strong>
+          </>
+        }
+      >
+        {renderOptions()}
+      </Select>,
+    );
+
+    expect(
+      screen.getByText('selection'),
+    ).toBeInTheDocument();
+  });
+
+  it('supports ReactNode helper text', () => {
+    render(
+      <Select
+        label="Country"
+        helperText={
+          <>
+            Choose your <strong>country</strong>.
+          </>
+        }
+      >
+        {renderOptions()}
+      </Select>,
+    );
+
+    expect(
+      screen.getByText('country'),
+    ).toBeInTheDocument();
+  });
+
+  it('supports ReactNode error', () => {
+    render(
+      <Select
+        label="Country"
+        error={
+          <>
+            Country is required.{' '}
+            <a href="/help">Learn more</a>
+          </>
+        }
+      >
+        {renderOptions()}
+      </Select>,
+    );
+
+    expect(
+      screen.getByRole('link', {
+        name: 'Learn more',
+      }),
+    ).toBeInTheDocument();
+  });
+
+  it('forwards ref to the native select', () => {
+    const ref = {
+      current: null,
+    } as {
+      current: HTMLSelectElement | null;
+    };
+
+    render(
+      <Select
+        ref={ref}
+        label="Country"
+      >
+        {renderOptions()}
+      </Select>,
+    );
+
+    expect(ref.current).toBe(
+      screen.getByRole('combobox', {
+        name: 'Country',
+      }),
+    );
+  });
+
 });

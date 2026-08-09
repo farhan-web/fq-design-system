@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
-
+import { useRef } from 'react';
 import { Input } from './Input';
 
 describe('Input', () => {
@@ -165,4 +165,97 @@ describe('Input', () => {
       screen.getByTestId('end-icon'),
     ).toBeInTheDocument();
   });
+
+  it('forwards ref to the native input', () => {
+    const TestComponent = () => {
+      const ref = useRef<HTMLInputElement>(null);
+
+      return (
+        <Input
+          ref={ref}
+          label="Email"
+        />
+      );
+    };
+
+    render(<TestComponent />);
+
+    const input = screen.getByLabelText('Email');
+
+    expect(input).toHaveAttribute('id');
+  });
+
+  it('forwards ref to the native input', () => {
+    const ref = {
+      current: null,
+    } as {
+      current: HTMLInputElement | null;
+    };
+
+    render(
+      <Input
+        ref={ref}
+        label="Email"
+      />,
+    );
+
+    expect(ref.current).toBe(
+      screen.getByLabelText('Email'),
+    );
+  });
+
+  it('supports ReactNode label', () => {
+    render(
+      <Input
+        label={
+          <>
+            Email <strong>address</strong>
+          </>
+        }
+      />,
+    );
+
+    expect(
+      screen.getByText('address'),
+    ).toBeInTheDocument();
+  });
+
+  it('supports ReactNode helper text', () => {
+    render(
+      <Input
+        label="Email"
+        helperText={
+          <>
+            We will never share your{' '}
+            <strong>email</strong>.
+          </>
+        }
+      />,
+    );
+
+    expect(
+      screen.getByText('email'),
+    ).toBeInTheDocument();
+  });
+
+  it('supports ReactNode error', () => {
+    render(
+      <Input
+        label="Email"
+        error={
+          <>
+            Invalid email.{' '}
+            <a href="/help">Learn more</a>
+          </>
+        }
+      />,
+    );
+
+    expect(
+      screen.getByRole('link', {
+        name: 'Learn more',
+      }),
+    ).toBeInTheDocument();
+  });
+
 });

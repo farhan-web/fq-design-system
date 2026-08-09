@@ -1,86 +1,92 @@
 import {
+  forwardRef,
   type InputHTMLAttributes,
-  type ReactNode,
 } from 'react';
 
 import { useFormField } from '../../hooks/useFormField';
+import type { FormFieldProps } from '../../types/form';
 
 import './Switch.css';
 
 export interface SwitchProps
   extends Omit<
-    InputHTMLAttributes<HTMLInputElement>,
-    'type'
-  > {
-  label: ReactNode;
-  helperText?: ReactNode;
-  error?: ReactNode;
-}
+      InputHTMLAttributes<HTMLInputElement>,
+      'type'
+    >,
+    FormFieldProps {}
 
-export function Switch({
-  label,
-  helperText,
-  error,
-  id,
-  'aria-describedby': externalDescribedBy,
-  ...props
-}: SwitchProps) {
-  const {
-    id: switchId,
-    message,
-    messageId,
-    describedBy,
-    invalid,
-  } = useFormField({
-    id,
-    helperText,
-    error,
-    describedBy: externalDescribedBy,
-  });
+export const Switch = forwardRef<HTMLInputElement, SwitchProps>(
+  (
+    {
+      label,
+      helperText,
+      error,
+      id,
+      'aria-describedby': externalDescribedBy,
+      ...props
+    },
+    ref,
+  ) => {
+    const {
+      id: switchId,
+      message,
+      messageId,
+      describedBy,
+      invalid,
+    } = useFormField({
+      id,
+      helperText,
+      error,
+      describedBy: externalDescribedBy,
+    });
 
-  return (
-    <div
-      className={[
-        'fq-switch-field',
-        error ? 'fq-switch-field--error' : '',
-      ]
-        .filter(Boolean)
-        .join(' ')}
-    >
-      <label
-        className="fq-switch"
-        htmlFor={switchId}
+    return (
+      <div
+        className={[
+          'fq-switch-field',
+          error ? 'fq-switch-field--error' : '',
+        ]
+          .filter(Boolean)
+          .join(' ')}
       >
-        <input
-          {...props}
-          id={switchId}
-          type="checkbox"
-          role="switch"
-          className="fq-switch__input"
-          aria-invalid={invalid || undefined}
-          aria-describedby={describedBy}
-        />
-
-        <span
-          className="fq-switch__control"
-          aria-hidden="true"
+        <label
+          className="fq-switch"
+          htmlFor={switchId}
         >
-          <span className="fq-switch__thumb" />
-        </span>
+          <input
+            {...props}
+            ref={ref}
+            id={switchId}
+            type="checkbox"
+            role="switch"
+            className="fq-switch__input"
+            aria-invalid={invalid || undefined}
+            aria-describedby={describedBy}
+          />
 
-        <span className="fq-switch__label">
-          {label}
-        </span>
-      </label>
+          <span
+            className="fq-switch__control"
+            aria-hidden="true"
+          >
+            <span className="fq-switch__thumb" />
+          </span>
 
-      {message && (
-        <div
-          id={messageId}
-          className="fq-switch-field__message"
-        >
-          {message}
-        </div>
-      )}
-    </div>
-  );
-}
+          <span className="fq-switch__label">
+            {label}
+          </span>
+        </label>
+
+        {message && (
+          <div
+            id={messageId}
+            className="fq-switch-field__message"
+          >
+            {message}
+          </div>
+        )}
+      </div>
+    );
+  },
+);
+
+Switch.displayName = 'Switch';

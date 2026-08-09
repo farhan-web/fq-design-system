@@ -12,6 +12,24 @@ describe('useFormField', () => {
     expect(result.current.id).not.toBe('');
   });
 
+  it('keeps the generated id stable across rerenders', () => {
+    const { result, rerender } = renderHook(() =>
+      useFormField({
+        helperText: 'Helper',
+      }),
+    );
+
+    const firstId = result.current.id;
+    const firstMessageId = result.current.messageId;
+
+    rerender();
+
+    expect(result.current.id).toBe(firstId);
+    expect(result.current.messageId).toBe(
+      firstMessageId,
+    );
+  });
+
   it('uses the provided id', () => {
     const { result } = renderHook(() =>
       useFormField({

@@ -6,16 +6,14 @@ import {
   useImperativeHandle,
   useRef,
   type InputHTMLAttributes,
-  type ReactNode,
 } from 'react';
 
 import { useFormField } from '../../hooks/useFormField';
+import type { FormFieldProps } from '../../types/form';
 
 export interface CheckboxProps
-  extends Omit<InputHTMLAttributes<HTMLInputElement>, 'size'> {
-  label?: ReactNode;
-  helperText?: ReactNode;
-  error?: ReactNode;
+  extends Omit<InputHTMLAttributes<HTMLInputElement>, 'size'>,
+    FormFieldProps {
   indeterminate?: boolean;
 }
 

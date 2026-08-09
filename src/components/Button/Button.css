@@ -116,9 +116,6 @@
    Loading
    ================================ */
 
-.fq-button__content--loading {
-  opacity: 0.7;
-}
 
 .fq-button__spinner {
   width: 14px;

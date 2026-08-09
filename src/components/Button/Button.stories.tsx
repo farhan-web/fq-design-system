@@ -18,8 +18,19 @@ const meta = {
   title: 'Components/Button',
   component: Button,
 
+  tags: ['autodocs'],
+
   parameters: {
     layout: 'centered',
+
+    docs: {
+      description: {
+        component:
+          'Button is used to trigger an action or submit an operation. ' +
+          'It supports multiple visual variants, sizes, loading state, icons, ' +
+          'full-width layout, and native button attributes.',
+      },
+    },
   },
 
   args: {
@@ -52,6 +63,22 @@ const meta = {
 
     disabled: {
       control: 'boolean',
+    },
+
+    fullWidth: {
+      control: 'boolean',
+    },
+
+    iconOnly: {
+      control: 'boolean',
+    },
+
+    startIcon: {
+      control: false,
+    },
+
+    endIcon: {
+      control: false,
     },
   },
 } satisfies Meta<typeof Button>;

@@ -1,6 +1,7 @@
-import type {
-  ButtonHTMLAttributes,
-  ReactNode,
+import {
+  forwardRef,
+  type ButtonHTMLAttributes,
+  type ReactNode,
 } from 'react';
 
 import './Button.css';
@@ -28,54 +29,66 @@ export interface ButtonProps
   children?: ReactNode;
 }
 
-export function Button({
-  variant = 'primary',
-  size = 'md',
-  loading = false,
-  fullWidth = false,
-  startIcon,
-  endIcon,
-  iconOnly = false,
-  disabled,
-  children,
-  className,
-  ...props
-}: ButtonProps) {
-  const isDisabled = disabled || loading;
+export const Button = forwardRef<
+  HTMLButtonElement,
+  ButtonProps
+>(
+  (
+    {
+      variant = 'primary',
+      size = 'md',
+      loading = false,
+      fullWidth = false,
+      startIcon,
+      endIcon,
+      iconOnly = false,
+      disabled,
+      type = 'button',
+      children,
+      className,
+      ...props
+    },
+    ref,
+  ) => {
+    const isDisabled = disabled || loading;
 
-  const buttonClassName = [
-    'fq-button',
-    `fq-button--${variant}`,
-    `fq-button--${size}`,
-    fullWidth ? 'fq-button--full-width' : '',
-    iconOnly ? 'fq-button--icon-only' : '',
-    className ?? '',
-  ]
-    .filter(Boolean)
-    .join(' ');
+    const buttonClassName = [
+      'fq-button',
+      `fq-button--${variant}`,
+      `fq-button--${size}`,
+      fullWidth ? 'fq-button--full-width' : '',
+      iconOnly ? 'fq-button--icon-only' : '',
+      className ?? '',
+    ]
+      .filter(Boolean)
+      .join(' ');
 
-  return (
-    <button
-      type="button"
-      className={buttonClassName}
-      disabled={isDisabled}
-      aria-busy={loading}
-      {...props}
-    >
-      {loading ? (
-        <span
-          className="fq-button__spinner"
-          aria-hidden="true"
-        />
-      ) : (
-        startIcon
-      )}
+    return (
+      <button
+        {...props}
+        ref={ref}
+        type={type}
+        className={buttonClassName}
+        disabled={isDisabled}
+        aria-busy={loading || undefined}
+      >
+        {loading ? (
+          <span
+            className="fq-button__spinner"
+            aria-hidden="true"
+          />
+        ) : (
+          startIcon
+        )}
 
-      <span className="fq-button__content">
-        {children}
-      </span>
+        <span className="fq-button__content">
+          {children}
+        </span>
 
-      {!loading && endIcon}
-    </button>
-  );
-}
+        {!loading && endIcon}
+      </button>
+    );
+  },
+);
+
+Button.displayName = 'Button';

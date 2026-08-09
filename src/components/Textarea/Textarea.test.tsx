@@ -1,3 +1,4 @@
+import { createRef } from 'react';
 import { render, screen } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
 
@@ -74,6 +75,24 @@ describe('Textarea', () => {
     expect(description.id).not.toBe('');
     expect(comment.id).not.toBe('');
     expect(description.id).not.toBe(comment.id);
+  });
+
+  it('supports custom className', () => {
+    render(
+      <Textarea
+        label="Description"
+        className="custom-textarea"
+      />,
+    );
+
+    expect(
+      screen.getByRole('textbox', {
+        name: 'Description',
+      }),
+    ).toHaveClass(
+      'fq-textarea',
+      'custom-textarea',
+    );
   });
 
   it('supports placeholder', () => {
@@ -230,6 +249,150 @@ describe('Textarea', () => {
     ).toHaveAttribute(
       'aria-describedby',
       'custom-description',
+    );
+  });
+
+  it('supports ReactNode label', () => {
+    render(
+      <Textarea
+        label={
+          <>
+            Description <strong>details</strong>
+          </>
+        }
+      />,
+    );
+
+    expect(
+      screen.getByText('details'),
+    ).toBeInTheDocument();
+  });
+
+  it('supports ReactNode helper text', () => {
+    render(
+      <Textarea
+        label="Description"
+        helperText={
+          <>
+            Maximum <strong>500</strong> characters.
+          </>
+        }
+      />,
+    );
+
+    expect(
+      screen.getByText('500'),
+    ).toBeInTheDocument();
+  });
+
+  it('supports ReactNode error', () => {
+    render(
+      <Textarea
+        label="Description"
+        error={
+          <>
+            Description is invalid.{' '}
+            <a href="/help">Learn more</a>
+          </>
+        }
+      />,
+    );
+
+    expect(
+      screen.getByRole('link', {
+        name: 'Learn more',
+      }),
+    ).toBeInTheDocument();
+  });
+
+  it('forwards ref to the native textarea', () => {
+    const ref = createRef<HTMLTextAreaElement>();
+
+    render(
+      <Textarea
+        label="Description"
+        ref={ref}
+      />,
+    );
+
+    expect(ref.current).toBe(
+      screen.getByRole('textbox', {
+        name: 'Description',
+      }),
+    );
+  });
+
+  it('supports ReactNode label', () => {
+    render(
+      <Textarea
+        label={
+          <>
+            Description <strong>details</strong>
+          </>
+        }
+      />,
+    );
+
+    expect(
+      screen.getByText('details'),
+    ).toBeInTheDocument();
+  });
+
+  it('supports ReactNode helper text', () => {
+    render(
+      <Textarea
+        label="Description"
+        helperText={
+          <>
+            Maximum <strong>500</strong> characters.
+          </>
+        }
+      />,
+    );
+
+    expect(
+      screen.getByText('500'),
+    ).toBeInTheDocument();
+  });
+
+  it('supports ReactNode error', () => {
+    render(
+      <Textarea
+        label="Description"
+        error={
+          <>
+            Description is required.{' '}
+            <a href="/help">Learn more</a>
+          </>
+        }
+      />,
+    );
+
+    expect(
+      screen.getByRole('link', {
+        name: 'Learn more',
+      }),
+    ).toBeInTheDocument();
+  });
+
+  it('forwards ref to the native textarea', () => {
+    const ref = {
+      current: null,
+    } as {
+      current: HTMLTextAreaElement | null;
+    };
+
+    render(
+      <Textarea
+        ref={ref}
+        label="Description"
+      />,
+    );
+
+    expect(ref.current).toBe(
+      screen.getByRole('textbox', {
+        name: 'Description',
+      }),
     );
   });
 });
