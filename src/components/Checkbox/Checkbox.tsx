@@ -3,12 +3,13 @@ import './Checkbox.css';
 import {
   forwardRef,
   useEffect,
-  useId,
   useImperativeHandle,
   useRef,
   type InputHTMLAttributes,
   type ReactNode,
 } from 'react';
+
+import { useFormField } from '../../hooks/useFormField';
 
 export interface CheckboxProps
   extends Omit<InputHTMLAttributes<HTMLInputElement>, 'size'> {
@@ -27,12 +28,23 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
       error,
       indeterminate = false,
       disabled,
+      'aria-describedby': ariaDescribedBy,
       ...props
     },
     ref,
   ) => {
-    const generatedId = useId();
-    const checkboxId = id ?? generatedId;
+    const {
+      id: checkboxId,
+      message,
+      messageId,
+      describedBy,
+      invalid,
+    } = useFormField({
+      id,
+      helperText,
+      error,
+      describedBy: ariaDescribedBy,
+    });
 
     const inputRef = useRef<HTMLInputElement>(null);
 
@@ -43,9 +55,6 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
         inputRef.current.indeterminate = indeterminate;
       }
     }, [indeterminate]);
-
-    const messageId = `${checkboxId}-message`;
-    const message = error ?? helperText;
 
     return (
       <div
@@ -67,8 +76,8 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
             id={checkboxId}
             type="checkbox"
             className="fq-checkbox__input"
-            aria-invalid={error ? true : undefined}
-            aria-describedby={message ? messageId : undefined}
+            aria-invalid={invalid || undefined}
+            aria-describedby={describedBy}
           />
 
           {label && (
