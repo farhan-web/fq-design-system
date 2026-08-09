@@ -1,0 +1,208 @@
+import { render, screen } from '@testing-library/react';
+import { describe, expect, it } from 'vitest';
+
+import { Switch } from './Switch';
+
+describe('Switch', () => {
+  it('renders label and switch', () => {
+    render(
+      <Switch label="Notifications" />,
+    );
+
+    expect(
+      screen.getByRole('switch', {
+        name: 'Notifications',
+      }),
+    ).toBeInTheDocument();
+  });
+
+  it('associates label with switch', () => {
+    render(
+      <Switch label="Notifications" />,
+    );
+
+    const switchElement = screen.getByRole(
+      'switch',
+      {
+        name: 'Notifications',
+      },
+    );
+
+    expect(switchElement).toHaveAttribute('id');
+
+    expect(
+      document.querySelector(
+        `label[for="${switchElement.id}"]`,
+      ),
+    ).toBeInTheDocument();
+  });
+
+  it('generates unique ids for multiple switches', () => {
+    render(
+      <>
+        <Switch label="Email" />
+        <Switch label="Push" />
+      </>,
+    );
+
+    const email = screen.getByRole('switch', {
+      name: 'Email',
+    });
+
+    const push = screen.getByRole('switch', {
+      name: 'Push',
+    });
+
+    expect(email.id).not.toBe('');
+    expect(push.id).not.toBe('');
+    expect(email.id).not.toBe(push.id);
+  });
+
+  it('supports checked state', () => {
+    render(
+      <Switch
+        label="Notifications"
+        checked
+        readOnly
+      />,
+    );
+
+    expect(
+      screen.getByRole('switch', {
+        name: 'Notifications',
+      }),
+    ).toBeChecked();
+  });
+
+  it('supports disabled state', () => {
+    render(
+      <Switch
+        label="Notifications"
+        disabled
+      />,
+    );
+
+    expect(
+      screen.getByRole('switch', {
+        name: 'Notifications',
+      }),
+    ).toBeDisabled();
+  });
+
+  it('supports required state', () => {
+    render(
+      <Switch
+        label="Notifications"
+        required
+      />,
+    );
+
+    expect(
+      screen.getByRole('switch', {
+        name: 'Notifications',
+      }),
+    ).toBeRequired();
+  });
+
+  it('supports helper text', () => {
+    render(
+      <Switch
+        label="Notifications"
+        helperText="Receive activity updates."
+      />,
+    );
+
+    const switchElement = screen.getByRole(
+      'switch',
+      {
+        name: 'Notifications',
+      },
+    );
+
+    const message = screen.getByText(
+      'Receive activity updates.',
+    );
+
+    expect(message).toBeInTheDocument();
+
+    expect(switchElement).toHaveAttribute(
+      'aria-describedby',
+      message.id,
+    );
+  });
+
+  it('exposes error state', () => {
+    render(
+      <Switch
+        label="Notifications"
+        error="Notification preference is required."
+      />,
+    );
+
+    const switchElement = screen.getByRole(
+      'switch',
+      {
+        name: 'Notifications',
+      },
+    );
+
+    const message = screen.getByText(
+      'Notification preference is required.',
+    );
+
+    expect(switchElement).toHaveAttribute(
+      'aria-invalid',
+      'true',
+    );
+
+    expect(switchElement).toHaveAttribute(
+      'aria-describedby',
+      message.id,
+    );
+  });
+
+  it('prioritizes error message over helper text', () => {
+    render(
+      <Switch
+        label="Notifications"
+        helperText="Choose whether to receive updates."
+        error="Notification preference is required."
+      />,
+    );
+
+    expect(
+      screen.getByText(
+        'Notification preference is required.',
+      ),
+    ).toBeInTheDocument();
+
+    expect(
+      screen.queryByText(
+        'Choose whether to receive updates.',
+      ),
+    ).not.toBeInTheDocument();
+  });
+
+  it('uses switch semantics', () => {
+    render(
+      <Switch label="Notifications" />,
+    );
+
+    const switchElement = screen.getByRole(
+      'switch',
+      {
+        name: 'Notifications',
+      },
+    );
+
+    expect(switchElement).toHaveAttribute(
+      'role',
+      'switch',
+    );
+
+    expect(switchElement).toHaveAttribute(
+      'type',
+      'checkbox',
+    );
+  });
+});
