@@ -1,8 +1,9 @@
 import {
-  useId,
   type ReactNode,
   type SelectHTMLAttributes,
 } from 'react';
+
+import { useFormField } from '../../hooks/useFormField';
 
 import './Select.css';
 
@@ -19,18 +20,21 @@ export function Select({
   error,
   id,
   children,
+  'aria-describedby': ariaDescribedBy,
   ...props
 }: SelectProps) {
-  const generatedId = useId();
-  const selectId = id ?? generatedId;
-
-  const messageId =
-    helperText || error
-      ? `${selectId}-message`
-      : undefined;
-
-  const describedBy =
-    props['aria-describedby'] ?? messageId;
+  const {
+    id: selectId,
+    message,
+    messageId,
+    describedBy,
+    invalid,
+  } = useFormField({
+    id,
+    helperText,
+    error,
+    describedBy: ariaDescribedBy,
+  });
 
   return (
     <div
@@ -61,18 +65,18 @@ export function Select({
         {...props}
         id={selectId}
         className="fq-select"
-        aria-invalid={error ? 'true' : undefined}
+        aria-invalid={invalid || undefined}
         aria-describedby={describedBy}
       >
         {children}
       </select>
 
-      {(error || helperText) && (
+      {message && (
         <div
           id={messageId}
           className="fq-select-field__message"
         >
-          {error ?? helperText}
+          {message}
         </div>
       )}
     </div>
