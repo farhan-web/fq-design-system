@@ -1,0 +1,111 @@
+.fq-checkbox-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.fq-checkbox {
+  display: inline-flex;
+  align-items: flex-start;
+  gap: 8px;
+  width: fit-content;
+  cursor: pointer;
+}
+
+.fq-checkbox__input {
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  margin: 2px 0 0;
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-background);
+  cursor: pointer;
+
+  display: grid;
+  place-content: center;
+  flex-shrink: 0;
+}
+
+.fq-checkbox__input::before {
+  content: '';
+  width: 10px;
+  height: 10px;
+
+  transform: scale(0);
+  transition: transform 120ms ease-in-out;
+
+  background: var(--color-background);
+  clip-path: polygon(
+    14% 44%,
+    0 59%,
+    40% 100%,
+    100% 15%,
+    84% 0,
+    37% 72%
+  );
+}
+
+.fq-checkbox__input:hover:not(:disabled) {
+  border-color: var(--color-primary);
+}
+
+.fq-checkbox__input:checked {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+.fq-checkbox__input:checked::before {
+  transform: scale(1);
+}
+
+.fq-checkbox__input:indeterminate {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+.fq-checkbox__input:indeterminate::before {
+  transform: scale(1);
+  clip-path: none;
+  width: 10px;
+  height: 2px;
+  background: var(--color-background);
+}
+
+.fq-checkbox__input:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+.fq-checkbox__input:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.fq-checkbox:has(.fq-checkbox__input:disabled) {
+  cursor: not-allowed;
+}
+
+.fq-checkbox__label {
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-normal);
+  color: var(--color-text-primary);
+  user-select: none;
+}
+
+.fq-checkbox-field__message {
+  margin-left: 26px;
+  font-size: var(--font-size-xs);
+  line-height: var(--line-height-normal);
+  color: var(--color-text-secondary);
+}
+
+.fq-checkbox-field--error
+  .fq-checkbox__input {
+  border-color: #dc2626;
+}
+
+.fq-checkbox-field--error
+  .fq-checkbox-field__message {
+  color: #dc2626;
+}

@@ -1,0 +1,106 @@
+import type { Meta, StoryObj } from '@storybook/react-vite';
+
+import { Checkbox } from './Checkbox';
+
+const meta = {
+  title: 'Components/Checkbox',
+  component: Checkbox,
+  tags: ['autodocs'],
+  argTypes: {
+    label: {
+      control: 'text',
+      description: 'Label displayed next to the checkbox.',
+    },
+    helperText: {
+      control: 'text',
+      description: 'Supporting text displayed below the checkbox.',
+    },
+    error: {
+      control: 'text',
+      description: 'Error message and error state.',
+    },
+    indeterminate: {
+      control: 'boolean',
+      description: 'Displays the checkbox in an indeterminate state.',
+    },
+    checked: {
+      control: 'boolean',
+      description: 'Controls the checked state.',
+    },
+    disabled: {
+      control: 'boolean',
+      description: 'Prevents interaction with the checkbox.',
+    },
+    required: {
+      control: 'boolean',
+      description: 'Marks the checkbox as required.',
+    },
+  },
+} satisfies Meta<typeof Checkbox>;
+
+export default meta;
+
+type Story = StoryObj<typeof meta>;
+
+export const Default: Story = {
+  args: {
+    label: 'Remember me',
+  },
+};
+
+export const Checked: Story = {
+  args: {
+    label: 'Remember me',
+    checked: true,
+  },
+};
+
+export const Indeterminate: Story = {
+  args: {
+    label: 'Select all',
+    indeterminate: true,
+  },
+};
+
+export const WithHelperText: Story = {
+  args: {
+    label: 'Subscribe to updates',
+    helperText: 'Receive occasional product updates.',
+  },
+};
+
+export const WithError: Story = {
+  args: {
+    label: 'Accept terms',
+    error: 'You must accept the terms.',
+  },
+};
+
+export const Disabled: Story = {
+  args: {
+    label: 'Unavailable option',
+    disabled: true,
+  },
+};
+
+export const DisabledChecked: Story = {
+  args: {
+    label: 'Already selected',
+    checked: true,
+    disabled: true,
+  },
+};
+
+export const Required: Story = {
+  args: {
+    label: 'Accept terms',
+    required: true,
+  },
+};
+
+export const LongLabel: Story = {
+  args: {
+    label:
+      'I agree to receive product updates, announcements, and occasional marketing communications.',
+  },
+};
