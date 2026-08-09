@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
 import { useRef } from 'react';
 import { Input } from './Input';
@@ -256,6 +256,85 @@ describe('Input', () => {
         name: 'Learn more',
       }),
     ).toBeInTheDocument();
+  });
+
+
+  it('forwards onChange event', () => {
+    const handleChange = vi.fn();
+
+    render(
+      <Input
+        aria-label="Email"
+        onChange={handleChange}
+      />,
+    );
+
+    fireEvent.change(
+      screen.getByRole('textbox'),
+      { target: { value: 'hello@example.com' } },
+    );
+
+    expect(handleChange).toHaveBeenCalledTimes(1);
+  });
+
+  it('forwards onBlur event', () => {
+    const handleBlur = vi.fn();
+
+    render(
+      <Input
+        aria-label="Email"
+        onBlur={handleBlur}
+      />,
+    );
+
+    fireEvent.blur(screen.getByRole('textbox'));
+
+    expect(handleBlur).toHaveBeenCalledTimes(1);
+  });
+
+  it('forwards onFocus event', () => {
+    const handleFocus = vi.fn();
+
+    render(
+      <Input
+        aria-label="Email"
+        onFocus={handleFocus}
+      />,
+    );
+
+    fireEvent.focus(screen.getByRole('textbox'));
+
+    expect(handleFocus).toHaveBeenCalledTimes(1);
+  });
+
+
+  it('supports defaultValue', () => {
+    render(
+      <Input
+        aria-label="Email"
+        defaultValue="hello@example.com"
+      />,
+    );
+
+    expect(
+      screen.getByRole('textbox'),
+    ).toHaveValue('hello@example.com');
+  });
+
+  it('supports controlled value', () => {
+    const handleChange = vi.fn();
+
+    render(
+      <Input
+        aria-label="Email"
+        value="hello@example.com"
+        onChange={handleChange}
+      />,
+    );
+
+    expect(
+      screen.getByRole('textbox'),
+    ).toHaveValue('hello@example.com');
   });
 
 });

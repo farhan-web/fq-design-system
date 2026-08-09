@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
 
 import { Checkbox } from './Checkbox';
@@ -281,6 +281,54 @@ describe('Checkbox', () => {
         name: 'Remember me',
       }),
     );
+  });
+
+
+  it('forwards onChange event', () => {
+    const handleChange = vi.fn();
+
+    render(
+      <Checkbox
+        label="Remember me"
+        onChange={handleChange}
+      />,
+    );
+
+    fireEvent.click(
+      screen.getByRole('checkbox'),
+    );
+
+    expect(handleChange).toHaveBeenCalledTimes(1);
+  });
+
+
+  it('supports defaultChecked', () => {
+    render(
+      <Checkbox
+        label="Remember me"
+        defaultChecked
+      />,
+    );
+
+    expect(
+      screen.getByRole('checkbox'),
+    ).toBeChecked();
+  });
+
+  it('supports controlled checked state', () => {
+    const handleChange = vi.fn();
+
+    render(
+      <Checkbox
+        label="Remember me"
+        checked
+        onChange={handleChange}
+      />,
+    );
+
+    expect(
+      screen.getByRole('checkbox'),
+    ).toBeChecked();
   });
 
 });

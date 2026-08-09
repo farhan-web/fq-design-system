@@ -1,5 +1,5 @@
 import { createRef } from 'react';
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
 
 import { Textarea } from './Textarea';
@@ -395,4 +395,83 @@ describe('Textarea', () => {
       }),
     );
   });
+
+  it('forwards onChange event', () => {
+    const handleChange = vi.fn();
+
+    render(
+      <Textarea
+        aria-label="Description"
+        onChange={handleChange}
+      />,
+    );
+
+    fireEvent.change(
+      screen.getByRole('textbox'),
+      { target: { value: 'hello' } },
+    );
+
+    expect(handleChange).toHaveBeenCalledTimes(1);
+  });
+
+  it('forwards onBlur event', () => {
+    const handleBlur = vi.fn();
+
+    render(
+      <Textarea
+        aria-label="Description"
+        onBlur={handleBlur}
+      />,
+    );
+
+    fireEvent.blur(screen.getByRole('textbox'));
+
+    expect(handleBlur).toHaveBeenCalledTimes(1);
+  });
+
+  it('forwards onFocus event', () => {
+    const handleFocus = vi.fn();
+
+    render(
+      <Textarea
+        aria-label="Description"
+        onFocus={handleFocus}
+      />,
+    );
+
+    fireEvent.focus(screen.getByRole('textbox'));
+
+    expect(handleFocus).toHaveBeenCalledTimes(1);
+  });
+
+
+  it('supports defaultValue', () => {
+    render(
+      <Textarea
+        aria-label="Description"
+        defaultValue="Initial text"
+      />,
+    );
+
+    expect(
+      screen.getByRole('textbox'),
+    ).toHaveValue('Initial text');
+  });
+
+  it('supports controlled value', () => {
+    const handleChange = vi.fn();
+
+    render(
+      <Textarea
+        aria-label="Description"
+        value="Controlled text"
+        onChange={handleChange}
+      />,
+    );
+
+    expect(
+      screen.getByRole('textbox'),
+    ).toHaveValue('Controlled text');
+  });
+
 });

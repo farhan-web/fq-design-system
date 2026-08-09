@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
 
 import { Select } from './Select';
@@ -357,6 +357,50 @@ describe('Select', () => {
         name: 'Country',
       }),
     );
+  });
+
+
+  it('forwards onChange event', () => {
+    const handleChange = vi.fn();
+
+    render(
+      <Select
+        aria-label="Country"
+        defaultValue=""
+        onChange={handleChange}
+      >
+        <option value="">Select</option>
+        <option value="id">Indonesia</option>
+      </Select>,
+    );
+
+    fireEvent.change(
+      screen.getByRole('combobox'),
+      { target: { value: 'id' } },
+    );
+
+    expect(handleChange).toHaveBeenCalledTimes(1);
+  });
+
+
+  it('supports controlled value', () => {
+    const handleChange = vi.fn();
+
+    render(
+      <Select
+        aria-label="Country"
+        value="id"
+        onChange={handleChange}
+      >
+        <option value="">Select</option>
+        <option value="id">Indonesia</option>
+        <option value="sg">Singapore</option>
+      </Select>,
+    );
+
+    expect(
+      screen.getByRole('combobox'),
+    ).toHaveValue('id');
   });
 
 });

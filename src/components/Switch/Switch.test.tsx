@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import { createRef } from 'react';
 import { describe, expect, it } from 'vitest';
 
@@ -301,4 +301,52 @@ describe('Switch', () => {
       'checkbox',
     );
   });
+
+  it('forwards onChange event', () => {
+    const handleChange = vi.fn();
+
+    render(
+      <Switch
+        label="Notifications"
+        onChange={handleChange}
+      />,
+    );
+
+    fireEvent.click(
+      screen.getByRole('switch'),
+    );
+
+    expect(handleChange).toHaveBeenCalledTimes(1);
+  });
+
+
+  it('supports defaultChecked', () => {
+    render(
+      <Switch
+        label="Notifications"
+        defaultChecked
+      />,
+    );
+
+    expect(
+      screen.getByRole('switch'),
+    ).toBeChecked();
+  });
+
+  it('supports controlled checked state', () => {
+    const handleChange = vi.fn();
+
+    render(
+      <Switch
+        label="Notifications"
+        checked
+        onChange={handleChange}
+      />,
+    );
+
+    expect(
+      screen.getByRole('switch'),
+    ).toBeChecked();
+  });
+
 });
