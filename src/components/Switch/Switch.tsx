@@ -22,6 +22,7 @@ export const Switch = forwardRef<HTMLInputElement, SwitchProps>(
       helperText,
       error,
       id,
+      className,
       'aria-describedby': externalDescribedBy,
       ...props
     },
@@ -59,7 +60,12 @@ export const Switch = forwardRef<HTMLInputElement, SwitchProps>(
             id={switchId}
             type="checkbox"
             role="switch"
-            className="fq-switch__input"
+            className={[
+              'fq-switch__input',
+              className ?? '',
+            ]
+              .filter(Boolean)
+              .join(' ')}
             aria-invalid={invalid || undefined}
             aria-describedby={describedBy}
           />

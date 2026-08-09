@@ -22,6 +22,7 @@ export const Select = forwardRef<
       helperText,
       error,
       id,
+      className,
       children,
       'aria-describedby': externalDescribedBy,
       ...props
@@ -70,7 +71,12 @@ export const Select = forwardRef<
           {...props}
           ref={ref}
           id={selectId}
-          className="fq-select"
+          className={[
+            'fq-select',
+            className ?? '',
+          ]
+            .filter(Boolean)
+            .join(' ')}
           aria-invalid={invalid || undefined}
           aria-describedby={describedBy}
         >

@@ -22,6 +22,7 @@ export const Radio = forwardRef<HTMLInputElement, RadioProps>(
       helperText,
       error,
       id,
+      className,
       'aria-describedby': externalDescribedBy,
       ...props
     },
@@ -58,7 +59,12 @@ export const Radio = forwardRef<HTMLInputElement, RadioProps>(
             ref={ref}
             id={radioId}
             type="radio"
-            className="fq-radio__input"
+            className={[
+              'fq-radio__input',
+              className ?? '',
+            ]
+              .filter(Boolean)
+              .join(' ')}
             aria-invalid={invalid || undefined}
             aria-describedby={describedBy}
           />

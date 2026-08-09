@@ -4,6 +4,25 @@ import { describe, expect, it } from 'vitest';
 import { Checkbox } from './Checkbox';
 
 describe('Checkbox', () => {
+
+  it('preserves custom className', () => {
+    render(
+      <Checkbox
+        label="Remember me"
+        className="custom-checkbox"
+      />,
+    );
+
+    expect(
+      screen.getByRole('checkbox', {
+        name: 'Remember me',
+      }),
+    ).toHaveClass(
+      'fq-checkbox__input',
+      'custom-checkbox',
+    );
+  });
+
   it('renders label and checkbox', () => {
     render(
       <Checkbox label="Remember me" />,

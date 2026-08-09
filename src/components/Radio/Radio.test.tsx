@@ -5,6 +5,26 @@ import { describe, expect, it } from 'vitest';
 import { Radio } from './Radio';
 
 describe('Radio', () => {
+
+  it('preserves custom className', () => {
+    render(
+      <Radio
+        label="Cash"
+        name="payment"
+        className="custom-radio"
+      />,
+    );
+
+    expect(
+      screen.getByRole('radio', {
+        name: 'Cash',
+      }),
+    ).toHaveClass(
+      'fq-radio__input',
+      'custom-radio',
+    );
+  });
+
   it('renders label and radio', () => {
     render(
       <Radio

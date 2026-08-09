@@ -26,6 +26,7 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
       error,
       indeterminate = false,
       disabled,
+      className,
       'aria-describedby': externalDescribedBy,
       ...props
     },
@@ -73,7 +74,12 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
             ref={inputRef}
             id={checkboxId}
             type="checkbox"
-            className="fq-checkbox__input"
+            className={[
+              'fq-checkbox__input',
+              className ?? '',
+            ]
+              .filter(Boolean)
+              .join(' ')}
             aria-invalid={invalid || undefined}
             aria-describedby={describedBy}
           />

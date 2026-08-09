@@ -12,6 +12,23 @@ const renderOptions = () => (
 );
 
 describe('Select', () => {
+
+  it('preserves custom className', () => {
+    render(
+      <Select
+        className="custom-select"
+        aria-label="Country"
+      />,
+    );
+
+    expect(
+      screen.getByRole('combobox'),
+    ).toHaveClass(
+      'fq-select',
+      'custom-select',
+    );
+  });
+
   it('renders label and select', () => {
     render(
       <Select label="Country">

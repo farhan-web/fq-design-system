@@ -5,6 +5,25 @@ import { describe, expect, it } from 'vitest';
 import { Switch } from './Switch';
 
 describe('Switch', () => {
+
+  it('preserves custom className', () => {
+    render(
+      <Switch
+        label="Notifications"
+        className="custom-switch"
+      />,
+    );
+
+    expect(
+      screen.getByRole('switch', {
+        name: 'Notifications',
+      }),
+    ).toHaveClass(
+      'fq-switch__input',
+      'custom-switch',
+    );
+  });
+
   it('renders label and switch', () => {
     render(
       <Switch label="Notifications" />,
