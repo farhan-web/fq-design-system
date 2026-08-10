@@ -265,4 +265,126 @@ describe('Button', () => {
       }),
     );
   });
+
+  it('applies icon-only class', () => {
+    render(
+      <Button
+        iconOnly
+        aria-label="Save"
+      >
+        +
+      </Button>,
+    );
+
+    expect(
+      screen.getByRole('button', {
+        name: 'Save',
+      }),
+    ).toHaveClass(
+      'fq-button',
+      'fq-button--icon-only',
+    );
+  });
+
+  it('supports both start and end icons', () => {
+    render(
+      <Button
+        startIcon={<span data-testid="start-icon">+</span>}
+        endIcon={<span data-testid="end-icon">→</span>}
+      >
+        Continue
+      </Button>,
+    );
+
+    expect(
+      screen.getByTestId('start-icon'),
+    ).toBeInTheDocument();
+
+    expect(
+      screen.getByTestId('end-icon'),
+    ).toBeInTheDocument();
+  });
+
+  it('forwards native attributes', () => {
+    render(
+      <Button
+        data-testid="custom-button"
+        aria-label="Save action"
+        name="save"
+        value="save"
+      >
+        Save
+      </Button>,
+    );
+
+    const button = screen.getByTestId('custom-button');
+
+    expect(button).toHaveAttribute(
+      'aria-label',
+      'Save action',
+    );
+
+    expect(button).toHaveAttribute(
+      'name',
+      'save',
+    );
+
+    expect(button).toHaveAttribute(
+      'value',
+      'save',
+    );
+  });
+
+  it('remains disabled when both disabled and loading are true', () => {
+    render(
+      <Button
+        disabled
+        loading
+      >
+        Saving
+      </Button>,
+    );
+
+    const button = screen.getByRole('button', {
+      name: 'Saving',
+    });
+
+    expect(button).toBeDisabled();
+
+    expect(button).toHaveAttribute(
+      'aria-busy',
+      'true',
+    );
+  });
+
+  it('does not render icons when loading', () => {
+    render(
+      <Button
+        loading
+        startIcon={
+          <span data-testid="start-icon">+</span>
+        }
+        endIcon={
+          <span data-testid="end-icon">→</span>
+        }
+      >
+        Saving
+      </Button>,
+    );
+
+    expect(
+      screen.queryByTestId('start-icon'),
+    ).not.toBeInTheDocument();
+
+    expect(
+      screen.queryByTestId('end-icon'),
+    ).not.toBeInTheDocument();
+
+    expect(
+      screen.getByRole('button', {
+        name: 'Saving',
+      }),
+    ).toBeDisabled();
+  });
+
 });

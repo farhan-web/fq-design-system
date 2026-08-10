@@ -39,21 +39,21 @@
    ================================ */
 
 .fq-button--sm {
-  min-height: 32px;
+  min-height: var(--space-8);
   padding: 0 var(--space-3);
 
   font-size: var(--font-size-sm);
 }
 
 .fq-button--md {
-  min-height: 40px;
+  min-height: var(--space-10);
   padding: 0 var(--space-4);
 
   font-size: var(--font-size-md);
 }
 
 .fq-button--lg {
-  min-height: 48px;
+  min-height: var(--space-12);
   padding: 0 var(--space-6);
 
   font-size: var(--font-size-lg);

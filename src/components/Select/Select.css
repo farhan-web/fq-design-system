@@ -22,8 +22,8 @@
 
 .fq-select {
   width: 100%;
-  min-height: 40px;
-  padding: 8px 36px 8px 12px;
+  min-height: var(--space-10);
+  padding: var(--space-2) 36px var(--space-2) var(--space-3);
 
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
