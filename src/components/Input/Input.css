@@ -9,13 +9,13 @@
   display: inline-flex;
   align-items: center;
   gap: var(--space-1);
-  font-size: 14px;
-  font-weight: 500;
-  line-height: 20px;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-normal);
 }
 
 .fq-input-field__required {
-  font-size: 14px;
+  font-size: var(--font-size-sm);
 }
 
 .fq-input-field__control {
@@ -27,7 +27,7 @@
 .fq-input {
   width: 100%;
   min-height: 40px;
-  padding: 8px 12px;
+  padding: var(--space-2) var(--space-3);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-sm);
   background: var(--color-background);
@@ -88,19 +88,19 @@
 }
 
 .fq-input-field__icon--start {
-  left: 12px;
+  left: var(--space-3);
 }
 
 .fq-input-field__icon--end {
-  right: 12px;
+  right: var(--space-3);
 }
 
 .fq-input--has-start-icon {
-  padding-left: 40px;
+  padding-left: var(--space-10);
 }
 
 .fq-input--has-end-icon {
-  padding-right: 40px;
+  padding-right: var(--space-10);
 }
 
 .fq-input-field__message {
