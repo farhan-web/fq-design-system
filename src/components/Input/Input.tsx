@@ -1,17 +1,13 @@
-import {
-  forwardRef,
-  type InputHTMLAttributes,
-  type ReactNode,
-} from 'react';
+import { forwardRef, type InputHTMLAttributes, type ReactNode } from 'react';
 
+import { useFieldContext } from '../Field/FieldContext';
 import { useFormField } from '../../hooks/useFormField';
 import type { FormFieldProps } from '../../types/form';
 
 import './Input.css';
 
 export interface InputProps
-  extends InputHTMLAttributes<HTMLInputElement>,
-    FormFieldProps {
+  extends InputHTMLAttributes<HTMLInputElement>, FormFieldProps {
   startIcon?: ReactNode;
   endIcon?: ReactNode;
 }
@@ -34,18 +30,28 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
     },
     ref,
   ) => {
+    const fieldContext = useFieldContext();
+
     const {
       id: inputId,
       message,
       messageId,
-      describedBy,
-      invalid,
+      describedBy: localDescribedBy,
+      invalid: localInvalid,
     } = useFormField({
-      id,
+      id: fieldContext?.id ?? id,
       helperText,
       error,
       describedBy: externalDescribedBy,
     });
+
+    const describedBy =
+      [fieldContext?.describedBy, localDescribedBy].filter(Boolean).join(' ') ||
+      undefined;
+
+    const invalid = (fieldContext?.invalid ?? false) || localInvalid;
+
+    const isRequired = (fieldContext?.required ?? false) || required;
 
     const inputClassName = [
       'fq-input',
@@ -60,17 +66,11 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
     return (
       <div className="fq-input-field">
         {label && (
-          <label
-            className="fq-input-field__label"
-            htmlFor={inputId}
-          >
+          <label className="fq-input-field__label" htmlFor={inputId}>
             {label}
 
-            {required && (
-              <span
-                className="fq-input-field__required"
-                aria-hidden="true"
-              >
+            {isRequired && (
+              <span className="fq-input-field__required" aria-hidden="true">
                 *
               </span>
             )}
@@ -93,12 +93,8 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
             id={inputId}
             className={inputClassName}
             disabled={disabled}
-            required={required}
-            aria-invalid={
-              invalid || externalInvalid
-                ? true
-                : undefined
-            }
+            required={isRequired}
+            aria-invalid={invalid || externalInvalid ? true : undefined}
             aria-describedby={describedBy}
           />
 
@@ -117,9 +113,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
             id={messageId}
             className={[
               'fq-input-field__message',
-              error
-                ? 'fq-input-field__message--error'
-                : '',
+              error ? 'fq-input-field__message--error' : '',
             ]
               .filter(Boolean)
               .join(' ')}

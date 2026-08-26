@@ -35,4 +35,73 @@
   /* Interaction */
 
   --color-focus: var(--color-primary);
+  --color-focus-ring: rgb(37 99 235 / 15%);
+  --color-error-ring: rgb(220 38 38 / 15%);
+}
+
+/* ================================
+   Dark mode — data-theme attribute
+   ================================ */
+
+[data-theme="dark"] {
+  --color-primary: #3b82f6;
+  --color-primary-hover: #2563eb;
+
+  --color-background: #0f172a;
+  --color-surface: #1e293b;
+  --color-background-disabled: #1e293b;
+  --color-background-readonly: #1e293b;
+
+  --color-text-primary: #f1f5f9;
+  --color-text-on-primary: #ffffff;
+  --color-text-on-danger: #ffffff;
+  --color-text-secondary: #94a3b8;
+  --color-text-muted: #475569;
+
+  --color-border: #334155;
+  --color-border-hover: #64748b;
+
+  --color-error: #f87171;
+  --color-error-hover: #ef4444;
+  --color-success: #4ade80;
+  --color-warning: #fbbf24;
+  --color-info: #60a5fa;
+
+  --color-focus-ring: rgb(59 130 246 / 20%);
+  --color-error-ring: rgb(248 113 113 / 20%);
+}
+
+/* ================================
+   Dark mode — system preference
+   (overridden by [data-theme="light"])
+   ================================ */
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --color-primary: #3b82f6;
+    --color-primary-hover: #2563eb;
+
+    --color-background: #0f172a;
+    --color-surface: #1e293b;
+    --color-background-disabled: #1e293b;
+    --color-background-readonly: #1e293b;
+
+    --color-text-primary: #f1f5f9;
+    --color-text-on-primary: #ffffff;
+    --color-text-on-danger: #ffffff;
+    --color-text-secondary: #94a3b8;
+    --color-text-muted: #475569;
+
+    --color-border: #334155;
+    --color-border-hover: #64748b;
+
+    --color-error: #f87171;
+    --color-error-hover: #ef4444;
+    --color-success: #4ade80;
+    --color-warning: #fbbf24;
+    --color-info: #60a5fa;
+
+    --color-focus-ring: rgb(59 130 246 / 20%);
+    --color-error-ring: rgb(248 113 113 / 20%);
+  }
 }

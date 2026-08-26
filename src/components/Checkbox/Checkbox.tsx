@@ -8,12 +8,12 @@ import {
   type InputHTMLAttributes,
 } from 'react';
 
+import { useFieldContext } from '../Field/FieldContext';
 import { useFormField } from '../../hooks/useFormField';
 import type { FormFieldProps } from '../../types/form';
 
 export interface CheckboxProps
-  extends Omit<InputHTMLAttributes<HTMLInputElement>, 'size'>,
-    FormFieldProps {
+  extends Omit<InputHTMLAttributes<HTMLInputElement>, 'size'>, FormFieldProps {
   indeterminate?: boolean;
 }
 
@@ -26,24 +26,35 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
       error,
       indeterminate = false,
       disabled,
+      required,
       className,
       'aria-describedby': externalDescribedBy,
       ...props
     },
     ref,
   ) => {
+    const fieldContext = useFieldContext();
+
     const {
       id: checkboxId,
       message,
       messageId,
-      describedBy,
-      invalid,
+      describedBy: localDescribedBy,
+      invalid: localInvalid,
     } = useFormField({
-      id,
+      id: fieldContext?.id ?? id,
       helperText,
       error,
       describedBy: externalDescribedBy,
     });
+
+    const describedBy =
+      [fieldContext?.describedBy, localDescribedBy].filter(Boolean).join(' ') ||
+      undefined;
+
+    const invalid = (fieldContext?.invalid ?? false) || localInvalid;
+
+    const isRequired = (fieldContext?.required ?? false) || required;
 
     const inputRef = useRef<HTMLInputElement>(null);
 
@@ -64,38 +75,26 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
           .filter(Boolean)
           .join(' ')}
       >
-        <label
-          className="fq-checkbox"
-          htmlFor={checkboxId}
-        >
+        <label className="fq-checkbox" htmlFor={checkboxId}>
           <input
             {...props}
-            {...(disabled !== undefined ? { disabled } : {})}
             ref={inputRef}
             id={checkboxId}
             type="checkbox"
-            className={[
-              'fq-checkbox__input',
-              className ?? '',
-            ]
+            disabled={disabled}
+            required={isRequired}
+            className={['fq-checkbox__input', className ?? '']
               .filter(Boolean)
               .join(' ')}
             aria-invalid={invalid || undefined}
             aria-describedby={describedBy}
           />
 
-          {label && (
-            <span className="fq-checkbox__label">
-              {label}
-            </span>
-          )}
+          {label && <span className="fq-checkbox__label">{label}</span>}
         </label>
 
         {message && (
-          <div
-            id={messageId}
-            className="fq-checkbox-field__message"
-          >
+          <div id={messageId} className="fq-checkbox-field__message">
             {message}
           </div>
         )}

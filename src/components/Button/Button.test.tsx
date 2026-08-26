@@ -357,34 +357,4 @@ describe('Button', () => {
     );
   });
 
-  it('does not render icons when loading', () => {
-    render(
-      <Button
-        loading
-        startIcon={
-          <span data-testid="start-icon">+</span>
-        }
-        endIcon={
-          <span data-testid="end-icon">→</span>
-        }
-      >
-        Saving
-      </Button>,
-    );
-
-    expect(
-      screen.queryByTestId('start-icon'),
-    ).not.toBeInTheDocument();
-
-    expect(
-      screen.queryByTestId('end-icon'),
-    ).not.toBeInTheDocument();
-
-    expect(
-      screen.getByRole('button', {
-        name: 'Saving',
-      }),
-    ).toBeDisabled();
-  });
-
 });

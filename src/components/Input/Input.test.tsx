@@ -1,39 +1,24 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import { describe, expect, it, vi } from 'vitest';
-import { useRef } from 'react';
 import { Input } from './Input';
 
 describe('Input', () => {
   it('renders label and input', () => {
-    render(
-      <Input
-        label="Email"
-        placeholder="Enter your email"
-      />,
-    );
+    render(<Input label="Email" placeholder="Enter your email" />);
 
-    expect(
-      screen.getByLabelText('Email'),
-    ).toBeInTheDocument();
+    expect(screen.getByLabelText('Email')).toBeInTheDocument();
 
-    expect(
-      screen.getByPlaceholderText('Enter your email'),
-    ).toBeInTheDocument();
+    expect(screen.getByPlaceholderText('Enter your email')).toBeInTheDocument();
   });
 
   it('associates label with input', () => {
-    render(
-      <Input label="Email" />,
-    );
+    render(<Input label="Email" />);
 
     const input = screen.getByLabelText('Email');
     const label = screen.getByText('Email');
 
     expect(input).toHaveAttribute('id');
-    expect(label).toHaveAttribute(
-      'for',
-      input.getAttribute('id'),
-    );
+    expect(label).toHaveAttribute('for', input.getAttribute('id'));
   });
 
   it('generates unique ids for multiple inputs', () => {
@@ -53,57 +38,29 @@ describe('Input', () => {
   });
 
   it('supports helper text', () => {
-    render(
-      <Input
-        label="Email"
-        helperText="We'll never share your email."
-      />,
-    );
+    render(<Input label="Email" helperText="We'll never share your email." />);
 
     const input = screen.getByLabelText('Email');
-    const helperText = screen.getByText(
-      "We'll never share your email.",
-    );
+    const helperText = screen.getByText("We'll never share your email.");
 
     expect(helperText).toBeInTheDocument();
 
-    expect(input).toHaveAttribute(
-      'aria-describedby',
-      helperText.id,
-    );
+    expect(input).toHaveAttribute('aria-describedby', helperText.id);
   });
 
   it('exposes error state', () => {
-    render(
-      <Input
-        label="Email"
-        error="Invalid email address."
-      />,
-    );
+    render(<Input label="Email" error="Invalid email address." />);
 
     const input = screen.getByLabelText('Email');
-    const errorMessage = screen.getByText(
-      'Invalid email address.',
-    );
+    const errorMessage = screen.getByText('Invalid email address.');
 
-    expect(input).toHaveAttribute(
-      'aria-invalid',
-      'true',
-    );
+    expect(input).toHaveAttribute('aria-invalid', 'true');
 
-    expect(input).toHaveAttribute(
-      'aria-describedby',
-      errorMessage.id,
-    );
+    expect(input).toHaveAttribute('aria-describedby', errorMessage.id);
   });
 
   it('supports required state', () => {
-    render(
-      <Input
-        label="Email"
-        required
-      />,
-    );
+    render(<Input label="Email" required />);
 
     expect(
       screen.getByRole('textbox', {
@@ -113,31 +70,15 @@ describe('Input', () => {
   });
 
   it('supports disabled state', () => {
-    render(
-      <Input
-        label="Email"
-        disabled
-      />,
-    );
+    render(<Input label="Email" disabled />);
 
-    expect(
-      screen.getByLabelText('Email'),
-    ).toBeDisabled();
+    expect(screen.getByLabelText('Email')).toBeDisabled();
   });
 
   it('supports readOnly state', () => {
-    render(
-      <Input
-        label="Email"
-        readOnly
-      />,
-    );
+    render(<Input label="Email" readOnly />);
 
-    expect(
-      screen.getByLabelText('Email'),
-    ).toHaveAttribute(
-      'readonly',
-    );
+    expect(screen.getByLabelText('Email')).toHaveAttribute('readonly');
   });
 
   it('renders start icon', () => {
@@ -148,41 +89,15 @@ describe('Input', () => {
       />,
     );
 
-    expect(
-      screen.getByTestId('start-icon'),
-    ).toBeInTheDocument();
+    expect(screen.getByTestId('start-icon')).toBeInTheDocument();
   });
 
   it('renders end icon', () => {
     render(
-      <Input
-        label="Email"
-        endIcon={<span data-testid="end-icon">✉</span>}
-      />,
+      <Input label="Email" endIcon={<span data-testid="end-icon">✉</span>} />,
     );
 
-    expect(
-      screen.getByTestId('end-icon'),
-    ).toBeInTheDocument();
-  });
-
-  it('forwards ref to the native input', () => {
-    const TestComponent = () => {
-      const ref = useRef<HTMLInputElement>(null);
-
-      return (
-        <Input
-          ref={ref}
-          label="Email"
-        />
-      );
-    };
-
-    render(<TestComponent />);
-
-    const input = screen.getByLabelText('Email');
-
-    expect(input).toHaveAttribute('id');
+    expect(screen.getByTestId('end-icon')).toBeInTheDocument();
   });
 
   it('forwards ref to the native input', () => {
@@ -192,16 +107,9 @@ describe('Input', () => {
       current: HTMLInputElement | null;
     };
 
-    render(
-      <Input
-        ref={ref}
-        label="Email"
-      />,
-    );
+    render(<Input ref={ref} label="Email" />);
 
-    expect(ref.current).toBe(
-      screen.getByLabelText('Email'),
-    );
+    expect(ref.current).toBe(screen.getByLabelText('Email'));
   });
 
   it('supports ReactNode label', () => {
@@ -215,9 +123,7 @@ describe('Input', () => {
       />,
     );
 
-    expect(
-      screen.getByText('address'),
-    ).toBeInTheDocument();
+    expect(screen.getByText('address')).toBeInTheDocument();
   });
 
   it('supports ReactNode helper text', () => {
@@ -226,16 +132,13 @@ describe('Input', () => {
         label="Email"
         helperText={
           <>
-            We will never share your{' '}
-            <strong>email</strong>.
+            We will never share your <strong>email</strong>.
           </>
         }
       />,
     );
 
-    expect(
-      screen.getByText('email'),
-    ).toBeInTheDocument();
+    expect(screen.getByText('email')).toBeInTheDocument();
   });
 
   it('supports ReactNode error', () => {
@@ -244,8 +147,7 @@ describe('Input', () => {
         label="Email"
         error={
           <>
-            Invalid email.{' '}
-            <a href="/help">Learn more</a>
+            Invalid email. <a href="/help">Learn more</a>
           </>
         }
       />,
@@ -258,25 +160,16 @@ describe('Input', () => {
     ).toBeInTheDocument();
   });
 
-
   it('forwards onChange event', () => {
     const handleChange = vi.fn();
 
-    render(
-      <Input
-        aria-label="Email"
-        onChange={handleChange}
-      />,
-    );
+    render(<Input aria-label="Email" onChange={handleChange} />);
 
-    fireEvent.change(
-      screen.getByRole('textbox'),
-      {
-        target: {
-          value: 'hello@example.com',
-        },
+    fireEvent.change(screen.getByRole('textbox'), {
+      target: {
+        value: 'hello@example.com',
       },
-    );
+    });
 
     expect(handleChange).toHaveBeenCalledTimes(1);
     expect(handleChange).toHaveBeenCalledWith(
@@ -291,12 +184,7 @@ describe('Input', () => {
   it('forwards onBlur event', () => {
     const handleBlur = vi.fn();
 
-    render(
-      <Input
-        aria-label="Email"
-        onBlur={handleBlur}
-      />,
-    );
+    render(<Input aria-label="Email" onBlur={handleBlur} />);
 
     fireEvent.blur(screen.getByRole('textbox'));
 
@@ -306,30 +194,17 @@ describe('Input', () => {
   it('forwards onFocus event', () => {
     const handleFocus = vi.fn();
 
-    render(
-      <Input
-        aria-label="Email"
-        onFocus={handleFocus}
-      />,
-    );
+    render(<Input aria-label="Email" onFocus={handleFocus} />);
 
     fireEvent.focus(screen.getByRole('textbox'));
 
     expect(handleFocus).toHaveBeenCalledTimes(1);
   });
 
-
   it('supports defaultValue', () => {
-    render(
-      <Input
-        aria-label="Email"
-        defaultValue="hello@example.com"
-      />,
-    );
+    render(<Input aria-label="Email" defaultValue="hello@example.com" />);
 
-    expect(
-      screen.getByRole('textbox'),
-    ).toHaveValue('hello@example.com');
+    expect(screen.getByRole('textbox')).toHaveValue('hello@example.com');
   });
 
   it('supports controlled value', () => {
@@ -343,9 +218,6 @@ describe('Input', () => {
       />,
     );
 
-    expect(
-      screen.getByRole('textbox'),
-    ).toHaveValue('hello@example.com');
+    expect(screen.getByRole('textbox')).toHaveValue('hello@example.com');
   });
-
 });

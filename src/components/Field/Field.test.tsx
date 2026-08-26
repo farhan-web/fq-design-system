@@ -1,7 +1,4 @@
-import {
-  render,
-  screen,
-} from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
 
 import { Field } from './Field';
@@ -14,13 +11,9 @@ describe('Field', () => {
       </Field>,
     );
 
-    expect(
-      screen.getByText('Email'),
-    ).toBeInTheDocument();
+    expect(screen.getByText('Email')).toBeInTheDocument();
 
-    expect(
-      screen.getByRole('textbox'),
-    ).toBeInTheDocument();
+    expect(screen.getByRole('textbox')).toBeInTheDocument();
   });
 
   it('associates label with control', () => {
@@ -30,59 +23,29 @@ describe('Field', () => {
       </Field>,
     );
 
-    expect(
-      screen.getByText('Email'),
-    ).toHaveAttribute(
-      'for',
-      'email',
-    );
+    expect(screen.getByText('Email')).toHaveAttribute('for', 'email');
   });
 
   it('renders description', () => {
     render(
-      <Field
-        label="Email"
-        description="Use your work email."
-      >
-        <input
-          id="email"
-          aria-describedby="email-description"
-        />
+      <Field label="Email" description="Use your work email.">
+        <input id="email" aria-describedby="email-description" />
       </Field>,
     );
 
-    expect(
-      screen.getByText(
-        'Use your work email.',
-      ),
-    ).toBeInTheDocument();
+    expect(screen.getByText('Use your work email.')).toBeInTheDocument();
   });
 
   it('renders error', () => {
     render(
-      <Field
-        label="Email"
-        error="Email is invalid"
-      >
-        <input
-          id="email"
-          aria-invalid="true"
-        />
+      <Field label="Email" error="Email is invalid">
+        <input id="email" aria-invalid="true" />
       </Field>,
     );
 
-    expect(
-      screen.getByText(
-        'Email is invalid',
-      ),
-    ).toBeInTheDocument();
+    expect(screen.getByText('Email is invalid')).toBeInTheDocument();
 
-    expect(
-      screen.getByRole('textbox'),
-    ).toHaveAttribute(
-      'aria-invalid',
-      'true',
-    );
+    expect(screen.getByRole('textbox')).toHaveAttribute('aria-invalid', 'true');
   });
 
   it('generates an id for a control without one', () => {
@@ -96,10 +59,7 @@ describe('Field', () => {
     const label = screen.getByText('Email');
 
     expect(input).toHaveAttribute('id');
-    expect(label).toHaveAttribute(
-      'for',
-      input.getAttribute('id'),
-    );
+    expect(label).toHaveAttribute('for', input.getAttribute('id'));
   });
 
   it('preserves external aria-describedby', () => {
@@ -109,16 +69,11 @@ describe('Field', () => {
         description="Use your work email."
         error="Email is invalid"
       >
-        <input
-          id="email"
-          aria-describedby="external-description"
-        />
+        <input id="email" aria-describedby="external-description" />
       </Field>,
     );
 
-    expect(
-      screen.getByRole('textbox'),
-    ).toHaveAttribute(
+    expect(screen.getByRole('textbox')).toHaveAttribute(
       'aria-describedby',
       'external-description email-description email-error',
     );
@@ -140,13 +95,8 @@ describe('Field', () => {
     const input = screen.getByRole('textbox');
 
     expect(input).toBeDisabled();
-    expect(input).toHaveAttribute(
-      'name',
-      'email',
-    );
-    expect(input).toHaveClass(
-      'custom-input',
-    );
+    expect(input).toHaveAttribute('name', 'email');
+    expect(input).toHaveClass('custom-input');
     expect(input).toHaveValue('test');
   });
 
@@ -159,23 +109,47 @@ describe('Field', () => {
       </Field>,
     );
 
-    expect(ref.current).toBeInstanceOf(
-      HTMLInputElement,
-    );
+    expect(ref.current).toBeInstanceOf(HTMLInputElement);
   });
 
   it('renders required indicator', () => {
     render(
-      <Field
-        label="Email"
-        required
-      >
+      <Field label="Email" required>
         <input id="email" />
       </Field>,
     );
 
+    expect(screen.getByText('*')).toBeInTheDocument();
+  });
+
+  it('forwards required to child via context', () => {
+    render(
+      <Field label="Email" required>
+        <input />
+      </Field>,
+    );
+
+    expect(screen.getByRole('textbox')).not.toHaveAttribute('required');
+  });
+
+  it('accepts multiple children', () => {
+    render(
+      <Field label="Name">
+        <input aria-label="First name" />
+        <input aria-label="Last name" />
+      </Field>,
+    );
+
     expect(
-      screen.getByText('*'),
+      screen.getByRole('textbox', {
+        name: 'First name',
+      }),
+    ).toBeInTheDocument();
+
+    expect(
+      screen.getByRole('textbox', {
+        name: 'Last name',
+      }),
     ).toBeInTheDocument();
   });
 });

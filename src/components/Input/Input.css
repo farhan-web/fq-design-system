@@ -52,7 +52,7 @@
 
 .fq-input:focus {
   border-color: var(--color-focus);
-  box-shadow: 0 0 0 3px rgb(37 99 235 / 15%);
+  box-shadow: 0 0 0 3px var(--color-focus-ring);
 }
 
 .fq-input:disabled {
@@ -71,7 +71,7 @@
 
 .fq-input--error:focus {
   border-color: var(--color-error);
-  box-shadow: 0 0 0 3px rgb(220 38 38 / 15%);
+  box-shadow: 0 0 0 3px var(--color-error-ring);
 }
 
 .fq-input-field__icon {

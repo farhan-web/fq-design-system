@@ -24,9 +24,7 @@ describe('Form integration', () => {
 
     expect(input).toHaveAttribute('id');
 
-    expect(
-      screen.getByText('Email'),
-    ).toHaveAttribute(
+    expect(screen.getByText('Email')).toHaveAttribute(
       'for',
       input.getAttribute('id'),
     );
@@ -38,17 +36,12 @@ describe('Form integration', () => {
     });
 
     render(
-      <Form
-        aria-label="Login form"
-        onSubmit={handleSubmit}
-      >
+      <Form aria-label="Login form" onSubmit={handleSubmit}>
         <Field label="Email">
           <Input />
         </Field>
 
-        <Button type="submit">
-          Login
-        </Button>
+        <Button type="submit">Login</Button>
       </Form>,
     );
 
@@ -77,29 +70,55 @@ describe('Form integration', () => {
       name: 'Email',
     });
 
-    expect(input).toHaveAttribute(
-      'aria-invalid',
-      'true',
-    );
+    expect(input).toHaveAttribute('aria-invalid', 'true');
 
-    const describedBy =
-      input.getAttribute('aria-describedby');
+    const describedBy = input.getAttribute('aria-describedby');
 
-    expect(describedBy).toContain(
-      `${input.getAttribute('id')}-description`,
-    );
+    expect(describedBy).toContain(`${input.getAttribute('id')}-description`);
 
-    expect(describedBy).toContain(
-      `${input.getAttribute('id')}-error`,
-    );
+    expect(describedBy).toContain(`${input.getAttribute('id')}-error`);
 
-    expect(
-      screen.getByText('Use your work email'),
-    ).toBeInTheDocument();
+    expect(screen.getByText('Use your work email')).toBeInTheDocument();
 
-    expect(
-      screen.getByText('Invalid email'),
-    ).toBeInTheDocument();
+    expect(screen.getByText('Invalid email')).toBeInTheDocument();
   });
 
+  it('forwards required from Field to Input via context', () => {
+    render(
+      <Form aria-label="Login form">
+        <Field label="Email" required>
+          <Input />
+        </Field>
+      </Form>,
+    );
+
+    expect(
+      screen.getByRole('textbox', {
+        name: 'Email',
+      }),
+    ).toBeRequired();
+  });
+
+  it('Field accepts multiple children', () => {
+    render(
+      <Form aria-label="Name form">
+        <Field label="Full name">
+          <Input aria-label="First name" />
+          <Input aria-label="Last name" />
+        </Field>
+      </Form>,
+    );
+
+    expect(
+      screen.getByRole('textbox', {
+        name: 'First name',
+      }),
+    ).toBeInTheDocument();
+
+    expect(
+      screen.getByRole('textbox', {
+        name: 'Last name',
+      }),
+    ).toBeInTheDocument();
+  });
 });

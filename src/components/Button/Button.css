@@ -118,8 +118,8 @@
 
 
 .fq-button__spinner {
-  width: 14px;
-  height: 14px;
+  width: 1em;
+  height: 1em;
 
   border: 2px solid currentColor;
   border-top-color: transparent;

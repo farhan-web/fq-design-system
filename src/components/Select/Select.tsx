@@ -1,27 +1,22 @@
-import {
-  forwardRef,
-  type SelectHTMLAttributes,
-} from 'react';
+import { forwardRef, type SelectHTMLAttributes } from 'react';
 
+import { useFieldContext } from '../Field/FieldContext';
 import { useFormField } from '../../hooks/useFormField';
 import type { FormFieldProps } from '../../types/form';
 
 import './Select.css';
 
 export interface SelectProps
-  extends SelectHTMLAttributes<HTMLSelectElement>,
-    FormFieldProps {}
+  extends SelectHTMLAttributes<HTMLSelectElement>, FormFieldProps {}
 
-export const Select = forwardRef<
-  HTMLSelectElement,
-  SelectProps
->(
+export const Select = forwardRef<HTMLSelectElement, SelectProps>(
   (
     {
       label,
       helperText,
       error,
       id,
+      required,
       className,
       children,
       'aria-describedby': externalDescribedBy,
@@ -29,54 +24,53 @@ export const Select = forwardRef<
     },
     ref,
   ) => {
+    const fieldContext = useFieldContext();
+
     const {
       id: selectId,
       message,
       messageId,
-      describedBy,
-      invalid,
+      describedBy: localDescribedBy,
+      invalid: localInvalid,
     } = useFormField({
-      id,
+      id: fieldContext?.id ?? id,
       helperText,
       error,
       describedBy: externalDescribedBy,
     });
 
+    const describedBy =
+      [fieldContext?.describedBy, localDescribedBy].filter(Boolean).join(' ') ||
+      undefined;
+
+    const invalid = (fieldContext?.invalid ?? false) || localInvalid;
+
+    const isRequired = (fieldContext?.required ?? false) || required;
+
     return (
       <div
-        className={[
-          'fq-select-field',
-          error ? 'fq-select-field--error' : '',
-        ]
+        className={['fq-select-field', error ? 'fq-select-field--error' : '']
           .filter(Boolean)
           .join(' ')}
       >
-        <label
-          className="fq-select-field__label"
-          htmlFor={selectId}
-        >
-          {label}
+        {label && (
+          <label className="fq-select-field__label" htmlFor={selectId}>
+            {label}
 
-          {props.required && (
-            <span
-              className="fq-select-field__required"
-              aria-hidden="true"
-            >
-              *
-            </span>
-          )}
-        </label>
+            {isRequired && (
+              <span className="fq-select-field__required" aria-hidden="true">
+                *
+              </span>
+            )}
+          </label>
+        )}
 
         <select
           {...props}
           ref={ref}
           id={selectId}
-          className={[
-            'fq-select',
-            className ?? '',
-          ]
-            .filter(Boolean)
-            .join(' ')}
+          required={isRequired}
+          className={['fq-select', className ?? ''].filter(Boolean).join(' ')}
           aria-invalid={invalid || undefined}
           aria-describedby={describedBy}
         >
@@ -84,10 +78,7 @@ export const Select = forwardRef<
         </select>
 
         {message && (
-          <div
-            id={messageId}
-            className="fq-select-field__message"
-          >
+          <div id={messageId} className="fq-select-field__message">
             {message}
           </div>
         )}

@@ -49,7 +49,7 @@
 
 .fq-select:focus {
   border-color: var(--color-primary);
-  box-shadow: 0 0 0 3px rgb(37 99 235 / 15%);
+  box-shadow: 0 0 0 3px var(--color-focus-ring);
 }
 
 .fq-select:disabled {
@@ -71,7 +71,7 @@
 
 .fq-select-field--error
   .fq-select:focus {
-  box-shadow: 0 0 0 3px rgb(220 38 38 / 15%);
+  box-shadow: 0 0 0 3px var(--color-error-ring);
 }
 
 .fq-select-field--error

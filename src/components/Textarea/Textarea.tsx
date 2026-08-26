@@ -1,45 +1,50 @@
-import {
-  forwardRef,
-  type TextareaHTMLAttributes,
-} from 'react';
+import { forwardRef, type TextareaHTMLAttributes } from 'react';
 
+import { useFieldContext } from '../Field/FieldContext';
 import { useFormField } from '../../hooks/useFormField';
 import type { FormFieldProps } from '../../types/form';
 
 import './Textarea.css';
 
 export interface TextareaProps
-  extends TextareaHTMLAttributes<HTMLTextAreaElement>,
-    FormFieldProps {}
+  extends TextareaHTMLAttributes<HTMLTextAreaElement>, FormFieldProps {}
 
-export const Textarea = forwardRef<
-  HTMLTextAreaElement,
-  TextareaProps
->(
+export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
   (
     {
       label,
       helperText,
       error,
       id,
+      required,
       className,
       'aria-describedby': externalDescribedBy,
       ...props
     },
     ref,
   ) => {
+    const fieldContext = useFieldContext();
+
     const {
       id: textareaId,
       message,
       messageId,
-      describedBy,
-      invalid,
+      describedBy: localDescribedBy,
+      invalid: localInvalid,
     } = useFormField({
-      id,
+      id: fieldContext?.id ?? id,
       helperText,
       error,
       describedBy: externalDescribedBy,
     });
+
+    const describedBy =
+      [fieldContext?.describedBy, localDescribedBy].filter(Boolean).join(' ') ||
+      undefined;
+
+    const invalid = (fieldContext?.invalid ?? false) || localInvalid;
+
+    const isRequired = (fieldContext?.required ?? false) || required;
 
     return (
       <div
@@ -50,17 +55,11 @@ export const Textarea = forwardRef<
           .filter(Boolean)
           .join(' ')}
       >
-        <label
-          className="fq-textarea-field__label"
-          htmlFor={textareaId}
-        >
+        <label className="fq-textarea-field__label" htmlFor={textareaId}>
           {label}
 
-          {props.required && (
-            <span
-              className="fq-textarea-field__required"
-              aria-hidden="true"
-            >
+          {isRequired && (
+            <span className="fq-textarea-field__required" aria-hidden="true">
               *
             </span>
           )}
@@ -70,21 +69,14 @@ export const Textarea = forwardRef<
           {...props}
           ref={ref}
           id={textareaId}
-          className={[
-            'fq-textarea',
-            className ?? '',
-          ]
-            .filter(Boolean)
-            .join(' ')}
+          required={isRequired}
+          className={['fq-textarea', className ?? ''].filter(Boolean).join(' ')}
           aria-invalid={invalid || undefined}
           aria-describedby={describedBy}
         />
 
         {message && (
-          <div
-            id={messageId}
-            className="fq-textarea-field__message"
-          >
+          <div id={messageId} className="fq-textarea-field__message">
             {message}
           </div>
         )}

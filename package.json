@@ -1,23 +1,51 @@
 {
   "name": "fq-design-system",
-  "private": true,
-  "version": "0.0.0",
+  "version": "0.1.0",
+  "description": "A lightweight, accessible React design system built with CSS custom properties",
+  "keywords": [
+    "react",
+    "design-system",
+    "components",
+    "ui",
+    "typescript",
+    "css",
+    "accessible",
+    "a11y"
+  ],
+  "author": "HAEID",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/HAEID/fq-design-system.git"
+  },
+  "homepage": "https://github.com/HAEID/fq-design-system#readme",
+  "bugs": {
+    "url": "https://github.com/HAEID/fq-design-system/issues"
+  },
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
     "preview": "vite preview",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "test": "vitest run"
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "changeset": "changeset",
+    "release": "npm run build && changeset publish"
   },
   "dependencies": {
     "lucide-react": "^1.30.0"
   },
   "devDependencies": {
+    "@changesets/cli": "^2.29.5",
     "@chromatic-com/storybook": "latest",
     "@eslint/js": "^10.0.1",
+    "@hae-fe/hmg-design-system-bo": "0.8.3",
+    "@hmg-fe/hmg-design-system": "^0.6.15",
     "@storybook/addon-a11y": "^10.5.7",
     "@storybook/addon-docs": "^10.5.7",
     "@storybook/addon-onboarding": "^10.5.7",
@@ -38,6 +66,7 @@
     "globals": "^17.7.0",
     "jsdom": "^29.1.1",
     "playwright": "latest",
+    "prettier": "^3.5.3",
     "storybook": "^10.5.7",
     "typescript": "~6.0.2",
     "typescript-eslint": "^8.65.0",
@@ -60,7 +89,7 @@
     "dist"
   ],
   "peerDependencies": {
-    "react": "^19.2.0",
-    "react-dom": "^19.2.0"
+    "react": ">=18.0.0",
+    "react-dom": ">=18.0.0"
   }
 }

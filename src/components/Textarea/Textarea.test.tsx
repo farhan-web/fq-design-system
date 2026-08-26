@@ -6,9 +6,7 @@ import { Textarea } from './Textarea';
 
 describe('Textarea', () => {
   it('renders label and textarea', () => {
-    render(
-      <Textarea label="Description" />,
-    );
+    render(<Textarea label="Description" />);
 
     expect(
       screen.getByRole('textbox', {
@@ -18,9 +16,7 @@ describe('Textarea', () => {
   });
 
   it('associates label with textarea', () => {
-    render(
-      <Textarea label="Description" />,
-    );
+    render(<Textarea label="Description" />);
 
     const textarea = screen.getByRole('textbox', {
       name: 'Description',
@@ -29,19 +25,12 @@ describe('Textarea', () => {
     expect(textarea.id).not.toBe('');
 
     expect(
-      document.querySelector(
-        `label[for="${textarea.id}"]`,
-      ),
+      document.querySelector(`label[for="${textarea.id}"]`),
     ).toBeInTheDocument();
   });
 
   it('supports custom id', () => {
-    render(
-      <Textarea
-        id="description"
-        label="Description"
-      />,
-    );
+    render(<Textarea id="description" label="Description" />);
 
     expect(
       screen.getByRole('textbox', {
@@ -58,19 +47,13 @@ describe('Textarea', () => {
       </>,
     );
 
-    const description = screen.getByRole(
-      'textbox',
-      {
-        name: 'Description',
-      },
-    );
+    const description = screen.getByRole('textbox', {
+      name: 'Description',
+    });
 
-    const comment = screen.getByRole(
-      'textbox',
-      {
-        name: 'Comment',
-      },
-    );
+    const comment = screen.getByRole('textbox', {
+      name: 'Comment',
+    });
 
     expect(description.id).not.toBe('');
     expect(comment.id).not.toBe('');
@@ -78,45 +61,25 @@ describe('Textarea', () => {
   });
 
   it('supports custom className', () => {
-    render(
-      <Textarea
-        label="Description"
-        className="custom-textarea"
-      />,
-    );
+    render(<Textarea label="Description" className="custom-textarea" />);
 
     expect(
       screen.getByRole('textbox', {
         name: 'Description',
       }),
-    ).toHaveClass(
-      'fq-textarea',
-      'custom-textarea',
-    );
+    ).toHaveClass('fq-textarea', 'custom-textarea');
   });
 
   it('supports placeholder', () => {
-    render(
-      <Textarea
-        label="Description"
-        placeholder="Write something..."
-      />,
-    );
+    render(<Textarea label="Description" placeholder="Write something..." />);
 
     expect(
-      screen.getByPlaceholderText(
-        'Write something...',
-      ),
+      screen.getByPlaceholderText('Write something...'),
     ).toBeInTheDocument();
   });
 
   it('supports required state', () => {
-    render(
-      <Textarea
-        label="Description"
-        required
-      />,
-    );
+    render(<Textarea label="Description" required />);
 
     expect(
       screen.getByRole('textbox', {
@@ -126,12 +89,7 @@ describe('Textarea', () => {
   });
 
   it('supports disabled state', () => {
-    render(
-      <Textarea
-        label="Description"
-        disabled
-      />,
-    );
+    render(<Textarea label="Description" disabled />);
 
     expect(
       screen.getByRole('textbox', {
@@ -141,12 +99,7 @@ describe('Textarea', () => {
   });
 
   it('supports readOnly state', () => {
-    render(
-      <Textarea
-        label="Description"
-        readOnly
-      />,
-    );
+    render(<Textarea label="Description" readOnly />);
 
     expect(
       screen.getByRole('textbox', {
@@ -157,59 +110,32 @@ describe('Textarea', () => {
 
   it('supports helper text', () => {
     render(
-      <Textarea
-        label="Description"
-        helperText="Maximum 500 characters."
-      />,
+      <Textarea label="Description" helperText="Maximum 500 characters." />,
     );
 
-    const textarea = screen.getByRole(
-      'textbox',
-      {
-        name: 'Description',
-      },
-    );
+    const textarea = screen.getByRole('textbox', {
+      name: 'Description',
+    });
 
-    const message = screen.getByText(
-      'Maximum 500 characters.',
-    );
+    const message = screen.getByText('Maximum 500 characters.');
 
     expect(message).toBeInTheDocument();
 
-    expect(textarea).toHaveAttribute(
-      'aria-describedby',
-      message.id,
-    );
+    expect(textarea).toHaveAttribute('aria-describedby', message.id);
   });
 
   it('exposes error state', () => {
-    render(
-      <Textarea
-        label="Description"
-        error="Description is required."
-      />,
-    );
+    render(<Textarea label="Description" error="Description is required." />);
 
-    const textarea = screen.getByRole(
-      'textbox',
-      {
-        name: 'Description',
-      },
-    );
+    const textarea = screen.getByRole('textbox', {
+      name: 'Description',
+    });
 
-    const message = screen.getByText(
-      'Description is required.',
-    );
+    const message = screen.getByText('Description is required.');
 
-    expect(textarea).toHaveAttribute(
-      'aria-invalid',
-      'true',
-    );
+    expect(textarea).toHaveAttribute('aria-invalid', 'true');
 
-    expect(textarea).toHaveAttribute(
-      'aria-describedby',
-      message.id,
-    );
+    expect(textarea).toHaveAttribute('aria-describedby', message.id);
   });
 
   it('prioritizes error message over helper text', () => {
@@ -221,35 +147,23 @@ describe('Textarea', () => {
       />,
     );
 
-    expect(
-      screen.getByText(
-        'Description is required.',
-      ),
-    ).toBeInTheDocument();
+    expect(screen.getByText('Description is required.')).toBeInTheDocument();
 
     expect(
-      screen.queryByText(
-        'Maximum 500 characters.',
-      ),
+      screen.queryByText('Maximum 500 characters.'),
     ).not.toBeInTheDocument();
   });
 
   it('preserves custom aria-describedby', () => {
     render(
-      <Textarea
-        label="Description"
-        aria-describedby="custom-description"
-      />,
+      <Textarea label="Description" aria-describedby="custom-description" />,
     );
 
     expect(
       screen.getByRole('textbox', {
         name: 'Description',
       }),
-    ).toHaveAttribute(
-      'aria-describedby',
-      'custom-description',
-    );
+    ).toHaveAttribute('aria-describedby', 'custom-description');
   });
 
   it('supports ReactNode label', () => {
@@ -263,9 +177,7 @@ describe('Textarea', () => {
       />,
     );
 
-    expect(
-      screen.getByText('details'),
-    ).toBeInTheDocument();
+    expect(screen.getByText('details')).toBeInTheDocument();
   });
 
   it('supports ReactNode helper text', () => {
@@ -280,9 +192,7 @@ describe('Textarea', () => {
       />,
     );
 
-    expect(
-      screen.getByText('500'),
-    ).toBeInTheDocument();
+    expect(screen.getByText('500')).toBeInTheDocument();
   });
 
   it('supports ReactNode error', () => {
@@ -291,8 +201,7 @@ describe('Textarea', () => {
         label="Description"
         error={
           <>
-            Description is invalid.{' '}
-            <a href="/help">Learn more</a>
+            Description is invalid. <a href="/help">Learn more</a>
           </>
         }
       />,
@@ -308,86 +217,7 @@ describe('Textarea', () => {
   it('forwards ref to the native textarea', () => {
     const ref = createRef<HTMLTextAreaElement>();
 
-    render(
-      <Textarea
-        label="Description"
-        ref={ref}
-      />,
-    );
-
-    expect(ref.current).toBe(
-      screen.getByRole('textbox', {
-        name: 'Description',
-      }),
-    );
-  });
-
-  it('supports ReactNode label', () => {
-    render(
-      <Textarea
-        label={
-          <>
-            Description <strong>details</strong>
-          </>
-        }
-      />,
-    );
-
-    expect(
-      screen.getByText('details'),
-    ).toBeInTheDocument();
-  });
-
-  it('supports ReactNode helper text', () => {
-    render(
-      <Textarea
-        label="Description"
-        helperText={
-          <>
-            Maximum <strong>500</strong> characters.
-          </>
-        }
-      />,
-    );
-
-    expect(
-      screen.getByText('500'),
-    ).toBeInTheDocument();
-  });
-
-  it('supports ReactNode error', () => {
-    render(
-      <Textarea
-        label="Description"
-        error={
-          <>
-            Description is required.{' '}
-            <a href="/help">Learn more</a>
-          </>
-        }
-      />,
-    );
-
-    expect(
-      screen.getByRole('link', {
-        name: 'Learn more',
-      }),
-    ).toBeInTheDocument();
-  });
-
-  it('forwards ref to the native textarea', () => {
-    const ref = {
-      current: null,
-    } as {
-      current: HTMLTextAreaElement | null;
-    };
-
-    render(
-      <Textarea
-        ref={ref}
-        label="Description"
-      />,
-    );
+    render(<Textarea label="Description" ref={ref} />);
 
     expect(ref.current).toBe(
       screen.getByRole('textbox', {
@@ -399,21 +229,13 @@ describe('Textarea', () => {
   it('forwards onChange event', () => {
     const handleChange = vi.fn();
 
-    render(
-      <Textarea
-        aria-label="Description"
-        onChange={handleChange}
-      />,
-    );
+    render(<Textarea aria-label="Description" onChange={handleChange} />);
 
-    fireEvent.change(
-      screen.getByRole('textbox'),
-      {
-        target: {
-          value: 'hello',
-        },
+    fireEvent.change(screen.getByRole('textbox'), {
+      target: {
+        value: 'hello',
       },
-    );
+    });
 
     expect(handleChange).toHaveBeenCalledTimes(1);
     expect(handleChange).toHaveBeenCalledWith(
@@ -428,12 +250,7 @@ describe('Textarea', () => {
   it('forwards onBlur event', () => {
     const handleBlur = vi.fn();
 
-    render(
-      <Textarea
-        aria-label="Description"
-        onBlur={handleBlur}
-      />,
-    );
+    render(<Textarea aria-label="Description" onBlur={handleBlur} />);
 
     fireEvent.blur(screen.getByRole('textbox'));
 
@@ -443,30 +260,17 @@ describe('Textarea', () => {
   it('forwards onFocus event', () => {
     const handleFocus = vi.fn();
 
-    render(
-      <Textarea
-        aria-label="Description"
-        onFocus={handleFocus}
-      />,
-    );
+    render(<Textarea aria-label="Description" onFocus={handleFocus} />);
 
     fireEvent.focus(screen.getByRole('textbox'));
 
     expect(handleFocus).toHaveBeenCalledTimes(1);
   });
 
-
   it('supports defaultValue', () => {
-    render(
-      <Textarea
-        aria-label="Description"
-        defaultValue="Initial text"
-      />,
-    );
+    render(<Textarea aria-label="Description" defaultValue="Initial text" />);
 
-    expect(
-      screen.getByRole('textbox'),
-    ).toHaveValue('Initial text');
+    expect(screen.getByRole('textbox')).toHaveValue('Initial text');
   });
 
   it('supports controlled value', () => {
@@ -488,19 +292,15 @@ describe('Textarea', () => {
 
     expect(textarea).toHaveValue('Controlled text');
 
-    fireEvent.change(
-      textarea,
-      {
-        target: {
-          value: 'Changed text',
-        },
+    fireEvent.change(textarea, {
+      target: {
+        value: 'Changed text',
       },
-    );
+    });
 
     expect(handleChange).toHaveBeenCalledTimes(1);
     expect(changedValue).toBe('Changed text');
 
     expect(textarea).toHaveValue('Controlled text');
   });
-
 });
