@@ -1,24 +1,13 @@
-import {
-  forwardRef,
-  type ButtonHTMLAttributes,
-  type ReactNode,
-} from 'react';
+import { forwardRef, type ButtonHTMLAttributes, type ReactNode } from 'react';
 
 import './Button.css';
 
 export type ButtonVariant =
-  | 'primary'
-  | 'secondary'
-  | 'ghost'
-  | 'danger';
+  'primary' | 'secondary' | 'ghost' | 'danger' | 'invert';
 
-export type ButtonSize =
-  | 'sm'
-  | 'md'
-  | 'lg';
+export type ButtonSize = 'sm' | 'md' | 'lg';
 
-export interface ButtonProps
-  extends ButtonHTMLAttributes<HTMLButtonElement> {
+export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: ButtonVariant;
   size?: ButtonSize;
   loading?: boolean;
@@ -29,10 +18,7 @@ export interface ButtonProps
   children?: ReactNode;
 }
 
-export const Button = forwardRef<
-  HTMLButtonElement,
-  ButtonProps
->(
+export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   (
     {
       variant = 'primary',
@@ -73,17 +59,12 @@ export const Button = forwardRef<
         aria-busy={loading || undefined}
       >
         {loading ? (
-          <span
-            className="fq-button__spinner"
-            aria-hidden="true"
-          />
+          <span className="fq-button__spinner" aria-hidden="true" />
         ) : (
           startIcon
         )}
 
-        <span className="fq-button__content">
-          {children}
-        </span>
+        <span className="fq-button__content">{children}</span>
 
         {!loading && endIcon}
       </button>

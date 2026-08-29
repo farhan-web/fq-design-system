@@ -1,18 +1,9 @@
-import type {
-  Meta,
-  StoryObj,
-} from '@storybook/react-vite';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import { expect, userEvent, within } from 'storybook/test';
 
-import {
-  ArrowRight,
-  Save,
-  Trash2,
-} from 'lucide-react';
+import { ArrowRight, Save, Trash2 } from 'lucide-react';
 
-import {
-  Button,
-} from './Button';
+import { Button } from './Button';
 
 const meta = {
   title: 'Components/Button',
@@ -40,21 +31,12 @@ const meta = {
   argTypes: {
     variant: {
       control: 'select',
-      options: [
-        'primary',
-        'secondary',
-        'ghost',
-        'danger',
-      ],
+      options: ['primary', 'secondary', 'ghost', 'danger', 'invert'],
     },
 
     size: {
       control: 'select',
-      options: [
-        'sm',
-        'md',
-        'lg',
-      ],
+      options: ['sm', 'md', 'lg'],
     },
 
     loading: {
@@ -108,6 +90,21 @@ export const Ghost: Story = {
 export const Danger: Story = {
   args: {
     variant: 'danger',
+  },
+};
+
+export const Invert: Story = {
+  args: {
+    variant: 'invert',
+  },
+  parameters: {
+    backgrounds: { default: 'dark' },
+    docs: {
+      description: {
+        story:
+          'Invert variant — white background with dark text, designed for use on dark/colored surfaces.',
+      },
+    },
   },
 };
 
@@ -238,10 +235,7 @@ export const LoadingInteraction: Story = {
 
     await expect(button).toBeDisabled();
 
-    await expect(button).toHaveAttribute(
-      'aria-busy',
-      'true',
-    );
+    await expect(button).toHaveAttribute('aria-busy', 'true');
   },
 };
 

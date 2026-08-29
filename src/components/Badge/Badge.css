@@ -1,0 +1,159 @@
+.fq-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+
+  height: 18px;
+  padding: 2px 6px;
+
+  border-radius: var(--radius-full);
+  border: 2px solid transparent;
+
+  font-family: var(--font-family);
+  font-size: var(--text-body3-size);
+  font-weight: var(--font-weight-bold);
+  line-height: 1;
+  white-space: nowrap;
+}
+
+/* ================================
+   Solid variants
+   ================================ */
+
+.fq-badge--solid-primary {
+  background: var(--color-primary);
+  color: var(--color-text-inverse);
+  border-color: var(--color-background);
+}
+
+.fq-badge--solid-success {
+  background: var(--color-success);
+  color: var(--color-text-inverse);
+  border-color: var(--color-background);
+}
+
+.fq-badge--solid-danger {
+  background: var(--color-danger);
+  color: var(--color-text-inverse);
+  border-color: var(--color-background);
+}
+
+.fq-badge--solid-warning {
+  background: #F5A623;
+  color: var(--color-text-inverse);
+  border-color: var(--color-background);
+}
+
+.fq-badge--solid-neutral {
+  background: var(--color-neutral-700);
+  color: var(--color-text-inverse);
+  border-color: var(--color-background);
+}
+
+/* ================================
+   Soft variants
+   ================================ */
+
+.fq-badge--soft-primary {
+  background: var(--color-primary-subtle);
+  color: var(--color-primary);
+}
+
+.fq-badge--soft-success {
+  background: var(--color-success-subtle);
+  color: var(--color-success);
+}
+
+.fq-badge--soft-danger {
+  background: var(--color-danger-subtle);
+  color: var(--color-danger);
+}
+
+.fq-badge--soft-warning {
+  background: var(--color-warning);
+  color: var(--color-warning-text);
+}
+
+.fq-badge--soft-neutral {
+  background: var(--color-surface);
+  color: var(--color-text-medium);
+}
+
+/* ================================
+   Gradient variants (no outline per spec)
+   ================================ */
+
+.fq-badge--gradient-red {
+  background: linear-gradient(
+    135deg,
+    var(--color-gradient-red-100) 0%,
+    var(--color-gradient-red-200) 100%
+  );
+  color: var(--color-text-inverse);
+  border-color: transparent;
+}
+
+.fq-badge--gradient-green {
+  background: linear-gradient(
+    135deg,
+    var(--color-gradient-green-100) 0%,
+    var(--color-gradient-green-200) 100%
+  );
+  color: var(--color-text-inverse);
+  border-color: transparent;
+}
+
+/* ================================
+   Disabled state
+   ================================ */
+
+.fq-badge[data-disabled] {
+  background: var(--color-neutral-400);
+  color: var(--color-text-inverse);
+  border-color: transparent;
+  pointer-events: none;
+}
+
+/* ================================
+   Dot indicator (no text)
+   ================================ */
+
+.fq-badge--dot {
+  width: 8px;
+  height: 8px;
+  min-width: 8px;
+  padding: 0;
+}
+
+/* ================================
+   Loading / shimmer
+   ================================ */
+
+@keyframes fq-badge-shimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+.fq-badge--loading {
+  color: transparent;
+  background: linear-gradient(
+    90deg,
+    var(--color-neutral-200) 25%,
+    var(--color-neutral-100) 50%,
+    var(--color-neutral-200) 75%
+  );
+  background-size: 200% 100%;
+  animation: fq-badge-shimmer 1.4s ease infinite;
+  border-color: transparent;
+  min-width: 40px;
+}
+
+/* ================================
+   Count variant (wider pill)
+   ================================ */
+
+.fq-badge--count {
+  min-width: 18px;
+  padding: 0 4px;
+}
