@@ -10,6 +10,7 @@ import {
   type KeyboardEvent,
   type ReactNode,
 } from 'react';
+import { ButtonBase } from '@mui/material';
 
 import './Accordion.css';
 
@@ -207,7 +208,8 @@ export const AccordionTrigger = forwardRef<
   };
 
   return (
-    <button
+    <ButtonBase
+      component="button"
       {...props}
       ref={ref}
       id={triggerId}
@@ -216,6 +218,7 @@ export const AccordionTrigger = forwardRef<
       aria-expanded={isOpen}
       aria-controls={panelId}
       disabled={disabled}
+      disableRipple
       onClick={() => toggle(value)}
       onKeyDown={handleKeyDown}
     >
@@ -232,7 +235,7 @@ export const AccordionTrigger = forwardRef<
       >
         <polyline points="6 9 12 15 18 9" />
       </svg>
-    </button>
+    </ButtonBase>
   );
 });
 AccordionTrigger.displayName = 'AccordionTrigger';

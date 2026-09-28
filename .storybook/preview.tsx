@@ -1,4 +1,5 @@
 import type { Preview } from '@storybook/react-vite';
+import { FqThemeProvider } from '../src/theme/FqThemeProvider';
 import '../src/index.css';
 
 const preview: Preview = {
@@ -8,7 +9,11 @@ const preview: Preview = {
       // from activating when the OS is in dark mode.
       // Toggle to 'dark' to preview dark-mode styles.
       document.documentElement.setAttribute('data-theme', 'light');
-      return <Story />;
+      return (
+        <FqThemeProvider>
+          <Story />
+        </FqThemeProvider>
+      );
     },
   ],
 

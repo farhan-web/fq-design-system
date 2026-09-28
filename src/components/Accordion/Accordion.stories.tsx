@@ -217,7 +217,7 @@ export const Controlled: Story = {
   },
   render: () => {
     // eslint-disable-next-line react-hooks/rules-of-hooks
-    const [open, setOpen] = React.useState<string[]>(['baggage']);
+    const [open, setOpen] = React.useState<(string | number)[]>(["baggage"]);
     return (
       <Accordion
         expanded={open}

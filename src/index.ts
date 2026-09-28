@@ -126,3 +126,38 @@ export {
 export { useFormField } from './hooks/useFormField';
 
 export type { FormFieldProps } from './types/form';
+
+// ── Icons ─────────────────────────────────────────────────────────────────────
+export {
+  IconBase,
+  type IconBaseProps,
+  type IconSize,
+  type IconColor,
+} from './components/Icon/IconBase';
+
+export {
+  IconButton,
+  type IconButtonProps,
+  type IconButtonVariant,
+  type IconButtonSize,
+} from './components/IconButton/IconButton';
+
+export {
+  Snackbar,
+  type SnackbarProps,
+  type SnackbarVariant,
+  type SnackbarPlacement,
+} from './components/Snackbar/Snackbar';
+
+export {
+  Dialog,
+  type DialogProps,
+  type DialogSize,
+} from './components/Dialog/Dialog';
+
+// ── Theme (MUI integration) ──────────────────────────────────────────────────
+export {
+  FqThemeProvider,
+  type FqThemeProviderProps,
+} from './theme/FqThemeProvider';
+export { fqTheme, type FqTheme } from './theme/fqTheme';

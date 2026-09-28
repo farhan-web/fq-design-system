@@ -9,6 +9,7 @@ import {
   type ReactNode,
 } from 'react';
 import { createPortal } from 'react-dom';
+import { ButtonBase } from '@mui/material';
 
 import './BottomSheet.css';
 
@@ -134,6 +135,16 @@ export const BottomSheet = forwardRef<HTMLDivElement, BottomSheetProps>(
       return () => document.removeEventListener('keydown', onKeyDown);
     }, [open, onClose]);
 
+    // Body scroll lock — prevent background scroll while sheet is open
+    useEffect(() => {
+      if (!open) return;
+      const prev = document.body.style.overflow;
+      document.body.style.overflow = 'hidden';
+      return () => {
+        document.body.style.overflow = prev;
+      };
+    }, [open]);
+
     // Drag-to-dismiss: global listeners active only while dragging
     useEffect(() => {
       if (!isDragging) return;
@@ -232,11 +243,13 @@ export const BottomSheet = forwardRef<HTMLDivElement, BottomSheetProps>(
               className="fq-bottom-sheet__header"
               onTouchStart={handleDragStart}
             >
-              <button
+              <ButtonBase
+                component="button"
                 ref={closeButtonRef}
                 type="button"
                 className="fq-bottom-sheet__close"
                 aria-label="Close"
+                disableRipple
                 onClick={onClose}
               >
                 <svg
@@ -251,7 +264,7 @@ export const BottomSheet = forwardRef<HTMLDivElement, BottomSheetProps>(
                   <line x1="18" y1="6" x2="6" y2="18" />
                   <line x1="6" y1="6" x2="18" y2="18" />
                 </svg>
-              </button>
+              </ButtonBase>
 
               <h2 id={titleId} className="fq-bottom-sheet__title">
                 {title}
@@ -259,24 +272,28 @@ export const BottomSheet = forwardRef<HTMLDivElement, BottomSheetProps>(
 
               <div className="fq-bottom-sheet__header-end">
                 {action && (
-                  <button
+                  <ButtonBase
+                    component="button"
                     type="button"
                     className="fq-bottom-sheet__action"
+                    disableRipple
                     onClick={action.onClick}
                   >
                     {action.label}
-                  </button>
+                  </ButtonBase>
                 )}
                 {iconActions?.slice(0, 2).map((a) => (
-                  <button
+                  <ButtonBase
+                    component="button"
                     key={a.label}
                     type="button"
                     className="fq-bottom-sheet__icon-action"
                     aria-label={a.label}
+                    disableRipple
                     onClick={a.onClick}
                   >
                     {a.icon}
-                  </button>
+                  </ButtonBase>
                 ))}
               </div>
             </div>

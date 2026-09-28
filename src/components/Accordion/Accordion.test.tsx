@@ -215,7 +215,7 @@ describe('Accordion', () => {
 
   it('controlled: full two-way binding', () => {
     function Controlled() {
-      const [open, setOpen] = useState<string[]>([]);
+      const [open, setOpen] = useState<(string | number)[]>([]);
       return (
         <Accordion expanded={open} onExpandedChange={setOpen}>
           <AccordionItem value="a">

@@ -39,7 +39,7 @@ export const Default: Story = {
 export const Controlled: Story = {
   render: () => {
     // eslint-disable-next-line react-hooks/rules-of-hooks
-    const [value, setValue] = React.useState('a');
+    const [value, setValue] = React.useState<string | number>('a');
     return (
       <Tabs value={value} onValueChange={setValue}>
         <TabList>

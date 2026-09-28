@@ -1,5 +1,12 @@
 @import "./foundations/index.css";
 
+/**
+ * Layer order declaration.
+ * fq > mui > reset — our component styles always win over MUI emotion styles.
+ * This works in tandem with StyledEngineProvider injectFirst (see FqThemeProvider).
+ */
+@layer reset, mui, fq;
+
 * {
   box-sizing: border-box;
 }

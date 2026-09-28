@@ -1,4 +1,5 @@
 import { forwardRef, type ButtonHTMLAttributes, type ReactNode } from 'react';
+import { ButtonBase } from '@mui/material';
 
 import './Button.css';
 
@@ -50,13 +51,16 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       .join(' ');
 
     return (
-      <button
-        {...props}
+      <ButtonBase
         ref={ref}
+        // ButtonBase defaults to <button> — keep explicit for clarity
+        component="button"
         type={type}
         className={buttonClassName}
         disabled={isDisabled}
         aria-busy={loading || undefined}
+        disableRipple
+        {...props}
       >
         {loading ? (
           <span className="fq-button__spinner" aria-hidden="true" />
@@ -67,7 +71,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         <span className="fq-button__content">{children}</span>
 
         {!loading && endIcon}
-      </button>
+      </ButtonBase>
     );
   },
 );

@@ -7,6 +7,7 @@ import {
   type MutableRefObject,
   type ReactNode,
 } from 'react';
+import { ButtonBase } from '@mui/material';
 
 import './Coachmark.css';
 
@@ -163,30 +164,36 @@ export const Coachmark = forwardRef<HTMLDivElement, CoachmarkProps>(
             <div className="fq-coachmark__body">{body}</div>
             <div className="fq-coachmark__actions">
               {onSkip && !isLastStep && (
-                <button
+                <ButtonBase
+                  component="button"
                   type="button"
                   className="fq-coachmark__skip"
+                  disableRipple
                   onClick={onSkip}
                 >
                   {skipLabel}
-                </button>
+                </ButtonBase>
               )}
               {isLastStep ? (
-                <button
+                <ButtonBase
+                  component="button"
                   type="button"
                   className="fq-coachmark__next fq-coachmark__next--done"
+                  disableRipple
                   onClick={onDone}
                 >
                   {doneLabel}
-                </button>
+                </ButtonBase>
               ) : (
-                <button
+                <ButtonBase
+                  component="button"
                   type="button"
                   className="fq-coachmark__next"
+                  disableRipple
                   onClick={onNext}
                 >
                   {nextLabel}
-                </button>
+                </ButtonBase>
               )}
             </div>
           </div>

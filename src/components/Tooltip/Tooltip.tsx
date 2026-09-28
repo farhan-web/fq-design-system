@@ -96,7 +96,7 @@ export const Tooltip = forwardRef<HTMLDivElement, TooltipProps>(
     const leaveTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
     const tooltipId = useId();
 
-    if (delayMs !== undefined && process.env.NODE_ENV !== 'production') {
+    if (delayMs !== undefined && import.meta.env.DEV) {
       console.warn(
         '[Tooltip] `delayMs` is deprecated — use `enterDelay` instead.',
       );

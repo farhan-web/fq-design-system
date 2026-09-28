@@ -4,6 +4,7 @@ import {
   type MouseEvent,
   type ReactNode,
 } from 'react';
+import { ButtonBase } from '@mui/material';
 
 import './NavigationBottom.css';
 
@@ -54,19 +55,21 @@ export const NavigationBottom = forwardRef<HTMLElement, NavigationBottomProps>(
           const isActive = item.value === value;
 
           return (
-            <button
+            <ButtonBase
+              component="button"
               key={item.value}
               type="button"
               aria-current={isActive ? 'page' : undefined}
               aria-label={item.label}
               disabled={item.disabled}
+              disableRipple
               className={[
                 'fq-nav-bottom__item',
                 isActive ? 'fq-nav-bottom__item--active' : '',
               ]
                 .filter(Boolean)
                 .join(' ')}
-              onClick={(e) => {
+              onClick={(e: MouseEvent<HTMLButtonElement>) => {
                 triggerRipple(e);
                 onValueChange(item.value);
               }}
@@ -78,7 +81,7 @@ export const NavigationBottom = forwardRef<HTMLElement, NavigationBottomProps>(
                 )}
               </span>
               <span className="fq-nav-bottom__label">{item.label}</span>
-            </button>
+            </ButtonBase>
           );
         })}
       </nav>

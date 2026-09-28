@@ -10,6 +10,7 @@ import {
   type KeyboardEvent,
   type ReactNode,
 } from 'react';
+import { ButtonBase } from '@mui/material';
 
 import './Tabs.css';
 
@@ -193,7 +194,8 @@ export const Tab = forwardRef<HTMLButtonElement, TabProps>(
     const isSelected = selected === value;
 
     return (
-      <button
+      <ButtonBase
+        component="button"
         {...props}
         ref={ref}
         role="tab"
@@ -205,6 +207,7 @@ export const Tab = forwardRef<HTMLButtonElement, TabProps>(
         id={`${baseId}-tab-${value}`}
         tabIndex={isSelected ? 0 : -1}
         disabled={disabled}
+        disableRipple
         onClick={() => onSelect(value)}
       >
         {icon && (
@@ -214,7 +217,7 @@ export const Tab = forwardRef<HTMLButtonElement, TabProps>(
         )}
         <span className="fq-tabs__trigger-label">{children}</span>
         {badge && <span className="fq-tabs__badge">{badge}</span>}
-      </button>
+      </ButtonBase>
     );
   },
 );

@@ -1,0 +1,85 @@
+/* IconButton — square, icon-only button built on ButtonBase + IconBase
+ * Variants: standard | filled | outlined | ghost
+ * Sizes: xs(24) | sm(28) | md(32) | lg(40) | xl(48)
+ */
+
+.fq-icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+
+  border: 1px solid transparent;
+  border-radius: var(--radius-md);
+
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+
+  transition:
+    background-color 120ms ease,
+    border-color 120ms ease,
+    color 120ms ease,
+    opacity 120ms ease;
+}
+
+.fq-icon-btn:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+.fq-icon-btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+/* ── Sizes ───────────────────────────────────────────────────────────────── */
+
+.fq-icon-btn--xs  { width: 24px;  height: 24px; }
+.fq-icon-btn--sm  { width: 28px;  height: 28px; }
+.fq-icon-btn--md  { width: 32px;  height: 32px; }
+.fq-icon-btn--lg  { width: 40px;  height: 40px; }
+.fq-icon-btn--xl  { width: 48px;  height: 48px; }
+
+/* ── Variant: standard (default) ─────────────────────────────────────────── */
+
+.fq-icon-btn:not(.fq-icon-btn--filled):not(.fq-icon-btn--outlined):hover:not(:disabled) {
+  background: var(--color-neutral-100, rgba(0, 0, 0, 0.06));
+}
+
+/* ── Variant: ghost ─────────────────────────────────────────────────────── */
+
+.fq-icon-btn--ghost:hover:not(:disabled) {
+  background: var(--color-primary-subtle);
+  color: var(--color-primary);
+}
+
+/* ── Variant: filled ─────────────────────────────────────────────────────── */
+
+.fq-icon-btn--filled {
+  background: var(--color-neutral-100, rgba(0, 0, 0, 0.06));
+}
+
+.fq-icon-btn--filled:hover:not(:disabled) {
+  background: var(--color-neutral-200, rgba(0, 0, 0, 0.12));
+}
+
+/* ── Variant: outlined ───────────────────────────────────────────────────── */
+
+.fq-icon-btn--outlined {
+  border-color: var(--color-border, rgba(0, 0, 0, 0.23));
+}
+
+.fq-icon-btn--outlined:hover:not(:disabled) {
+  background: var(--color-neutral-100, rgba(0, 0, 0, 0.06));
+}
+
+/* ── Color modifiers (icon color + accent bg on hover) ───────────────────── */
+
+.fq-icon-btn--primary   { color: var(--color-primary); }
+.fq-icon-btn--secondary { color: var(--color-text-medium); }
+.fq-icon-btn--error     { color: var(--color-danger); }
+.fq-icon-btn--success   { color: var(--color-success); }
+.fq-icon-btn--warning   { color: var(--color-warning-solid); }
+.fq-icon-btn--muted     { color: var(--color-text-disabled); }

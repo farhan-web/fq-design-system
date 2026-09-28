@@ -1,0 +1,55 @@
+/* Snackbar — toast notification built on MUI Snackbar base */
+
+.fq-snackbar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+
+  min-width: 288px;
+  max-width: 560px;
+  padding: var(--space-3) var(--space-4);
+
+  background: var(--color-neutral-900, #1a1a1a);
+  color: var(--color-neutral-0, #ffffff);
+  border-radius: var(--radius-md);
+
+  font-family: var(--font-family);
+  font-size: var(--text-body3-size);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--text-body3-line-height, 1.5);
+
+  box-shadow: var(--elevation-02, 0 4px 12px rgba(0, 0, 0, 0.24));
+}
+
+/* ── Message ─────────────────────────────────────────────────────────────── */
+
+.fq-snackbar__message {
+  flex: 1;
+}
+
+/* ── Action ──────────────────────────────────────────────────────────────── */
+
+.fq-snackbar__action {
+  flex-shrink: 0;
+  margin-left: var(--space-1);
+  color: var(--color-primary-light, #6eb3ff);
+}
+
+/* ── Variants ────────────────────────────────────────────────────────────── */
+
+.fq-snackbar--info {
+  background: var(--color-blue-700, #1565c0);
+}
+
+.fq-snackbar--success {
+  background: var(--color-success-dark, #1b5e20);
+}
+
+.fq-snackbar--warning {
+  background: var(--color-warning-dark, #e65100);
+  color: var(--color-neutral-0, #ffffff);
+}
+
+.fq-snackbar--error {
+  background: var(--color-danger-dark, #b71c1c);
+}
