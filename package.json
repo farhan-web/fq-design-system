@@ -33,19 +33,20 @@
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "test": "vitest run",
+    "test:coverage": "vitest run --coverage",
     "test:watch": "vitest",
     "changeset": "changeset",
     "release": "npm run build && changeset publish"
   },
-  "dependencies": {
-    "lucide-react": "^1.30.0"
+  "sideEffects": ["**/*.css"],
+  "engines": {
+    "node": ">=18"
   },
   "devDependencies": {
+    "lucide-react": "^1.30.0",
     "@changesets/cli": "^2.29.5",
     "@chromatic-com/storybook": "latest",
     "@eslint/js": "^10.0.1",
-    "@hae-fe/hmg-design-system-bo": "0.8.3",
-    "@hmg-fe/hmg-design-system": "^0.6.15",
     "@storybook/addon-a11y": "^10.5.7",
     "@storybook/addon-docs": "^10.5.7",
     "@storybook/addon-onboarding": "^10.5.7",
@@ -90,6 +91,12 @@
   ],
   "peerDependencies": {
     "react": ">=18.0.0",
-    "react-dom": ">=18.0.0"
+    "react-dom": ">=18.0.0",
+    "lucide-react": ">=1.0.0"
+  },
+  "peerDependenciesMeta": {
+    "lucide-react": {
+      "optional": true
+    }
   }
 }

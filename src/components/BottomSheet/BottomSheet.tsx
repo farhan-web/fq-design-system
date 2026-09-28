@@ -2,11 +2,13 @@ import {
   forwardRef,
   useCallback,
   useEffect,
+  useId,
   useRef,
   useState,
   type HTMLAttributes,
   type ReactNode,
 } from 'react';
+import { createPortal } from 'react-dom';
 
 import './BottomSheet.css';
 
@@ -32,7 +34,21 @@ export interface BottomSheetProps extends HTMLAttributes<HTMLDivElement> {
   image?: ReactNode;
   /** Override the maximum height of the sheet (default: '90vh') */
   maxHeight?: string;
+  /**
+   * Disable portal rendering. When false (default), the sheet renders into
+   * document.body so it is never clipped by overflow:hidden ancestors.
+   */
+  disablePortal?: boolean;
   children?: ReactNode;
+}
+
+/** Selects all focusable elements inside a container, excluding aria-hidden ones. */
+function getFocusable(container: HTMLElement): HTMLElement[] {
+  return Array.from(
+    container.querySelectorAll<HTMLElement>(
+      'button:not(:disabled), [href], input:not(:disabled), select:not(:disabled), textarea:not(:disabled), [tabindex]:not([tabindex="-1"])',
+    ),
+  ).filter((el) => !el.closest('[aria-hidden="true"]'));
 }
 
 export const BottomSheet = forwardRef<HTMLDivElement, BottomSheetProps>(
@@ -47,6 +63,7 @@ export const BottomSheet = forwardRef<HTMLDivElement, BottomSheetProps>(
       iconActions,
       image,
       maxHeight,
+      disablePortal = false,
       children,
       className,
       style,
@@ -60,8 +77,10 @@ export const BottomSheet = forwardRef<HTMLDivElement, BottomSheetProps>(
     const [isDragging, setIsDragging] = useState(false);
     const [dragOffset, setDragOffset] = useState(0);
     const closeButtonRef = useRef<HTMLButtonElement>(null);
+    const dialogRef = useRef<HTMLDivElement>(null);
     const bodyRef = useRef<HTMLDivElement>(null);
     const dragStartY = useRef<number | null>(null);
+    const titleId = useId();
 
     useEffect(() => {
       if (open) {
@@ -77,13 +96,40 @@ export const BottomSheet = forwardRef<HTMLDivElement, BottomSheetProps>(
       }
     }, [open]);
 
-    // Trap focus & close on Escape
+    // Escape + focus trap (Tab/Shift+Tab cycles within dialog)
     useEffect(() => {
       if (!open) return;
+
       const onKeyDown = (e: KeyboardEvent) => {
-        if (e.key === 'Escape') onClose();
+        if (e.key === 'Escape') {
+          onClose();
+          return;
+        }
+
+        if (e.key === 'Tab') {
+          const el = dialogRef.current;
+          if (!el) return;
+          const focusable = getFocusable(el);
+          if (focusable.length === 0) return;
+          const first = focusable[0];
+          const last = focusable[focusable.length - 1];
+
+          if (e.shiftKey) {
+            if (document.activeElement === first) {
+              e.preventDefault();
+              last.focus();
+            }
+          } else {
+            if (document.activeElement === last) {
+              e.preventDefault();
+              first.focus();
+            }
+          }
+        }
       };
+
       document.addEventListener('keydown', onKeyDown);
+      // Focus first focusable element (close button if present, otherwise first in body)
       closeButtonRef.current?.focus();
       return () => document.removeEventListener('keydown', onKeyDown);
     }, [open, onClose]);
@@ -126,7 +172,7 @@ export const BottomSheet = forwardRef<HTMLDivElement, BottomSheetProps>(
 
     if (!mounted) return null;
 
-    return (
+    const sheet = (
       <>
         <div
           className={[
@@ -140,10 +186,18 @@ export const BottomSheet = forwardRef<HTMLDivElement, BottomSheetProps>(
         />
         <div
           {...props}
-          ref={ref}
+          ref={(node) => {
+            (
+              dialogRef as React.MutableRefObject<HTMLDivElement | null>
+            ).current = node;
+            if (typeof ref === 'function') ref(node);
+            else if (ref)
+              (ref as React.MutableRefObject<HTMLDivElement | null>).current =
+                node;
+          }}
           role="dialog"
           aria-modal="true"
-          aria-label={title}
+          aria-labelledby={title ? titleId : undefined}
           style={{
             maxHeight: maxHeight ?? '90vh',
             ...style,
@@ -199,7 +253,9 @@ export const BottomSheet = forwardRef<HTMLDivElement, BottomSheetProps>(
                 </svg>
               </button>
 
-              <h2 className="fq-bottom-sheet__title">{title}</h2>
+              <h2 id={titleId} className="fq-bottom-sheet__title">
+                {title}
+              </h2>
 
               <div className="fq-bottom-sheet__header-end">
                 {action && (
@@ -236,6 +292,9 @@ export const BottomSheet = forwardRef<HTMLDivElement, BottomSheetProps>(
         </div>
       </>
     );
+
+    if (disablePortal) return sheet;
+    return createPortal(sheet, document.body);
   },
 );
 

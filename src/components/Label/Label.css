@@ -1,0 +1,255 @@
+.fq-label {
+  display: inline-flex;
+  align-items: center;
+
+  /* default = md; sm overrides below */
+  padding: 4px 8px;
+
+  border-radius: var(--radius-xs);
+  border: 1px solid transparent;
+
+  font-family: var(--font-family);
+  font-size: var(--text-body3-size);
+  font-weight: var(--font-weight-regular);
+  line-height: 1;
+  white-space: nowrap;
+}
+
+/* ================================
+   Icon slot (#2)
+   ================================ */
+
+.fq-label__icon {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  /* default = md icon size; sm overrides below */
+  width: 16px;
+  height: 16px;
+  margin-right: 2px;
+}
+
+/* ================================
+   Countdown slot (#4)
+   ================================ */
+
+.fq-label__countdown {
+  display: inline-flex;
+  align-items: center;
+  margin-left: 4px;
+  /* inherit label text color for solid/gradient variants */
+  color: inherit;
+}
+
+/* Force countdown text to inherit label color (overrides Countdown's own color tokens) */
+.fq-label__countdown .fq-countdown {
+  color: inherit;
+}
+
+.fq-label__countdown .fq-countdown__segment {
+  color: inherit;
+}
+
+.fq-label__countdown .fq-countdown__sep {
+  color: inherit;
+}
+
+/* ================================
+   Soft-tint variants
+   ================================ */
+
+.fq-label--primary {
+  background: var(--color-primary-subtle);
+  color: var(--color-primary);
+}
+
+.fq-label--success {
+  background: var(--color-success-subtle);
+  color: var(--color-success);
+}
+
+.fq-label--danger {
+  background: var(--color-danger-subtle);
+  color: var(--color-danger);
+}
+
+.fq-label--warning {
+  background: var(--color-warning);
+  color: var(--color-warning-text);
+}
+
+.fq-label--neutral {
+  background: var(--color-surface);
+  color: var(--color-text-medium);
+}
+
+/* ================================
+   Outline variants
+   ================================ */
+
+.fq-label--outline-primary {
+  background: transparent;
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.fq-label--outline-success {
+  background: transparent;
+  border-color: var(--color-success);
+  color: var(--color-success);
+}
+
+.fq-label--outline-danger {
+  background: transparent;
+  border-color: var(--color-danger);
+  color: var(--color-danger);
+}
+
+.fq-label--outline-neutral {
+  background: transparent;
+  border-color: var(--color-border-strong);
+  color: var(--color-text-medium);
+}
+
+/* ================================
+   Solid sub-variants (white text)
+   Campaign: R400 / Non-Campaign: O500 / Social: G500 / New Products: B400
+   ================================ */
+
+.fq-label--solid-red {
+  background: var(--color-red-400);
+  color: var(--color-text-inverse);
+}
+
+.fq-label--solid-orange {
+  background: var(--color-orange-500);
+  color: var(--color-text-inverse);
+}
+
+.fq-label--solid-green {
+  background: var(--color-green-500);
+  color: var(--color-text-inverse);
+}
+
+.fq-label--solid-blue {
+  background: var(--color-blue-400);
+  color: var(--color-text-inverse);
+}
+
+/* ================================
+   Gradient sub-variants (white text)
+   GR100 / GO100 / GG100 / GT100 / GV100
+   ================================ */
+
+.fq-label--gradient-red {
+  background: linear-gradient(
+    90deg,
+    var(--color-gradient-red-100),
+    var(--color-gradient-red-200)
+  );
+  color: var(--color-text-inverse);
+}
+
+.fq-label--gradient-orange {
+  background: linear-gradient(
+    90deg,
+    var(--color-gradient-orange-100),
+    var(--color-gradient-orange-200)
+  );
+  color: var(--color-text-inverse);
+}
+
+.fq-label--gradient-green {
+  background: linear-gradient(
+    90deg,
+    var(--color-gradient-green-100),
+    var(--color-gradient-green-200)
+  );
+  color: var(--color-text-inverse);
+}
+
+.fq-label--gradient-tosca {
+  background: linear-gradient(
+    90deg,
+    var(--color-gradient-tosca-100),
+    var(--color-gradient-tosca-200)
+  );
+  color: var(--color-text-inverse);
+}
+
+.fq-label--gradient-violet {
+  background: linear-gradient(
+    90deg,
+    var(--color-gradient-violet-100),
+    var(--color-gradient-violet-200)
+  );
+  color: var(--color-text-inverse);
+}
+
+/* ================================
+   Loading / shimmer
+   ================================ */
+
+@keyframes fq-label-shimmer {
+  0% {
+    background-position: -200% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
+
+.fq-label--loading {
+  color: transparent;
+  background: linear-gradient(
+    90deg,
+    var(--color-neutral-200) 25%,
+    var(--color-neutral-100) 50%,
+    var(--color-neutral-200) 75%
+  );
+  background-size: 200% 100%;
+  animation: fq-label-shimmer 1.4s ease infinite;
+  border-color: transparent;
+  min-width: 48px;
+}
+
+/* ================================
+   Disabled state
+   Overrides variant bg/color (declared after variants)
+   ================================ */
+
+.fq-label--disabled {
+  background: var(--color-surface);
+  color: var(--color-text-disabled);
+  border-color: transparent;
+}
+
+.fq-label--disabled .fq-label__icon {
+  opacity: 0.3;
+}
+
+/* ================================
+   Sizes
+   ================================ */
+
+/* Small — 18px hug height: 2px v-pad + ~14px line-height content */
+.fq-label--sm {
+  padding: 2px 8px;
+  font-size: var(--text-label-sm-size);
+}
+
+.fq-label--sm .fq-label__icon {
+  width: 12px;
+  height: 12px;
+}
+
+/* Medium — 24px hug height: 4px v-pad + ~16px line-height content */
+.fq-label--md {
+  padding: 4px 8px;
+  font-size: var(--text-body3-size);
+}
+
+.fq-label--md .fq-label__icon {
+  width: 16px;
+  height: 16px;
+}

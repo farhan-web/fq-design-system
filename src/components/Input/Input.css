@@ -1,114 +1,279 @@
+/* ================================
+   Field wrapper
+   ================================ */
+
 .fq-input-field {
   display: flex;
   flex-direction: column;
-  gap: var(--space-1-5);
+  gap: var(--spacing-4);   /* 4px between container and helper text */
   width: 100%;
 }
 
-.fq-input-field__label {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-1);
-  font-size: var(--font-size-sm);
-  font-weight: var(--font-weight-medium);
-  line-height: var(--line-height-normal);
-}
+/* ================================
+   Container — 52px fixed-height, floating-label host
+   Spec: Container (#1)
+   ================================ */
 
-.fq-input-field__required {
-  font-size: var(--font-size-sm);
-}
-
-.fq-input-field__control {
+.fq-input-container {
   position: relative;
   display: flex;
   align-items: center;
-}
-
-.fq-input {
-  width: 100%;
-  min-height: 40px;
-  padding: var(--space-2) var(--space-3);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-sm);
-  background: var(--color-background);
-  color: var(--color-text-primary);
-  font: inherit;
-  line-height: 24px;
-  outline: none;
+  height: 52px;                              /* spec: 52px fixed */
+  border: 1px solid var(--color-border);    /* N200 default */
+  border-radius: var(--radius-md);           /* 8px */
+  background: var(--color-background);      /* N0 */
   box-sizing: border-box;
   transition:
     border-color 0.15s ease,
-    box-shadow 0.15s ease,
     background-color 0.15s ease;
 }
 
+/* Focused / typing → B400 border */
+.fq-input-container--focused {
+  border-color: var(--color-text-activity);
+}
+
+/* Error → R400 border (overrides focused) */
+.fq-input-container--error {
+  border-color: var(--color-danger);
+}
+
+.fq-input-container--error.fq-input-container--focused {
+  border-color: var(--color-danger);
+}
+
+/* Disabled */
+.fq-input-container--disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* Read-only → N50 ≈ --color-surface (N100 is closest available token) */
+.fq-input-container--readonly {
+  background: var(--color-surface);
+}
+
+/* ================================
+   Inner content: floating label + input row
+   Full-height flex child.
+   padding-top: 24px always reserves space for the floated label.
+   ================================ */
+
+.fq-input-container__inner {
+  flex: 1;
+  position: relative;
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;     /* input row at exactly 24px from top → 2px gap below floated label */
+  padding: 0 var(--spacing-16);   /* 16px horizontal per spec */
+  padding-top: 24px;              /* 8px label-top + 14px label-height + 2px gap */
+  padding-bottom: var(--spacing-8); /* 8px bottom per spec */
+  min-width: 0;
+  overflow: hidden;
+}
+
+/* Start-icon offset: inner shifts right to clear the icon */
+.fq-input-container--has-start .fq-input-container__inner {
+  padding-left: 8px; /* icon already provides 16px + 20px + 8px = 44px from left */
+}
+
+/* End-icon offset: inner shifts left to clear the icon */
+.fq-input-container--has-end .fq-input-container__inner {
+  padding-right: 8px; /* icon provides 8px + 20px + 16px from right */
+}
+
+/* ================================
+   Floating label
+   Spec: Placeholder Text (#2) — body3-regular, text-LE
+   Unfilled: vertically centered over input area.
+   Focused / filled: top: 8px (floated).
+   ================================ */
+
+.fq-input__label {
+  position: absolute;
+  top: 50%;
+  left: var(--spacing-16);
+  right: var(--spacing-16);
+  transform: translateY(-50%);
+  pointer-events: none;
+
+  font-family: var(--font-family);
+  font-size: var(--text-body3-size);         /* 10px */
+  font-weight: var(--font-weight-regular);   /* 400 — spec: body3-regular */
+  line-height: var(--text-body3-line-height); /* 14px */
+  color: var(--color-text-low);              /* text-LE = N600 */
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: top 0.15s ease, transform 0.15s ease;
+}
+
+/* Floated position: top 8px */
+.fq-input-container--floated .fq-input__label {
+  top: var(--spacing-8);
+  transform: none;
+}
+
+/* Adjust left/right when icons present */
+.fq-input-container--has-start .fq-input__label {
+  left: 8px;
+}
+
+.fq-input-container--has-end .fq-input__label {
+  right: 8px;
+}
+
+/* Error state: label → text-alert */
+.fq-input-container--error .fq-input__label {
+  color: var(--color-text-alert);
+}
+
+/* Required asterisk */
+.fq-input-field__required {
+  color: var(--color-danger);
+}
+
+/* ================================
+   Input row: prefix + native <input>
+   ================================ */
+
+.fq-input-container__row {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  min-width: 0;
+  width: 100%;
+}
+
+/* ================================
+   Prefix text (#6)
+   Spec: body2-regular, text-HE
+   ================================ */
+
+.fq-input__prefix {
+  font-family: var(--font-family);
+  font-size: var(--text-body2-size);          /* 12px */
+  font-weight: var(--font-weight-regular);    /* 400 */
+  line-height: var(--text-body2-line-height); /* 16px */
+  color: var(--color-text-high);             /* text-HE */
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+/* ================================
+   Native <input>
+   Spec: Input Text (#3) — body2-regular
+   Colors: text-LE unfilled / text-HE filled / text-alert error
+   ================================ */
+
+.fq-input {
+  flex: 1;
+  min-width: 0;
+  border: none;
+  background: transparent;
+  outline: none;
+  padding: 0;
+
+  font-family: var(--font-family);
+  font-size: var(--text-body2-size);          /* 12px */
+  font-weight: var(--font-weight-regular);    /* 400 */
+  line-height: var(--text-body2-line-height); /* 16px */
+  color: var(--color-text-low);              /* unfilled: text-LE */
+  box-sizing: border-box;
+}
+
+/* Filled → text-HE */
+.fq-input-container--filled .fq-input {
+  color: var(--color-text-high);
+}
+
+/* Error → text-alert (overrides filled) */
+.fq-input-container--error .fq-input {
+  color: var(--color-text-alert);
+}
+
+/* Placeholder: body3-regular, text-LE */
 .fq-input::placeholder {
-  color: var(--color-text-muted);
-}
-
-.fq-input:hover:not(:disabled) {
-  border-color: var(--color-border-hover);
-}
-
-.fq-input:focus {
-  border-color: var(--color-focus);
-  box-shadow: 0 0 0 3px var(--color-focus-ring);
+  font-size: var(--text-body2-size);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--text-body2-line-height);
+  color: var(--color-text-low);
 }
 
 .fq-input:disabled {
   cursor: not-allowed;
-  background: var(--color-background-disabled);
-  color: var(--color-text-muted);
+  color: var(--color-text-disabled);
 }
 
-.fq-input:read-only {
-  background: var(--color-background-readonly);
-}
-
-.fq-input--error {
-  border-color: var(--color-error);
-}
-
-.fq-input--error:focus {
-  border-color: var(--color-error);
-  box-shadow: 0 0 0 3px var(--color-error-ring);
-}
+/* ================================
+   Icon slots (left / right)
+   Spec: Icon (#5) — color: icon-HE, size 20×20
+   ================================ */
 
 .fq-input-field__icon {
-  position: absolute;
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  color: var(--color-text-high);   /* icon-HE per spec */
   pointer-events: none;
 }
 
 .fq-input-field__icon svg {
-  width: 18px;
-  height: 18px;
+  width: 20px;
+  height: 20px;
 }
 
 .fq-input-field__icon--start {
-  left: var(--space-3);
+  margin-left: var(--spacing-16); /* 16px from container left edge */
+  margin-right: 0;
 }
 
 .fq-input-field__icon--end {
-  right: var(--space-3);
+  margin-right: var(--spacing-16); /* 16px from container right edge */
+  margin-left: 0;
+  pointer-events: auto;
 }
 
-.fq-input--has-start-icon {
-  padding-left: var(--space-10);
+/* ================================
+   Built-in clear button (tds_ic_oval_cross)
+   Visible only when focused + filled.
+   ================================ */
+
+.fq-input__clear-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: transparent;
+  padding: 0;
+  cursor: pointer;
+  color: inherit; /* inherits icon-HE from .fq-input-field__icon wrapper */
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
 }
 
-.fq-input--has-end-icon {
-  padding-right: var(--space-10);
-}
+/* ================================
+   Helper / error message
+   Spec: Helper Text (#4) — body3-regular
+   Color: text-LE / text-alert (error)
+   ================================ */
 
 .fq-input-field__message {
   margin: 0;
-  font-size: 13px;
-  line-height: 18px;
+  font-family: var(--font-family);
+  font-size: var(--text-body3-size);          /* 10px */
+  font-weight: var(--font-weight-regular);    /* 400 */
+  line-height: var(--text-body3-line-height); /* 14px */
+  color: var(--color-text-low);              /* text-LE */
 }
 
 .fq-input-field__message--error {
-  color: var(--color-error);
+  color: var(--color-text-alert);            /* text-alert */
 }

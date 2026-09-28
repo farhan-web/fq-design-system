@@ -9,6 +9,11 @@ export {
 
 export { Checkbox, type CheckboxProps } from './components/Checkbox/Checkbox';
 
+export {
+  CheckboxGroup,
+  type CheckboxGroupProps,
+} from './components/CheckboxGroup/CheckboxGroup';
+
 export { Field, type FieldProps } from './components/Field/Field';
 
 export {
@@ -70,17 +75,20 @@ export {
   Tooltip,
   type TooltipProps,
   type TooltipPlacement,
+  type TooltipArrowAlignment,
 } from './components/Tooltip/Tooltip';
 
 export {
   Banner,
   type BannerProps,
   type BannerVariant,
+  type BannerLayout,
 } from './components/Banner/Banner';
 
 export {
   BottomSheet,
   type BottomSheetProps,
+  type BottomSheetIconAction,
 } from './components/BottomSheet/BottomSheet';
 
 export {
@@ -93,6 +101,7 @@ export {
   Countdown,
   type CountdownProps,
   type CountdownVariant,
+  type CountdownDisplay,
 } from './components/Countdown/Countdown';
 
 export {
@@ -102,6 +111,11 @@ export {
   type BannerGradientPageControl,
   type BannerGradientProps,
 } from './components/BannerGradient/BannerGradient';
+
+export {
+  BannerInfo,
+  type BannerInfoProps,
+} from './components/BannerInfo/BannerInfo';
 
 export {
   Coachmark,

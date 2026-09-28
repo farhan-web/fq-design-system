@@ -30,8 +30,8 @@ export interface BannerGradientProps extends HTMLAttributes<HTMLDivElement> {
   gradient?: BannerGradientGradient;
   /** Left icon — unremovable per spec; strongly recommended */
   icon?: ReactNode;
-  /** Main text content — body 3 style */
-  text: string;
+  /** Main text content — body 3 style. Supports ReactNode for bold+regular mixed content. */
+  text: ReactNode;
   /** Use bold weight instead of semibold (default: false) */
   bold?: boolean;
   /** Countdown slot — small variant only */

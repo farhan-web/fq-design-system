@@ -1,0 +1,186 @@
+.fq-tabs {}
+
+/* ================================
+   Tab list — scrollable strip
+   ================================ */
+
+.fq-tabs__list {
+  display: flex;
+  align-items: flex-end;
+  gap: 0;
+  border-bottom: 1px solid var(--color-border);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.fq-tabs__list::-webkit-scrollbar {
+  display: none;
+}
+
+/* ================================
+   Tab trigger
+   ================================ */
+
+.fq-tabs__trigger {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  /* spec: align-left */
+  justify-content: flex-start;
+  /* icon-to-text gap = 8px per spec dimension */
+  gap: var(--spacing-8);
+
+  height: 52px;
+  /* spec: 12px horizontal padding ("internal Tab list padding") */
+  padding: 0 var(--spacing-12);
+
+  border: none;
+  background: transparent;
+  color: var(--color-text-low);
+  min-width: 0;
+
+  font-family: var(--font-family);
+  /* spec: body2-bold for ALL tabs (inactive and active) */
+  font-size: var(--text-body2-size);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--text-body2-line-height);
+  white-space: nowrap;
+  cursor: pointer;
+
+  transition: color 120ms ease;
+}
+
+/* ================================
+   Equally distributed — tabs fill container width
+   Spec: "Equally Distributed: True" variant
+   ================================ */
+
+.fq-tabs__list--equal .fq-tabs__trigger {
+  flex: 1;
+  overflow: hidden;
+  justify-content: center;
+}
+
+/* ================================
+   Active indicator (bottom underline)
+   Spec: 3px height, full width, radius top-left+top-right 3px
+   Color: B400 = --color-text-activity (light) / N0 (invert)
+   ================================ */
+
+.fq-tabs__trigger::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 3px;
+  border-radius: 3px 3px 0 0;
+  background: var(--color-text-activity);
+  transition: width 200ms ease;
+}
+
+.fq-tabs__trigger:hover:not(:disabled):not([aria-selected="true"]) {
+  color: var(--color-text-medium);
+}
+
+/* Active state: color = text-activity, font stays body2-bold */
+.fq-tabs__trigger[aria-selected="true"] {
+  color: var(--color-text-activity);
+}
+
+/* Active indicator: full width of tab */
+.fq-tabs__trigger[aria-selected="true"]::after {
+  width: 100%;
+}
+
+.fq-tabs__trigger:focus-visible {
+  outline: 2px solid var(--color-text-activity);
+  outline-offset: -2px;
+}
+
+.fq-tabs__trigger:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* ================================
+   Icon slot — 20×20 per spec
+   ================================ */
+
+.fq-tabs__trigger-icon {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+}
+
+.fq-tabs__trigger-icon svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* ================================
+   Label — truncation: end, max 1 line per spec
+   ================================ */
+
+.fq-tabs__trigger-label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-width: 0;
+}
+
+/* ================================
+   Badge slot — space text-to-badge = 4px
+   Use negative margin to fine-tune from gap: 8px → 4px
+   ================================ */
+
+.fq-tabs__badge {
+  display: inline-flex;
+  flex-shrink: 0;
+  margin-left: -4px; /* gap is 8px, badge needs 4px → net 4px */
+}
+
+/* ================================
+   Invert / dark surface variant
+   Spec: inactive = invert alpha 40%, active = invert (N0)
+   ================================ */
+
+.fq-tabs--invert .fq-tabs__list {
+  border-bottom-color: rgb(255 255 255 / 20%);
+  background: var(--color-neutral-800);
+}
+
+.fq-tabs--invert .fq-tabs__trigger {
+  /* spec: Inactivated Invert Text Alpha 40% */
+  color: rgb(255 255 255 / 40%);
+}
+
+.fq-tabs--invert .fq-tabs__trigger:hover:not(:disabled):not([aria-selected="true"]) {
+  color: rgb(255 255 255 / 60%);
+}
+
+/* spec: Activated Invert Text = N0 (text-inverse) */
+.fq-tabs--invert .fq-tabs__trigger[aria-selected="true"] {
+  color: var(--color-text-inverse);
+}
+
+/* spec: active indicator invert = N0 */
+.fq-tabs--invert .fq-tabs__trigger::after {
+  background: var(--color-text-inverse);
+}
+
+/* ================================
+   Tab panel
+   ================================ */
+
+.fq-tabs__panel {
+  padding-top: var(--spacing-16);
+}
+
+.fq-tabs__panel:focus-visible {
+  outline: 2px solid var(--color-text-activity);
+  outline-offset: 2px;
+}

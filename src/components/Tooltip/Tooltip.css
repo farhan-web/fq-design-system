@@ -1,0 +1,280 @@
+.fq-tooltip {
+  position: relative;
+  display: inline-flex;
+}
+
+.fq-tooltip__content {
+  position: absolute;
+  z-index: var(--z-index-tooltip);
+
+  max-width: 280px;
+  padding: var(--spacing-12);
+
+  background: var(--color-neutral-800);
+  color: var(--color-text-inverse);
+  border-radius: var(--radius-md);
+  font-family: var(--font-family);
+  font-size: var(--text-body3-size);          /* body3 */
+  font-weight: var(--font-weight-regular);    /* body3-regular per spec */
+  line-height: var(--text-body3-line-height);
+  text-align: left;
+  white-space: normal;
+  word-break: break-word;
+
+  pointer-events: none;
+  opacity: 0;
+  transform: scale(0.95);
+  transition: opacity 150ms ease, transform 150ms ease;
+}
+
+.fq-tooltip__content--visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* body3-bold variant per spec */
+.fq-tooltip__content--bold {
+  font-weight: var(--font-weight-bold);
+}
+
+/* ── Placement: base 4 ─────────────────────────────────────────── */
+
+.fq-tooltip__content--top {
+  bottom: calc(100% + var(--spacing-12));
+  left: 50%;
+  transform: translateX(-50%) scale(0.95);
+}
+
+.fq-tooltip__content--top.fq-tooltip__content--visible {
+  transform: translateX(-50%) scale(1);
+}
+
+.fq-tooltip__content--bottom {
+  top: calc(100% + var(--spacing-12));
+  left: 50%;
+  transform: translateX(-50%) scale(0.95);
+}
+
+.fq-tooltip__content--bottom.fq-tooltip__content--visible {
+  transform: translateX(-50%) scale(1);
+}
+
+.fq-tooltip__content--left {
+  right: calc(100% + var(--spacing-12));
+  top: 50%;
+  transform: translateY(-50%) scale(0.95);
+}
+
+.fq-tooltip__content--left.fq-tooltip__content--visible {
+  transform: translateY(-50%) scale(1);
+}
+
+.fq-tooltip__content--right {
+  left: calc(100% + var(--spacing-12));
+  top: 50%;
+  transform: translateY(-50%) scale(0.95);
+}
+
+.fq-tooltip__content--right.fq-tooltip__content--visible {
+  transform: translateY(-50%) scale(1);
+}
+
+/* ── Placement: top-start / top-end ───────────────────────────── */
+
+.fq-tooltip__content--top-start {
+  bottom: calc(100% + var(--spacing-12));
+  left: 0;
+  transform: scale(0.95);
+  transform-origin: bottom left;
+}
+
+.fq-tooltip__content--top-start.fq-tooltip__content--visible {
+  transform: scale(1);
+}
+
+.fq-tooltip__content--top-end {
+  bottom: calc(100% + var(--spacing-12));
+  right: 0;
+  left: auto;
+  transform: scale(0.95);
+  transform-origin: bottom right;
+}
+
+.fq-tooltip__content--top-end.fq-tooltip__content--visible {
+  transform: scale(1);
+}
+
+/* ── Placement: bottom-start / bottom-end ────────────────────── */
+
+.fq-tooltip__content--bottom-start {
+  top: calc(100% + var(--spacing-12));
+  left: 0;
+  transform: scale(0.95);
+  transform-origin: top left;
+}
+
+.fq-tooltip__content--bottom-start.fq-tooltip__content--visible {
+  transform: scale(1);
+}
+
+.fq-tooltip__content--bottom-end {
+  top: calc(100% + var(--spacing-12));
+  right: 0;
+  left: auto;
+  transform: scale(0.95);
+  transform-origin: top right;
+}
+
+.fq-tooltip__content--bottom-end.fq-tooltip__content--visible {
+  transform: scale(1);
+}
+
+/* ── Placement: left-start / left-end ────────────────────────── */
+
+.fq-tooltip__content--left-start {
+  right: calc(100% + var(--spacing-12));
+  top: 0;
+  transform: scale(0.95);
+  transform-origin: top right;
+}
+
+.fq-tooltip__content--left-start.fq-tooltip__content--visible {
+  transform: scale(1);
+}
+
+.fq-tooltip__content--left-end {
+  right: calc(100% + var(--spacing-12));
+  bottom: 0;
+  top: auto;
+  transform: scale(0.95);
+  transform-origin: bottom right;
+}
+
+.fq-tooltip__content--left-end.fq-tooltip__content--visible {
+  transform: scale(1);
+}
+
+/* ── Placement: right-start / right-end ──────────────────────── */
+
+.fq-tooltip__content--right-start {
+  left: calc(100% + var(--spacing-12));
+  top: 0;
+  transform: scale(0.95);
+  transform-origin: top left;
+}
+
+.fq-tooltip__content--right-start.fq-tooltip__content--visible {
+  transform: scale(1);
+}
+
+.fq-tooltip__content--right-end {
+  left: calc(100% + var(--spacing-12));
+  bottom: 0;
+  top: auto;
+  transform: scale(0.95);
+  transform-origin: bottom left;
+}
+
+.fq-tooltip__content--right-end.fq-tooltip__content--visible {
+  transform: scale(1);
+}
+
+/* ── Arrow base ───────────────────────────────────────────────── */
+
+.fq-tooltip__arrow {
+  position: absolute;
+  width: 0;
+  height: 0;
+  border: 8px solid transparent;
+}
+
+/* Arrow direction: top axis (tooltip above trigger → arrow points down) */
+.fq-tooltip__content--top .fq-tooltip__arrow,
+.fq-tooltip__content--top-start .fq-tooltip__arrow,
+.fq-tooltip__content--top-end .fq-tooltip__arrow {
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border-top-color: var(--color-neutral-800);
+  border-bottom: none;
+}
+
+/* Arrow direction: bottom axis (tooltip below trigger → arrow points up) */
+.fq-tooltip__content--bottom .fq-tooltip__arrow,
+.fq-tooltip__content--bottom-start .fq-tooltip__arrow,
+.fq-tooltip__content--bottom-end .fq-tooltip__arrow {
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border-bottom-color: var(--color-neutral-800);
+  border-top: none;
+}
+
+/* Arrow direction: left axis (tooltip to the left → arrow points right) */
+.fq-tooltip__content--left .fq-tooltip__arrow,
+.fq-tooltip__content--left-start .fq-tooltip__arrow,
+.fq-tooltip__content--left-end .fq-tooltip__arrow {
+  left: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  border-left-color: var(--color-neutral-800);
+  border-right: none;
+}
+
+/* Arrow direction: right axis (tooltip to the right → arrow points left) */
+.fq-tooltip__content--right .fq-tooltip__arrow,
+.fq-tooltip__content--right-start .fq-tooltip__arrow,
+.fq-tooltip__content--right-end .fq-tooltip__arrow {
+  right: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  border-right-color: var(--color-neutral-800);
+  border-left: none;
+}
+
+/* ── Arrow alignment on top/bottom axis (start / end) ──────────
+   safe space = 12px from edge; half-arrow = 8px → offset = 20px  */
+
+.fq-tooltip__content--top .fq-tooltip__arrow--start,
+.fq-tooltip__content--bottom .fq-tooltip__arrow--start,
+.fq-tooltip__content--top-start .fq-tooltip__arrow--start,
+.fq-tooltip__content--top-end .fq-tooltip__arrow--start,
+.fq-tooltip__content--bottom-start .fq-tooltip__arrow--start,
+.fq-tooltip__content--bottom-end .fq-tooltip__arrow--start {
+  left: calc(var(--spacing-12) + 8px);
+  transform: none;
+}
+
+.fq-tooltip__content--top .fq-tooltip__arrow--end,
+.fq-tooltip__content--bottom .fq-tooltip__arrow--end,
+.fq-tooltip__content--top-start .fq-tooltip__arrow--end,
+.fq-tooltip__content--top-end .fq-tooltip__arrow--end,
+.fq-tooltip__content--bottom-start .fq-tooltip__arrow--end,
+.fq-tooltip__content--bottom-end .fq-tooltip__arrow--end {
+  left: auto;
+  right: calc(var(--spacing-12) + 8px);
+  transform: none;
+}
+
+/* ── Arrow alignment on left/right axis (start / end) ─────────── */
+
+.fq-tooltip__content--left .fq-tooltip__arrow--start,
+.fq-tooltip__content--right .fq-tooltip__arrow--start,
+.fq-tooltip__content--left-start .fq-tooltip__arrow--start,
+.fq-tooltip__content--left-end .fq-tooltip__arrow--start,
+.fq-tooltip__content--right-start .fq-tooltip__arrow--start,
+.fq-tooltip__content--right-end .fq-tooltip__arrow--start {
+  top: calc(var(--spacing-12) + 8px);
+  transform: none;
+}
+
+.fq-tooltip__content--left .fq-tooltip__arrow--end,
+.fq-tooltip__content--right .fq-tooltip__arrow--end,
+.fq-tooltip__content--left-start .fq-tooltip__arrow--end,
+.fq-tooltip__content--left-end .fq-tooltip__arrow--end,
+.fq-tooltip__content--right-start .fq-tooltip__arrow--end,
+.fq-tooltip__content--right-end .fq-tooltip__arrow--end {
+  top: auto;
+  bottom: calc(var(--spacing-12) + 8px);
+  transform: none;
+}

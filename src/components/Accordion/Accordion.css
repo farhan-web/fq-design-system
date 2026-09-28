@@ -1,0 +1,90 @@
+.fq-accordion {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-8);
+}
+
+.fq-accordion__item {
+  background: var(--color-background);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.fq-accordion__trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-8);
+  width: 100%;
+  padding: var(--spacing-16);
+
+  border: none;
+  background: transparent;
+  color: var(--color-text-high);
+  text-align: left;
+
+  font-family: var(--font-family);
+  font-size: var(--text-body2-size);
+  font-weight: var(--font-weight-bold);
+
+  cursor: pointer;
+  transition: background-color 120ms ease;
+}
+
+.fq-accordion__trigger:hover:not(:disabled) {
+  background: var(--color-surface);
+}
+
+.fq-accordion__trigger:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: -2px;
+}
+
+.fq-accordion__trigger:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.fq-accordion__icon {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  color: var(--color-text-high);
+  transition: transform 200ms ease;
+}
+
+.fq-accordion__item--open .fq-accordion__icon {
+  transform: rotate(180deg);
+}
+
+.fq-accordion__content {
+  overflow: hidden;
+  transition: height 200ms ease;
+}
+
+.fq-accordion__body {
+  padding: 0 var(--spacing-16) var(--spacing-16);
+  color: var(--color-text-medium);
+  font-size: var(--text-body2-size);
+  line-height: var(--line-height-normal);
+}
+
+/* ================================
+   Inside Card variant
+   (insideCard=true → each item is an elevated card)
+   ================================ */
+
+.fq-accordion--inside-card .fq-accordion__item {
+  border: none;
+  box-shadow: var(--elevation-01);
+}
+
+.fq-accordion--inside-card .fq-accordion__trigger {
+  padding: var(--spacing-16) var(--space-5);
+  gap: var(--spacing-12);
+}
+
+.fq-accordion--inside-card .fq-accordion__body {
+  padding: 0 var(--space-5) var(--spacing-16);
+}

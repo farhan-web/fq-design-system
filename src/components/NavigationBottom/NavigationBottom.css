@@ -1,0 +1,122 @@
+/* ================================
+   Container
+   ================================ */
+
+.fq-nav-bottom {
+  display: flex;
+  align-items: stretch;
+  justify-content: space-around;
+
+  min-height: 64px;
+  padding: 0;
+  padding-bottom: env(safe-area-inset-bottom, 0);
+
+  background: var(--color-background);
+  box-shadow: var(--elevation-01);
+}
+
+/* ================================
+   Tab item
+   ================================ */
+
+.fq-nav-bottom__item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+
+  flex: 1;
+  min-width: 0;
+  /* 12px top · 4px lr · 8px bottom — spec dimension */
+  padding: var(--spacing-12) var(--spacing-4) var(--spacing-8);
+
+  border: none;
+  background: transparent;
+  color: var(--color-text-low);
+  overflow: hidden;
+  position: relative;
+
+  font-family: var(--font-family);
+  font-size: var(--text-body3-size);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--text-body3-line-height);
+
+  cursor: pointer;
+  transition: color 120ms ease;
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.fq-nav-bottom__item:focus-visible {
+  outline: 2px solid var(--color-text-activity);
+  outline-offset: -2px;
+}
+
+.fq-nav-bottom__item:disabled {
+  color: var(--color-text-disabled);
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* ================================
+   Active state
+   ================================ */
+
+.fq-nav-bottom__item--active {
+  color: var(--color-text-activity);
+}
+
+/* ================================
+   Icon slot
+   ================================ */
+
+.fq-nav-bottom__icon {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+  position: relative;
+}
+
+/* ================================
+   Badge on icon (top-right)
+   ================================ */
+
+.fq-nav-bottom__badge {
+  position: absolute;
+  top: -4px;
+  right: -6px;
+}
+
+/* ================================
+   Label — no truncation per spec
+   ================================ */
+
+.fq-nav-bottom__label {
+  white-space: nowrap;
+  text-align: center;
+}
+
+/* ================================
+   Ripple effect
+   "tap each box and using ripple from card view" — spec tap-area
+   ================================ */
+
+@keyframes fq-nav-ripple {
+  to {
+    transform: scale(4);
+    opacity: 0;
+  }
+}
+
+.fq-nav-bottom__ripple {
+  position: absolute;
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  transform: scale(0);
+  background: currentColor;
+  opacity: 0.15;
+  pointer-events: none;
+  animation: fq-nav-ripple 400ms ease-out forwards;
+}

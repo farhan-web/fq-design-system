@@ -2,7 +2,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 4px;
+  gap: var(--spacing-4);
 
   height: 18px;
   padding: 2px 6px;
@@ -40,7 +40,7 @@
 }
 
 .fq-badge--solid-warning {
-  background: #F5A623;
+  background: var(--color-warning-solid);
   color: var(--color-text-inverse);
   border-color: var(--color-background);
 }

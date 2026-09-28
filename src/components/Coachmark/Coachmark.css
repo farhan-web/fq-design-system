@@ -1,0 +1,290 @@
+.fq-coachmark-anchor {
+  position: relative;
+  display: inline-block;
+}
+
+.fq-coachmark {
+  position: absolute;
+  z-index: var(--z-index-tooltip);
+  width: 260px;
+  padding: var(--spacing-16);
+  border-radius: var(--radius-md);
+  background: var(--color-surface-raised);
+  color: var(--color-text-high);
+  box-shadow: var(--elevation-04);
+}
+
+/* ── Placement: base 4 ──────────────────────────────────────── */
+
+.fq-coachmark--bottom {
+  top: calc(100% + var(--spacing-8));
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.fq-coachmark--top {
+  bottom: calc(100% + var(--spacing-8));
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.fq-coachmark--left {
+  right: calc(100% + var(--spacing-8));
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.fq-coachmark--right {
+  left: calc(100% + var(--spacing-8));
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* ── Placement: bottom-start / bottom-end ───────────────────── */
+
+.fq-coachmark--bottom-start {
+  top: calc(100% + var(--spacing-8));
+  left: 0;
+}
+
+.fq-coachmark--bottom-end {
+  top: calc(100% + var(--spacing-8));
+  right: 0;
+  left: auto;
+}
+
+/* ── Placement: top-start / top-end ────────────────────────── */
+
+.fq-coachmark--top-start {
+  bottom: calc(100% + var(--spacing-8));
+  left: 0;
+}
+
+.fq-coachmark--top-end {
+  bottom: calc(100% + var(--spacing-8));
+  right: 0;
+  left: auto;
+}
+
+/* ── Placement: left-start / left-end ──────────────────────── */
+
+.fq-coachmark--left-start {
+  right: calc(100% + var(--spacing-8));
+  top: 0;
+}
+
+.fq-coachmark--left-end {
+  right: calc(100% + var(--spacing-8));
+  bottom: 0;
+  top: auto;
+}
+
+/* ── Placement: right-start / right-end ────────────────────── */
+
+.fq-coachmark--right-start {
+  left: calc(100% + var(--spacing-8));
+  top: 0;
+}
+
+.fq-coachmark--right-end {
+  left: calc(100% + var(--spacing-8));
+  bottom: 0;
+  top: auto;
+}
+
+/* ── Arrow base ─────────────────────────────────────────────── */
+/*
+ * Mirrors Tooltip arrow pattern (fq-tooltip__arrow).
+ * 8px arrow (larger than Tooltip's 5px — coachmark card is richer).
+ * Arrow fills the spacing-8 gap between anchor and card.
+ */
+
+.fq-coachmark__arrow {
+  position: absolute;
+  width: 0;
+  height: 0;
+  border: 8px solid transparent;
+}
+
+/* bottom axis (card below) → arrow at TOP of card, points UP */
+.fq-coachmark--bottom .fq-coachmark__arrow,
+.fq-coachmark--bottom-start .fq-coachmark__arrow,
+.fq-coachmark--bottom-end .fq-coachmark__arrow {
+  bottom: 100%;
+  border-bottom-color: var(--color-surface-raised);
+  border-top: none;
+}
+
+/* top axis (card above) → arrow at BOTTOM of card, points DOWN */
+.fq-coachmark--top .fq-coachmark__arrow,
+.fq-coachmark--top-start .fq-coachmark__arrow,
+.fq-coachmark--top-end .fq-coachmark__arrow {
+  top: 100%;
+  border-top-color: var(--color-surface-raised);
+  border-bottom: none;
+}
+
+/* left axis (card to left) → arrow at RIGHT of card, points RIGHT */
+.fq-coachmark--left .fq-coachmark__arrow,
+.fq-coachmark--left-start .fq-coachmark__arrow,
+.fq-coachmark--left-end .fq-coachmark__arrow {
+  left: 100%;
+  border-left-color: var(--color-surface-raised);
+  border-right: none;
+}
+
+/* right axis (card to right) → arrow at LEFT of card, points LEFT */
+.fq-coachmark--right .fq-coachmark__arrow,
+.fq-coachmark--right-start .fq-coachmark__arrow,
+.fq-coachmark--right-end .fq-coachmark__arrow {
+  right: 100%;
+  border-right-color: var(--color-surface-raised);
+  border-left: none;
+}
+
+/* ── Arrow horizontal position for bottom/top axis ─────────── */
+
+/* Center (base bottom/top) */
+.fq-coachmark--bottom .fq-coachmark__arrow,
+.fq-coachmark--top .fq-coachmark__arrow {
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* Start-aligned variants: arrow near left edge */
+.fq-coachmark--bottom-start .fq-coachmark__arrow,
+.fq-coachmark--top-start .fq-coachmark__arrow {
+  left: 20px;
+}
+
+/* End-aligned variants: arrow near right edge */
+.fq-coachmark--bottom-end .fq-coachmark__arrow,
+.fq-coachmark--top-end .fq-coachmark__arrow {
+  right: 20px;
+  left: auto;
+}
+
+/* ── Arrow vertical position for left/right axis ───────────── */
+
+/* Center (base left/right) */
+.fq-coachmark--left .fq-coachmark__arrow,
+.fq-coachmark--right .fq-coachmark__arrow {
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* Start-aligned variants: arrow near top edge */
+.fq-coachmark--left-start .fq-coachmark__arrow,
+.fq-coachmark--right-start .fq-coachmark__arrow {
+  top: 20px;
+}
+
+/* End-aligned variants: arrow near bottom edge */
+.fq-coachmark--left-end .fq-coachmark__arrow,
+.fq-coachmark--right-end .fq-coachmark__arrow {
+  bottom: 20px;
+  top: auto;
+}
+
+/* ── Illustration ───────────────────────────────────────────── */
+
+.fq-coachmark__illustration {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: var(--spacing-12);
+}
+
+/* ── Steps ──────────────────────────────────────────────────── */
+
+.fq-coachmark__steps {
+  font-family: var(--font-family);
+  font-size: var(--text-body3-size);
+  font-weight: var(--text-body3-weight);
+  line-height: var(--text-body3-line-height);
+  color: var(--color-text-low);
+  margin: 0 0 var(--spacing-4);
+}
+
+/* ── Title ──────────────────────────────────────────────────── */
+
+.fq-coachmark__title {
+  font-family: var(--font-family);
+  font-size: var(--text-h3-size);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--text-h3-line-height);
+  color: var(--color-text-high);
+  margin: 0 0 var(--spacing-8);
+}
+
+/* ── Body ───────────────────────────────────────────────────── */
+
+.fq-coachmark__body {
+  font-family: var(--font-family);
+  font-size: var(--text-body2-size);
+  font-weight: var(--text-body2-weight);
+  line-height: var(--text-body2-line-height);
+  color: var(--color-text-medium);
+  margin-bottom: var(--spacing-12);
+}
+
+/* ── Actions ────────────────────────────────────────────────── */
+
+.fq-coachmark__actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--spacing-8);
+}
+
+.fq-coachmark__skip {
+  /* margin-right: auto pushes skip to far left, next to far right */
+  margin-right: auto;
+  background: transparent;
+  border: none;
+  padding: var(--spacing-4) var(--spacing-8);
+  font-family: var(--font-family);
+  font-size: var(--text-body3-size);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--text-body3-line-height);
+  color: var(--color-primary);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: opacity 120ms ease;
+}
+
+.fq-coachmark__skip:hover {
+  opacity: 0.8;
+}
+
+.fq-coachmark__skip:active {
+  opacity: 0.6;
+}
+
+.fq-coachmark__next {
+  background: var(--color-primary);
+  border: none;
+  padding: var(--spacing-4) var(--spacing-12);
+  font-family: var(--font-family);
+  font-size: var(--text-body3-size);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--text-body3-line-height);
+  color: var(--color-text-inverse);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: opacity 120ms ease;
+}
+
+.fq-coachmark__next:hover {
+  opacity: 0.88;
+}
+
+.fq-coachmark__next:active {
+  opacity: 0.75;
+}
+
+.fq-coachmark__next:focus-visible,
+.fq-coachmark__skip:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}

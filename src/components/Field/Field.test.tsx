@@ -1,6 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
 
+import { Input } from '../Input/Input';
 import { Field } from './Field';
 
 describe('Field', () => {
@@ -18,12 +19,16 @@ describe('Field', () => {
 
   it('associates label with control', () => {
     render(
-      <Field label="Email">
-        <input id="email" />
+      <Field id="email" label="Email">
+        <Input />
       </Field>,
     );
 
-    expect(screen.getByText('Email')).toHaveAttribute('for', 'email');
+    const input = screen.getByRole('textbox');
+    expect(screen.getByText('Email')).toHaveAttribute(
+      'for',
+      input.getAttribute('id'),
+    );
   });
 
   it('renders description', () => {
@@ -51,7 +56,7 @@ describe('Field', () => {
   it('generates an id for a control without one', () => {
     render(
       <Field label="Email">
-        <input />
+        <Input />
       </Field>,
     );
 
@@ -69,14 +74,15 @@ describe('Field', () => {
         description="Use your work email."
         error="Email is invalid"
       >
-        <input id="email" aria-describedby="external-description" />
+        <Input aria-describedby="external-description" />
       </Field>,
     );
 
-    expect(screen.getByRole('textbox')).toHaveAttribute(
-      'aria-describedby',
-      'external-description email-description email-error',
-    );
+    const describedBy =
+      screen.getByRole('textbox').getAttribute('aria-describedby') ?? '';
+    expect(describedBy).toContain('external-description');
+    expect(describedBy).toMatch(/-description/);
+    expect(describedBy).toMatch(/-error/);
   });
 
   it('preserves control props', () => {

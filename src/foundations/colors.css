@@ -97,6 +97,7 @@
   --color-text-positive: var(--color-green-500);
   --color-text-analytic: var(--color-orange-500);
   --color-text-usp: var(--color-tosca-500);
+  --color-warning-solid: #F5A623;
   --color-warning-text: #7C5A00;
   --color-warning-border: var(--color-yellow-100);
 

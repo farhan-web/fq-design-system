@@ -1,7 +1,31 @@
 {
   "permissions": {
     "allow": [
-      "Bash(gh pr:*)"
+      "Bash(gh pr:*)",
+      "mcp__plugin_ecc_chrome-devtools__new_page",
+      "mcp__plugin_ecc_chrome-devtools__wait_for",
+      "mcp__plugin_ecc_chrome-devtools__navigate_page",
+      "mcp__plugin_ecc_chrome-devtools__take_snapshot",
+      "mcp__plugin_ecc_chrome-devtools__take_screenshot",
+      "mcp__plugin_ecc_chrome-devtools__evaluate_script",
+      "mcp__plugin_ecc_chrome-devtools__close_page",
+      "Bash(npx playwright:*)",
+      "Bash(node:*)",
+      "Bash(npm test:*)",
+      "Bash(npm run:*)",
+      "Bash(.changeset/phase-b-components.md:*)",
+      "Bash(C:/Users/HAEID/IdeaProjects/fq-design-system/.changeset/banner-gradient-coachmark.md:*)",
+      "mcp__plugin_ecc_chrome-devtools__list_pages",
+      "WebFetch(domain:tiket.design)",
+      "mcp__plugin_ecc_chrome-devtools__press_key",
+      "mcp__plugin_ecc_chrome-devtools__list_network_requests",
+      "WebFetch(domain:framerusercontent.com)",
+      "Bash(npx vitest:*)",
+      "Bash(npx tsc:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(node -e \":*)",
+      "Bash(node -e \"console.log\\(require\\(''./package.json''\\).name\\)\")"
     ]
   }
 }

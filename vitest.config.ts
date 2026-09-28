@@ -5,5 +5,16 @@ export default defineConfig({
     globals: true,
     environment: 'jsdom',
     setupFiles: ['./vitest.setup.ts'],
+    coverage: {
+      provider: 'v8',
+      reporter: ['text', 'lcov'],
+      include: ['src/components/**', 'src/hooks/**'],
+      exclude: ['**/*.stories.tsx', '**/*.test.tsx', '**/index.ts'],
+      thresholds: {
+        lines: 80,
+        functions: 80,
+        branches: 70,
+      },
+    },
   },
 });

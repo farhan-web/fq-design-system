@@ -50,7 +50,7 @@
 
 .fq-switch__input:hover:not(:disabled)
   + .fq-switch__control {
-  background: var(--color-text-secondary);
+  background: var(--color-border-strong);
 }
 
 .fq-switch__input:checked
@@ -80,25 +80,25 @@
 }
 
 .fq-switch__label {
-  font-size: var(--font-size-sm);
-  line-height: var(--line-height-normal);
-  color: var(--color-text-primary);
+  font-size: var(--text-body2-size);
+  line-height: var(--text-body2-line-height);
+  color: var(--color-text-high);
   user-select: none;
 }
 
 .fq-switch-field__message {
   margin-left: 48px;
-  font-size: var(--font-size-xs);
-  line-height: var(--line-height-normal);
-  color: var(--color-text-secondary);
+  font-size: var(--text-body3-size);
+  line-height: var(--text-body3-line-height);
+  color: var(--color-text-low);
 }
 
 .fq-switch-field--error
   .fq-switch__control {
-  background: var(--color-error);
+  background: var(--color-danger);
 }
 
 .fq-switch-field--error
   .fq-switch-field__message {
-  color: var(--color-error);
+  color: var(--color-danger);
 }

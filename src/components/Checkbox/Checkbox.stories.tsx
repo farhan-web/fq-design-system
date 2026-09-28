@@ -35,6 +35,10 @@ const meta = {
       control: 'boolean',
       description: 'Marks the checkbox as required.',
     },
+    readOnly: {
+      control: 'boolean',
+      description: 'Prevents interaction but preserves visual checked state.',
+    },
   },
 } satisfies Meta<typeof Checkbox>;
 
@@ -76,6 +80,15 @@ export const WithError: Story = {
   },
 };
 
+export const ErrorChecked: Story = {
+  name: 'Error / Checked',
+  args: {
+    label: 'Accept terms',
+    checked: true,
+    error: 'You must accept the terms.',
+  },
+};
+
 export const Disabled: Story = {
   args: {
     label: 'Unavailable option',
@@ -91,6 +104,23 @@ export const DisabledChecked: Story = {
   },
 };
 
+export const ReadOnly: Story = {
+  name: 'Read Only / Unchecked',
+  args: {
+    label: 'Option is locked',
+    readOnly: true,
+  },
+};
+
+export const ReadOnlyChecked: Story = {
+  name: 'Read Only / Checked',
+  args: {
+    label: 'Option is locked and selected',
+    checked: true,
+    readOnly: true,
+  },
+};
+
 export const Required: Story = {
   args: {
     label: 'Accept terms',
@@ -103,4 +133,21 @@ export const LongLabel: Story = {
     label:
       'I agree to receive product updates, announcements, and occasional marketing communications.',
   },
+};
+
+export const AllStates: Story = {
+  name: 'All States',
+  render: () => (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+      <Checkbox label="Default" />
+      <Checkbox label="Checked" defaultChecked />
+      <Checkbox label="Indeterminate" indeterminate />
+      <Checkbox label="Disabled" disabled />
+      <Checkbox label="Disabled checked" disabled defaultChecked />
+      <Checkbox label="Read only" readOnly />
+      <Checkbox label="Read only checked" readOnly defaultChecked />
+      <Checkbox label="Error" error="Required field" />
+      <Checkbox label="With helper text" helperText="Supporting information" />
+    </div>
+  ),
 };

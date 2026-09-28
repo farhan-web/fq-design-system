@@ -1,5 +1,5 @@
 :root {
-  /* Font Family */
+  /* ── Font Family ────────────────────────── */
 
   --font-family:
     Inter,
@@ -10,25 +10,123 @@
     "Segoe UI",
     sans-serif;
 
-  /* Font Size */
+  /* ── Raw Font Size ──────────────────────── */
 
-  --font-size-xs: 12px;
-  --font-size-sm: 14px;
-  --font-size-md: 16px;
-  --font-size-lg: 18px;
-  --font-size-xl: 24px;
-  --font-size-2xl: 32px;
+  --font-size-2xs: 9px;
+  --font-size-xs:  10px;
+  --font-size-sm:  12px;
+  --font-size-md:  14px;
+  --font-size-lg:  16px;
+  --font-size-xl:  18px;
+  --font-size-2xl: 22px;
+  --font-size-3xl: 28px;
+  --font-size-4xl: 32px;
+  --font-size-5xl: 38px;
+  --font-size-6xl: 56px;
 
-  /* Font Weight */
+  /* ── Font Weight ────────────────────────── */
 
-  --font-weight-regular: 400;
-  --font-weight-medium: 500;
+  --font-weight-regular:  400;
+  --font-weight-medium:   500;
   --font-weight-semibold: 600;
-  --font-weight-bold: 700;
+  --font-weight-bold:     700;
 
-  /* Line Height */
+  /* ── Line Height ────────────────────────── */
 
-  --line-height-tight: 1.2;
-  --line-height-normal: 1.5;
+  --line-height-tight:   1.2;
+  --line-height-normal:  1.5;
   --line-height-relaxed: 1.75;
+
+  /* ── Mobile text styles ──────────────────── */
+  /* Source: tiket.design/system/foundation/typography-mobile  */
+
+  /* Display — 32px Bold / 38px line-height */
+  --text-display-size:        var(--font-size-4xl);
+  --text-display-weight:      var(--font-weight-bold);
+  --text-display-line-height: 38px;
+
+  /* Heading 1 — 22px Bold / 28px */
+  --text-h1-size:        var(--font-size-2xl);
+  --text-h1-weight:      var(--font-weight-bold);
+  --text-h1-line-height: 28px;
+
+  /* Heading 2 — 18px Bold / 24px */
+  --text-h2-size:        var(--font-size-xl);
+  --text-h2-weight:      var(--font-weight-bold);
+  --text-h2-line-height: 24px;
+
+  /* Heading 3 — 16px Bold or Regular / 22px */
+  --text-h3-size:        var(--font-size-lg);
+  --text-h3-weight:      var(--font-weight-bold);
+  --text-h3-alt-weight:  var(--font-weight-regular);
+  --text-h3-line-height: 22px;
+
+  /* Body 1 — 14px Regular / 20px */
+  --text-body1-size:        var(--font-size-md);
+  --text-body1-weight:      var(--font-weight-regular);
+  --text-body1-line-height: 20px;
+
+  --text-body1-bold-weight:  var(--font-weight-bold);
+
+  /* Body 2 — 12px Regular / 16px */
+  --text-body2-size:        var(--font-size-sm);
+  --text-body2-weight:      var(--font-weight-regular);
+  --text-body2-line-height: 16px;
+
+  --text-body2-bold-weight:  var(--font-weight-bold);
+
+  /* Body 3 — 10px SemiBold / 14px */
+  --text-body3-size:        var(--font-size-xs);
+  --text-body3-weight:      var(--font-weight-semibold);
+  --text-body3-line-height: 14px;
+
+  /* Label SM — 9px (component-specific, below body3) */
+  --text-label-sm-size: var(--font-size-2xs);
+
+  /* ── Website text styles ─────────────────── */
+  /* Source: tiket.design/system/foundation/typography-website */
+
+  /* Web Banner — 56px Bold / 62px */
+  --text-web-banner-size:        var(--font-size-6xl);
+  --text-web-banner-weight:      var(--font-weight-bold);
+  --text-web-banner-line-height: 62px;
+
+  /* Web Heading 1 — 38px Bold / 44px */
+  --text-web-h1-size:        var(--font-size-5xl);
+  --text-web-h1-weight:      var(--font-weight-bold);
+  --text-web-h1-line-height: 44px;
+
+  /* Web Heading 2 — 28px Bold / 34px */
+  --text-web-h2-size:        var(--font-size-3xl);
+  --text-web-h2-weight:      var(--font-weight-bold);
+  --text-web-h2-line-height: 34px;
+
+  /* Web Heading 3 — 18px Bold or Regular / 24px */
+  --text-web-h3-size:        var(--font-size-xl);
+  --text-web-h3-weight:      var(--font-weight-bold);
+  --text-web-h3-alt-weight:  var(--font-weight-regular);
+  --text-web-h3-line-height: 24px;
+
+  /* Web Body 1 — 16px / 22px */
+  --text-web-body1-size:        var(--font-size-lg);
+  --text-web-body1-weight:      var(--font-weight-regular);
+  --text-web-body1-bold-weight: var(--font-weight-bold);
+  --text-web-body1-line-height: 22px;
+
+  /* Web Body 2 — 14px / 20px */
+  --text-web-body2-size:        var(--font-size-md);
+  --text-web-body2-weight:      var(--font-weight-regular);
+  --text-web-body2-bold-weight: var(--font-weight-bold);
+  --text-web-body2-line-height: 20px;
+
+  /* Web Body 3 — 12px SemiBold / 16px */
+  --text-web-body3-size:        var(--font-size-sm);
+  --text-web-body3-weight:      var(--font-weight-semibold);
+  --text-web-body3-line-height: 16px;
+
+  /* Web Small — 10px / 14px */
+  --text-web-small-size:        var(--font-size-xs);
+  --text-web-small-weight:      var(--font-weight-regular);
+  --text-web-small-bold-weight: var(--font-weight-bold);
+  --text-web-small-line-height: 14px;
 }

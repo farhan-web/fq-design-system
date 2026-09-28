@@ -22,7 +22,7 @@
   display: flex;
   flex-direction: column;
 
-  background: var(--color-background);
+  background: var(--color-surface-raised);
   border-radius: var(--radius-xl) var(--radius-xl) 0 0;
   box-shadow: var(--elevation-01);
 
@@ -64,7 +64,7 @@
   gap: var(--spacing-8);
   flex-shrink: 0;
   padding: var(--spacing-8) var(--spacing-16) var(--spacing-12);
-  background: var(--color-background);
+  background: var(--color-surface-raised);
 }
 
 .fq-bottom-sheet__title {

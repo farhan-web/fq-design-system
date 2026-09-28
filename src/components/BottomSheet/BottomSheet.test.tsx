@@ -80,6 +80,68 @@ describe('BottomSheet', () => {
     expect(screen.getByRole('dialog')).toHaveAttribute('aria-modal', 'true');
   });
 
+  // ── B3: aria-labelledby ──────────────────────────────────────
+
+  it('dialog is labelled by title via aria-labelledby', () => {
+    render(
+      <BottomSheet open onClose={vi.fn()} title="Filter">
+        Body
+      </BottomSheet>,
+    );
+    const dialog = screen.getByRole('dialog');
+    const labelledById = dialog.getAttribute('aria-labelledby');
+    expect(labelledById).toBeTruthy();
+    const titleEl = document.getElementById(labelledById!);
+    expect(titleEl).toHaveTextContent('Filter');
+  });
+
+  it('dialog has no aria-labelledby when title is absent', () => {
+    render(
+      <BottomSheet open onClose={vi.fn()}>
+        Body
+      </BottomSheet>,
+    );
+    expect(screen.getByRole('dialog')).not.toHaveAttribute('aria-labelledby');
+  });
+
+  // ── A2: Focus trap ───────────────────────────────────────────
+
+  it('Tab key cycles focus forward within dialog', () => {
+    render(
+      <BottomSheet open onClose={vi.fn()} title="Filter">
+        <button>First</button>
+        <button>Second</button>
+      </BottomSheet>,
+    );
+    const dialog = screen.getByRole('dialog');
+    const buttons = dialog.querySelectorAll('button:not(:disabled)');
+    const last = buttons[buttons.length - 1] as HTMLElement;
+
+    last.focus();
+    fireEvent.keyDown(document, { key: 'Tab', shiftKey: false });
+    // First button in dialog should receive focus (wraps from last)
+    expect(document.activeElement).toBe(buttons[0]);
+  });
+
+  it('Shift+Tab cycles focus backward within dialog', () => {
+    render(
+      <BottomSheet open onClose={vi.fn()} title="Filter">
+        <button>Inner</button>
+      </BottomSheet>,
+    );
+    const dialog = screen.getByRole('dialog');
+    const allButtons = Array.from(
+      dialog.querySelectorAll<HTMLElement>('button:not(:disabled)'),
+    );
+    const first = allButtons[0];
+    const last = allButtons[allButtons.length - 1];
+
+    first.focus();
+    fireEvent.keyDown(document, { key: 'Tab', shiftKey: true });
+    // Focus wraps to last focusable element
+    expect(document.activeElement).toBe(last);
+  });
+
   it('forwards ref', () => {
     const ref = { current: null } as { current: HTMLDivElement | null };
     render(
@@ -174,5 +236,27 @@ describe('BottomSheet', () => {
     expect(actionBtn).toBeInTheDocument();
     fireEvent.click(actionBtn);
     expect(onAction).toHaveBeenCalledTimes(1);
+  });
+
+  // ── Portal rendering ─────────────────────────────────────────
+
+  it('renders into document.body portal by default', () => {
+    const { container } = render(
+      <BottomSheet open onClose={vi.fn()}>
+        Portal body
+      </BottomSheet>,
+    );
+    // Dialog is NOT inside the render container (it's portalled to body)
+    expect(container.querySelector('[role="dialog"]')).not.toBeInTheDocument();
+    expect(screen.getByRole('dialog')).toBeInTheDocument();
+  });
+
+  it('renders inline when disablePortal=true', () => {
+    const { container } = render(
+      <BottomSheet open onClose={vi.fn()} disablePortal>
+        Inline body
+      </BottomSheet>,
+    );
+    expect(container.querySelector('[role="dialog"]')).toBeInTheDocument();
   });
 });

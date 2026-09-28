@@ -1,0 +1,50 @@
+/* src/foundations/elevation.css
+ * Elevation tokens — shadow scale + z-index layer system
+ * Source: tiket.design/system/foundation/elevation
+ */
+
+:root {
+  /* ── Shadow scale (elevation-01 → elevation-04) ── */
+
+  /* elevation-01: nav bottom, bottom sheet */
+  --elevation-01:
+    0 2px 8px rgb(0 0 0 / 8%),
+    0 0 1px rgb(0 0 0 / 6%);
+
+  /* elevation-02: cards, dropdowns, popovers */
+  --elevation-02:
+    0 4px 16px rgb(0 0 0 / 12%),
+    0 0 2px rgb(0 0 0 / 6%);
+
+  /* elevation-03: modals, dialogs, drawers */
+  --elevation-03:
+    0 8px 24px rgb(0 0 0 / 16%),
+    0 0 2px rgb(0 0 0 / 8%);
+
+  /* elevation-04: tooltips, coachmarks */
+  --elevation-04:
+    0 16px 48px rgb(0 0 0 / 24%),
+    0 0 4px rgb(0 0 0 / 8%);
+
+  /* ── Z-Index layer system ─────────────────────── */
+  /* Mirrors Passport's 3-tier model: Layer 00 / 01 / 02 */
+
+  /* Layer 00 — Base (background content) */
+  --z-index-base: 0;
+
+  /* Layer 01 — Raised (cards, sticky nav, snackbar, badges) */
+  --z-index-raised: 100;
+
+  /* Layer 02 — Overlapping UI (dropdowns, popovers, FAB) */
+  --z-index-dropdown: 200;
+
+  /* Layer 02 — Full-screen overlays (bottom sheet, drawer) */
+  --z-index-overlay: 400;
+  --z-index-overlay-content: 401;
+
+  /* Layer 02 — Blocking overlays (modals, dialogs) */
+  --z-index-modal: 500;
+
+  /* Above all — Stacks (tooltips, coachmarks — always on top) */
+  --z-index-tooltip: 1000;
+}

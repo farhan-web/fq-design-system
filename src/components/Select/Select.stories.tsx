@@ -89,3 +89,26 @@ export const Error: Story = {
     </Select>
   ),
 };
+
+export const WithOptGroup: Story = {
+  name: 'With Option Groups',
+  args: {
+    label: 'Destination',
+    helperText: 'Native <optgroup> works out of the box.',
+  },
+  render: (args) => (
+    <Select {...args}>
+      <option value="">Select a destination</option>
+      <optgroup label="Asia">
+        <option value="bali">Bali</option>
+        <option value="singapore">Singapore</option>
+        <option value="bangkok">Bangkok</option>
+      </optgroup>
+      <optgroup label="Europe">
+        <option value="paris">Paris</option>
+        <option value="london">London</option>
+        <option value="rome">Rome</option>
+      </optgroup>
+    </Select>
+  ),
+};

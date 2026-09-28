@@ -61,17 +61,22 @@ export const SmallDefault: Story = {
     variant: 'small',
     gradient: 'violet',
     icon: <Plane />,
-    text: 'Beli tiket pesawat, cashback 50%!',
+    text: (
+      <>
+        <strong>Beli tiket pesawat,</strong> cashback 50% untuk semua rute
+        domestik!
+      </>
+    ),
   },
 };
 
 export const SmallBold: Story = {
-  name: 'Small / Bold text',
+  name: 'Small / Bold text (all)',
   args: {
     variant: 'small',
     gradient: 'orange',
     icon: <Zap />,
-    text: 'Flash Sale — ends in',
+    text: 'Flash Sale — semua rute diskon hingga 50%',
     bold: true,
   },
 };
@@ -82,7 +87,11 @@ export const SmallWithCountdown: Story = {
     variant: 'small',
     gradient: 'red',
     icon: <Tag />,
-    text: 'Diskon habis dalam',
+    text: (
+      <>
+        <strong>Flash Sale habis dalam</strong>
+      </>
+    ),
     countdown: (
       <Countdown targetDate={new Date(Date.now() + 2 * 60 * 60 * 1000)} />
     ),
@@ -95,7 +104,11 @@ export const SmallNoChevron: Story = {
     variant: 'small',
     gradient: 'tosca',
     icon: <MapPin />,
-    text: 'Destinasi wisata terbaik minggu ini',
+    text: (
+      <>
+        <strong>Destinasi wisata terbaik</strong> minggu ini — jelajahi sekarang
+      </>
+    ),
     showChevron: false,
   },
 };

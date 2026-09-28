@@ -15,6 +15,7 @@ import type { FormFieldProps } from '../../types/form';
 export interface CheckboxProps
   extends Omit<InputHTMLAttributes<HTMLInputElement>, 'size'>, FormFieldProps {
   indeterminate?: boolean;
+  readOnly?: boolean;
 }
 
 export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
@@ -25,6 +26,7 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
       helperText,
       error,
       indeterminate = false,
+      readOnly = false,
       disabled,
       required,
       className,
@@ -70,7 +72,8 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
       <div
         className={[
           'fq-checkbox-field',
-          error ? 'fq-checkbox-field--error' : '',
+          invalid ? 'fq-checkbox-field--error' : '',
+          readOnly ? 'fq-checkbox-field--readonly' : '',
         ]
           .filter(Boolean)
           .join(' ')}
@@ -87,6 +90,7 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
               .filter(Boolean)
               .join(' ')}
             aria-invalid={invalid || undefined}
+            aria-readonly={readOnly || undefined}
             aria-describedby={describedBy}
           />
 

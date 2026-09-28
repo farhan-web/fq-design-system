@@ -10,30 +10,30 @@
   align-items: center;
   gap: var(--space-1);
 
-  font-size: var(--font-size-sm);
-  font-weight: var(--font-weight-medium);
-  line-height: var(--line-height-normal);
-  color: var(--color-text-primary);
+  font-size: var(--text-body2-size);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--text-body2-line-height);
+  color: var(--color-text-high);
 }
 
 .fq-select-field__required {
-  color: var(--color-error);
+  color: var(--color-danger);
 }
 
 .fq-select {
   width: 100%;
-  min-height: var(--space-10);
+  min-height: 52px;
   padding: var(--space-2) 36px var(--space-2) var(--space-3);
 
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
 
   background-color: var(--color-background);
-  color: var(--color-text-primary);
+  color: var(--color-text-high);
 
   font-family: var(--font-family);
-  font-size: var(--font-size-sm);
-  line-height: var(--line-height-normal);
+  font-size: var(--text-body2-size);
+  line-height: var(--text-body2-line-height);
 
   cursor: pointer;
   outline: none;
@@ -44,7 +44,7 @@
 }
 
 .fq-select:hover:not(:disabled) {
-  border-color: var(--color-text-secondary);
+  border-color: var(--color-border-strong);
 }
 
 .fq-select:focus {
@@ -54,19 +54,19 @@
 
 .fq-select:disabled {
   background: var(--color-surface);
-  color: var(--color-text-muted);
+  color: var(--color-text-disabled);
   cursor: not-allowed;
 }
 
 .fq-select-field__message {
-  font-size: var(--font-size-xs);
-  line-height: var(--line-height-normal);
-  color: var(--color-text-secondary);
+  font-size: var(--text-body3-size);
+  line-height: var(--text-body3-line-height);
+  color: var(--color-text-low);
 }
 
 .fq-select-field--error
   .fq-select {
-  border-color: var(--color-error);
+  border-color: var(--color-danger);
 }
 
 .fq-select-field--error
@@ -76,5 +76,5 @@
 
 .fq-select-field--error
   .fq-select-field__message {
-  color: var(--color-error);
+  color: var(--color-danger);
 }

@@ -11,6 +11,20 @@ describe('BannerGradient', () => {
     expect(screen.getByText('Special Offer')).toBeInTheDocument();
   });
 
+  it('renders rich text ReactNode', () => {
+    render(
+      <BannerGradient
+        text={
+          <>
+            <strong>Special Offer</strong> up to 50% off
+          </>
+        }
+      />,
+    );
+    expect(screen.getByText('Special Offer')).toBeInTheDocument();
+    expect(screen.getByText(/up to 50% off/)).toBeInTheDocument();
+  });
+
   // ── variant classes ────────────────────────────────────────
 
   it('applies big-rounded variant class by default', () => {

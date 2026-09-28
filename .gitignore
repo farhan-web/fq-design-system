@@ -26,3 +26,6 @@ dist-ssr
 *storybook.log
 storybook-static
 *.tgz
+
+# Design reference (scraped screenshots + data, local only)
+design-reference/

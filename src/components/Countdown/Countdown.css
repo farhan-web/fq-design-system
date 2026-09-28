@@ -1,0 +1,82 @@
+.fq-countdown {
+  display: inline-flex;
+  align-items: center;
+  gap: 0;
+
+  font-family: var(--font-family);
+  font-size: var(--text-body3-size);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--text-body3-line-height);
+}
+
+.fq-countdown__segment {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  min-width: 20px;
+  height: 20px;
+  padding: 0 var(--spacing-4);
+
+  border-radius: var(--radius-xs);
+  background: var(--color-danger);
+  color: var(--color-text-inverse);
+}
+
+.fq-countdown--warning .fq-countdown__segment {
+  background: var(--color-warning);
+  color: var(--color-warning-text);
+}
+
+.fq-countdown--neutral .fq-countdown__segment {
+  background: var(--color-surface);
+  color: var(--color-text-high);
+}
+
+.fq-countdown__sep {
+  margin: 0 1px 0 3px;
+  color: var(--color-text-alert);
+  font-weight: var(--font-weight-bold);
+}
+
+.fq-countdown--warning .fq-countdown__sep {
+  color: var(--color-warning-text);
+}
+
+.fq-countdown--neutral .fq-countdown__sep {
+  color: var(--color-text-medium);
+}
+
+.fq-countdown--expired .fq-countdown__segment {
+  background: var(--color-neutral-400);
+  color: var(--color-text-inverse);
+}
+
+/* ================================
+   Unboxed & Unboxed_Small
+   ================================ */
+
+.fq-countdown--unboxed .fq-countdown__segment,
+.fq-countdown--unboxed-small .fq-countdown__segment {
+  background: transparent;
+  border-radius: 0;
+  padding: 0;
+  min-width: unset;
+  height: auto;
+  color: var(--color-text-alert);
+}
+
+.fq-countdown--unboxed.fq-countdown--warning .fq-countdown__segment,
+.fq-countdown--unboxed-small.fq-countdown--warning .fq-countdown__segment {
+  color: var(--color-warning-text);
+}
+
+.fq-countdown--unboxed.fq-countdown--neutral .fq-countdown__segment,
+.fq-countdown--unboxed-small.fq-countdown--neutral .fq-countdown__segment {
+  color: var(--color-text-medium);
+}
+
+.fq-countdown--unboxed-small {
+  font-size: 9px;
+  line-height: 12px;
+}

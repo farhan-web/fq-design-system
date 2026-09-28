@@ -6,7 +6,7 @@
 
 .fq-checkbox {
   display: inline-flex;
-  align-items: flex-start;
+  align-items: center;
   gap: var(--space-2);
   width: fit-content;
   cursor: pointer;
@@ -14,10 +14,10 @@
 
 .fq-checkbox__input {
   appearance: none;
-  width: 18px;
-  height: 18px;
-  margin: 2px 0 0;
-  border: 1.5px solid var(--color-border);
+  width: 20px;
+  height: 20px;
+  margin: 0;
+  border: 1px solid var(--color-border);
   border-radius: var(--radius-sm);
   background: var(--color-background);
   cursor: pointer;
@@ -77,35 +77,74 @@
   outline-offset: 2px;
 }
 
-.fq-checkbox__input:disabled {
+/* Disabled: dim the entire control (box + label) */
+.fq-checkbox:has(.fq-checkbox__input:disabled) {
   cursor: not-allowed;
   opacity: 0.5;
 }
 
-.fq-checkbox:has(.fq-checkbox__input:disabled) {
+.fq-checkbox__input:disabled {
   cursor: not-allowed;
 }
 
 .fq-checkbox__label {
-  font-size: var(--font-size-sm);
-  line-height: var(--line-height-normal);
-  color: var(--color-text-primary);
+  font-family: var(--font-family);
+  font-size: var(--text-body2-size);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--text-body2-line-height);
+  color: var(--color-text-high);
   user-select: none;
 }
 
+/* ================================
+   Helper / error message
+   Indent = 20px (box) + 8px (gap) = 28px
+   ================================ */
+
 .fq-checkbox-field__message {
-  margin-left: 26px;
-  font-size: var(--font-size-xs);
+  margin-left: 28px;
+  font-size: var(--text-body3-size);
   line-height: var(--line-height-normal);
-  color: var(--color-text-secondary);
+  color: var(--color-text-low);
 }
 
-.fq-checkbox-field--error
-  .fq-checkbox__input {
-  border-color: var(--color-error);
+/* ================================
+   Error state
+   ================================ */
+
+.fq-checkbox-field--error .fq-checkbox__input {
+  border-color: var(--color-danger);
 }
 
-.fq-checkbox-field--error
-  .fq-checkbox-field__message {
-  color: var(--color-error);
+.fq-checkbox-field--error .fq-checkbox-field__message {
+  color: var(--color-danger);
+}
+
+/* ================================
+   Read-only state
+   ================================ */
+
+.fq-checkbox-field--readonly .fq-checkbox {
+  cursor: default;
+  pointer-events: none;
+}
+
+.fq-checkbox-field--readonly .fq-checkbox__input {
+  background: var(--color-neutral-100);
+  border-color: var(--color-border);
+  cursor: default;
+}
+
+.fq-checkbox-field--readonly .fq-checkbox__input::before {
+  background: var(--color-text-disabled);
+}
+
+.fq-checkbox-field--readonly .fq-checkbox__input:checked,
+.fq-checkbox-field--readonly .fq-checkbox__input:indeterminate {
+  background: var(--color-neutral-100);
+  border-color: var(--color-border);
+}
+
+.fq-checkbox-field--readonly .fq-checkbox__label {
+  color: var(--color-text-low);
 }

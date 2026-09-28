@@ -1,0 +1,157 @@
+.fq-banner {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-12);
+  padding: var(--spacing-12);
+  border-radius: var(--radius-md);
+}
+
+/* ── Layout modifiers ─── */
+
+.fq-banner--full-width {
+  border-radius: 0;
+  cursor: pointer;
+}
+
+/* ── Variants ─── */
+
+.fq-banner--info {
+  background: var(--color-primary-subtle);
+  color: var(--color-text-high);
+}
+
+.fq-banner--success {
+  background: var(--color-success-subtle);
+  color: var(--color-text-high);
+}
+
+.fq-banner--warning {
+  background: var(--color-warning);
+  color: var(--color-text-high);
+}
+
+.fq-banner--danger {
+  background: var(--color-danger-subtle);
+  color: var(--color-text-high);
+}
+
+/* ── Icon — 24×24 ─── */
+
+.fq-banner__icon {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+}
+
+.fq-banner__icon > * {
+  width: 24px;
+  height: 24px;
+}
+
+.fq-banner--info    .fq-banner__icon { color: var(--color-primary); }
+.fq-banner--success .fq-banner__icon { color: var(--color-success); }
+.fq-banner--warning .fq-banner__icon { color: var(--color-warning-text); }
+.fq-banner--danger  .fq-banner__icon { color: var(--color-danger); }
+
+/* ── Body ─── */
+
+.fq-banner__body {
+  flex: 1;
+  min-width: 0;
+}
+
+.fq-banner__title {
+  font-family: var(--font-family);
+  font-size: var(--text-body1-size);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--text-body1-line-height);
+  color: var(--color-text-high);
+  margin: 0 0 2px;
+}
+
+.fq-banner__description {
+  font-family: var(--font-family);
+  font-size: var(--text-body3-size);
+  font-weight: var(--text-body3-weight);
+  line-height: var(--text-body3-line-height);
+  color: var(--color-text-high);
+  margin: 0;
+}
+
+/* ── Action link ─── */
+
+.fq-banner__action {
+  display: inline-block;
+  margin-top: var(--spacing-4);
+  padding: 0;
+  border: none;
+  background: transparent;
+  font-family: var(--font-family);
+  font-size: var(--text-body3-size);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--text-body3-line-height);
+  color: var(--color-text-activity);
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  text-align: left;
+}
+
+.fq-banner__action:hover {
+  opacity: 0.8;
+}
+
+.fq-banner__action:active {
+  opacity: 0.6;
+}
+
+.fq-banner__action:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* ── Dismiss × — sectional layout ─── */
+
+.fq-banner__dismiss {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: var(--color-text-low);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: background-color 120ms ease, color 120ms ease;
+}
+
+.fq-banner__dismiss:hover {
+  background: rgb(0 0 0 / 8%);
+  color: var(--color-text-high);
+}
+
+.fq-banner__dismiss:active {
+  background: rgb(0 0 0 / 16%);
+  color: var(--color-text-high);
+}
+
+.fq-banner__dismiss:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* ── Chevron › — full-width layout ─── */
+
+.fq-banner__chevron {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  color: var(--color-text-low);
+}

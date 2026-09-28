@@ -1,0 +1,70 @@
+/* ================================================================
+   CheckboxGroup
+   Wraps related checkboxes in a <fieldset> + <legend> for a11y.
+   ================================================================ */
+
+.fq-checkbox-group {
+  border: none;
+  margin: 0;
+  padding: 0;
+  min-width: 0; /* override browser default min-width: min-content */
+}
+
+/* ── Legend (group label) ─────────────────────────────────────── */
+
+.fq-checkbox-group__legend {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: 0;
+  margin-bottom: var(--space-1-5);
+
+  font-family: var(--font-family);
+  font-size: var(--text-body2-size);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--text-body2-line-height);
+  color: var(--color-text-high);
+}
+
+.fq-checkbox-group__required {
+  color: var(--color-danger);
+}
+
+/* ── Items slot ───────────────────────────────────────────────── */
+
+.fq-checkbox-group__items {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+/* ── Helper / error message ───────────────────────────────────── */
+
+.fq-checkbox-group__message {
+  margin-top: var(--space-1-5);
+  font-size: var(--text-body3-size);
+  line-height: var(--text-body3-line-height);
+  color: var(--color-text-low);
+}
+
+/* ── Error state ──────────────────────────────────────────────── */
+
+.fq-checkbox-group--error .fq-checkbox-group__message {
+  color: var(--color-danger);
+}
+
+/* ── Disabled state ───────────────────────────────────────────── */
+
+/*
+ * fieldset:disabled propagates disabled to all descendant inputs natively.
+ * We dim the whole group here, then reset opacity on individual checkbox
+ * wrappers to avoid double-dimming (group 0.5 × checkbox 0.5 = 0.25).
+ */
+.fq-checkbox-group:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.fq-checkbox-group:disabled .fq-checkbox:has(.fq-checkbox__input:disabled) {
+  opacity: 1;
+}
