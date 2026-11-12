@@ -1,5 +1,5 @@
 import { fireEvent, render, screen } from '@testing-library/react';
-import { useState } from 'react';
+import { StrictMode, useState } from 'react';
 import { describe, expect, it, vi } from 'vitest';
 
 import {
@@ -259,6 +259,71 @@ describe('Accordion', () => {
     );
     fireEvent.click(screen.getByRole('button', { name: /Item A/ }));
     expect(onChange).toHaveBeenCalledWith(['a']);
+  });
+
+  it('uses the latest externally controlled values when toggling multiple items', () => {
+    const onChange = vi.fn();
+    const content = (
+      <>
+        <AccordionItem value="a">
+          <AccordionTrigger value="a">Item A</AccordionTrigger>
+          <AccordionContent value="a">Content A</AccordionContent>
+        </AccordionItem>
+        <AccordionItem value="b">
+          <AccordionTrigger value="b">Item B</AccordionTrigger>
+          <AccordionContent value="b">Content B</AccordionContent>
+        </AccordionItem>
+      </>
+    );
+    const { rerender } = render(
+      <Accordion multiple expanded={['a']} onExpandedChange={onChange}>
+        {content}
+      </Accordion>,
+    );
+    rerender(
+      <Accordion multiple expanded={['b']} onExpandedChange={onChange}>
+        {content}
+      </Accordion>,
+    );
+    fireEvent.click(screen.getByRole('button', { name: 'Item A' }));
+    expect(onChange).toHaveBeenLastCalledWith(['b', 'a']);
+    expect(screen.getByRole('button', { name: 'Item A' })).toHaveAttribute(
+      'aria-expanded',
+      'false',
+    );
+    expect(screen.getByRole('button', { name: 'Item B' })).toHaveAttribute(
+      'aria-expanded',
+      'true',
+    );
+  });
+
+  it('notifies once per repeated uncontrolled toggle in StrictMode', () => {
+    const onChange = vi.fn();
+    render(
+      <StrictMode>
+        <Accordion onExpandedChange={onChange}>
+          <AccordionItem value="a">
+            <AccordionTrigger value="a">Item A</AccordionTrigger>
+            <AccordionContent value="a">Content A</AccordionContent>
+          </AccordionItem>
+        </Accordion>
+      </StrictMode>,
+    );
+    const trigger = screen.getByRole('button', { name: 'Item A' });
+    for (let attempt = 0; attempt < 3; attempt++) {
+      fireEvent.click(trigger);
+      expect(trigger).toHaveAttribute('aria-expanded', 'true');
+      fireEvent.click(trigger);
+      expect(trigger).toHaveAttribute('aria-expanded', 'false');
+    }
+    expect(onChange.mock.calls).toEqual([
+      [['a']],
+      [[]],
+      [['a']],
+      [[]],
+      [['a']],
+      [[]],
+    ]);
   });
 });
 

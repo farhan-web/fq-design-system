@@ -4,10 +4,17 @@
 
 .fq-banner-info {
   position: relative;
-  background: var(--color-neutral-0);
+  background: var(--fq-banner-info-neutral-0, var(--color-surface-raised));
   box-shadow: var(--elevation-01);
-  border-radius: var(--radius-md);
-  padding: var(--spacing-12);
+  border-radius: var(--fq-banner-info-radius-md, var(--radius-md));
+  padding: calc(
+    var(--spacing-12) *
+      clamp(
+        0.75,
+        var(--fq-banner-info-padding-scale, var(--fq-density-padding, 1)),
+        1.25
+      )
+  );
   overflow: hidden;
 }
 
@@ -49,30 +56,42 @@
   padding: 0;
   border: none;
   background: transparent;
-  color: var(--color-text-low);
-  border-radius: var(--radius-sm);
+  color: var(--fq-banner-info-text-low, var(--color-text-low));
+  border-radius: var(--fq-banner-info-radius-sm, var(--radius-sm));
   cursor: pointer;
-  transition: background-color 120ms ease, color 120ms ease;
+  transition:
+    background-color 120ms ease,
+    color 120ms ease;
 }
 
 .fq-banner-info__close:hover {
-  background: rgb(0 0 0 / 8%);
-  color: var(--color-text-high);
+  background: var(--fq-banner-info-hover-overlay, var(--color-hover-overlay));
+  color: var(--fq-banner-info-text-high, var(--color-text-high));
 }
 
 .fq-banner-info__close:active {
-  background: rgb(0 0 0 / 16%);
-  color: var(--color-text-high);
+  background: var(
+    --fq-banner-info-pressed-overlay,
+    var(--color-pressed-overlay)
+  );
+  color: var(--fq-banner-info-text-high, var(--color-text-high));
 }
 
 .fq-banner-info__close:focus-visible {
-  outline: 2px solid var(--color-primary);
+  outline: 2px solid var(--fq-banner-info-primary, var(--color-primary));
   outline-offset: 2px;
 }
 
 /* Reserve space at top-right when close button present */
 .fq-banner-info--closable {
-  padding-right: 44px;
+  padding-right: calc(
+    44px *
+      clamp(
+        0.75,
+        var(--fq-banner-info-padding-scale, var(--fq-density-padding, 1)),
+        1.25
+      )
+  );
 }
 
 /* ================================
@@ -82,7 +101,14 @@
 .fq-banner-info__body {
   display: flex;
   align-items: flex-start;
-  gap: var(--spacing-12);
+  gap: calc(
+    var(--spacing-12) *
+      clamp(
+        0.75,
+        var(--fq-banner-info-gap-scale, var(--fq-density-gap, 1)),
+        1.25
+      )
+  );
   position: relative;
   z-index: 1;
 }
@@ -118,20 +144,20 @@
 }
 
 .fq-banner-info__title {
-  font-family: var(--font-family);
+  font-family: var(--fq-banner-info-font-family, var(--font-family));
   font-size: var(--text-body1-size);
   font-weight: var(--font-weight-bold);
   line-height: var(--text-body1-line-height);
-  color: var(--color-text-high);
+  color: var(--fq-banner-info-text-high, var(--color-text-high));
   margin: 0 0 4px;
 }
 
 .fq-banner-info__description {
-  font-family: var(--font-family);
+  font-family: var(--fq-banner-info-font-family, var(--font-family));
   font-size: var(--text-body2-size);
   font-weight: var(--font-weight-regular);
   line-height: var(--text-body2-line-height);
-  color: var(--color-text-high);
+  color: var(--fq-banner-info-text-high, var(--color-text-high));
   margin: 0;
 }
 
@@ -145,11 +171,11 @@
   padding: 0;
   border: none;
   background: transparent;
-  font-family: var(--font-family);
+  font-family: var(--fq-banner-info-font-family, var(--font-family));
   font-size: var(--text-body3-size);
   font-weight: var(--font-weight-bold);
   line-height: var(--text-body3-line-height);
-  color: var(--color-text-activity);
+  color: var(--fq-banner-info-text-activity, var(--color-text-activity));
   cursor: pointer;
   text-decoration: underline;
   text-underline-offset: 2px;
@@ -165,7 +191,12 @@
 }
 
 .fq-banner-info__action:focus-visible {
-  outline: 2px solid var(--color-primary);
+  outline: 2px solid var(--fq-banner-info-primary, var(--color-primary));
   outline-offset: 2px;
   border-radius: 2px;
+}
+
+/* Token scopes supply inherited typography without changing legacy host inheritance. */
+:where([data-fq-theme]) .fq-banner-info {
+  font-family: var(--fq-banner-info-font-family, var(--font-family));
 }

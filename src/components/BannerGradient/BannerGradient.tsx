@@ -127,14 +127,13 @@ export const BannerGradient = forwardRef<HTMLDivElement, BannerGradientProps>(
             ]
               .filter(Boolean)
               .join(' ')}
-            role="tablist"
-            aria-label="Banner pages"
+            role="img"
+            aria-label={`Page ${pageControl.current + 1} of ${pageControl.count}`}
           >
             {Array.from({ length: pageControl.count }, (_, i) => (
               <span
                 key={i}
-                role="tab"
-                aria-selected={i === pageControl.current}
+                aria-hidden="true"
                 className={[
                   'fq-banner-gradient__dot',
                   i === pageControl.current

@@ -2,34 +2,132 @@ name: CI
 
 on:
   push:
-    branches: [main]
+    branches: [main, 'readiness/**']
   pull_request:
     branches: [main]
 
-jobs:
-  ci:
-    name: Lint, Test & Build
-    runs-on: ubuntu-latest
+permissions:
+  contents: read
 
+concurrency:
+  group: verification-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  quality:
+    name: Static quality and coverage
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
-
+        with:
+          fetch-depth: 0
+          persist-credentials: false
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: '22.14.0'
           cache: npm
+      - run: npm ci
+      - run: npm run test:steering
+      - name: Steering and context lifecycle
+        env:
+          STEERING_BASE_SHA: ${{ github.event_name == 'pull_request' && github.event.pull_request.base.sha || github.event.before }}
+        run: |
+          if [ -n "$STEERING_BASE_SHA" ] && [ "$STEERING_BASE_SHA" != "0000000000000000000000000000000000000000" ]; then
+            npm run steering:check -- --base="$STEERING_BASE_SHA" --report=verification/reports/steering-check.json
+          else
+            npm run steering:check -- --report=verification/reports/steering-check.json
+          fi
+      - run: npm run lint
+      - run: npm run format:check
+      - run: npm run test:coverage
+      - run: npm run build
+      - name: Upload static evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: static-quality
+          path: |
+            coverage/
+            verification/reports/steering-check.json
+            verification/reports/component-token-inventory.json
+          if-no-files-found: error
 
-      - name: Install dependencies
-        run: npm ci
+  browser:
+    name: Browser contracts and accessibility
+    # Frozen contracts use darwin/arm64 and locked Chromium/embedded fonts.
+    runs-on: macos-15
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22.14.0'
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install chromium
+      - name: Stamped static Storybook
+        id: storybook
+        run: npm run build:verification
+      - name: DOM, computed style, layout and interactions
+        run: node scripts/verify-browser.mjs
+      - name: Accessibility gate
+        if: ${{ always() && steps.storybook.outcome == 'success' }}
+        run: node scripts/verify-accessibility.mjs
+      - name: Isolated regression gate canaries
+        run: npm run verify:gates
+      - name: Upload browser evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: browser-contracts
+          path: verification/reports/
+          if-no-files-found: error
 
-      - name: Lint
-        run: npm run lint
+  consumers:
+    name: Consumer Node ${{ matrix.node }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    strategy:
+      fail-fast: false
+      matrix:
+        node: ['20.19.0', '22.13.0', '24.8.0']
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - run: npm run verify:package
+      - name: Upload consumer evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: consumers-node-${{ matrix.node }}
+          path: verification/reports/package/
+          if-no-files-found: error
 
-      - name: Format check
-        run: npm run format:check
-
-      - name: Test & Coverage
-        run: npm run test:coverage
-
-      - name: Build
-        run: npm run build
+  release-gates:
+    name: Release gates
+    if: always()
+    needs: [quality, browser, consumers]
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Require every gate to succeed
+        env:
+          QUALITY: ${{ needs.quality.result }}
+          BROWSER: ${{ needs.browser.result }}
+          CONSUMERS: ${{ needs.consumers.result }}
+        run: |
+          test "$QUALITY" = success
+          test "$BROWSER" = success
+          test "$CONSUMERS" = success

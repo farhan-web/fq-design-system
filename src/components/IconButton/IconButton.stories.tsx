@@ -123,7 +123,10 @@ const cellStyle: React.CSSProperties = {
   alignItems: 'center',
   gap: 8,
 };
-const labelStyle: React.CSSProperties = { fontSize: 11, color: '#666' };
+const labelStyle: React.CSSProperties = {
+  fontSize: 11,
+  color: 'var(--color-text-medium)',
+};
 
 export const VariantGallery: Story = {
   name: 'Variant Gallery',

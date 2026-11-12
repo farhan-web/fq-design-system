@@ -1,5 +1,5 @@
 ---
-"fq-design-system": minor
+'fq-design-system': minor
 ---
 
 feat(Countdown): add display prop with Unboxed and Unboxed_Small variants

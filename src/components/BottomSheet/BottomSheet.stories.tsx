@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Button } from '../Button/Button';
+import { Dialog } from '../Dialog/Dialog';
 import { BottomSheet } from './BottomSheet';
 
 const meta = {
@@ -293,4 +294,62 @@ export const WithScrollingContent: Story = {
       </BottomSheetDemo>
     </MobileFrame>
   ),
+};
+
+/** Real browser fixture for focus, dismissal and mixed modal stacking. */
+export const Lifecycle: Story = {
+  render: function LifecycleDemo() {
+    const [sheet, setSheet] = useState(false);
+    const [dialog, setDialog] = useState(false);
+    const [empty, setEmpty] = useState(false);
+    return (
+      <>
+        <Button onClick={() => setSheet(true)}>Open lifecycle sheet</Button>
+        <Button onClick={() => setEmpty(true)}>Open empty sheet</Button>
+        <Button onClick={() => setDialog(true)}>Open lifecycle dialog</Button>
+        <BottomSheet
+          open={sheet}
+          onClose={() => setSheet(false)}
+          title="Lifecycle sheet"
+        >
+          <button onClick={() => setDialog(true)}>Open nested dialog</button>
+          <button onClick={() => setSheet(false)}>Finish sheet</button>
+        </BottomSheet>
+        <BottomSheet
+          open={empty}
+          onClose={() => setEmpty(false)}
+          aria-label="Empty sheet"
+        >
+          <p>No focusable content.</p>
+        </BottomSheet>
+        <Dialog
+          open={dialog}
+          onClose={() => setDialog(false)}
+          title="Lifecycle dialog"
+        >
+          <button onClick={() => setSheet(true)}>Open nested sheet</button>
+          <button onClick={() => setDialog(false)}>Finish dialog</button>
+        </Dialog>
+      </>
+    );
+  },
+};
+
+export const InlineLifecycle: Story = {
+  render: function InlineLifecycleDemo() {
+    const [open, setOpen] = useState(false);
+    return (
+      <div>
+        <Button onClick={() => setOpen(true)}>Open inline sheet</Button>
+        <BottomSheet
+          open={open}
+          disablePortal
+          onClose={() => setOpen(false)}
+          title="Inline sheet"
+        >
+          <button onClick={() => setOpen(false)}>Finish inline sheet</button>
+        </BottomSheet>
+      </div>
+    );
+  },
 };

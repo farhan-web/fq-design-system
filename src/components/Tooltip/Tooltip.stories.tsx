@@ -104,7 +104,7 @@ export const Right: Story = {
 export const AllPlacements: Story = {
   name: 'All 12 Placements',
   parameters: { layout: 'padded' },
-  render: () => {
+  render: function AllPlacementsDemo() {
     const placements: TooltipPlacement[] = [
       'top',
       'top-start',
@@ -311,7 +311,7 @@ export const Controlled: Story = {
       },
     },
   },
-  render: () => {
+  render: function ControlledDemo() {
     const [isOpen, setIsOpen] = useState(false);
     return (
       <div style={{ display: 'flex', gap: 16, alignItems: 'center' }}>
@@ -407,5 +407,66 @@ export const FocusInteraction: Story = {
     await expect(trigger).toHaveFocus();
     const tooltip = canvas.getByRole('tooltip');
     await expect(tooltip).toBeInTheDocument();
+  },
+};
+
+/** Stable visible contract recorded before T04 hover/timer changes. */
+export const VisibleContract: Story = {
+  render: () => (
+    <Tooltip
+      content="Additional account information"
+      open
+      placement="bottom"
+      maxWidth={240}
+    >
+      <Button>Account information</Button>
+    </Tooltip>
+  ),
+};
+
+export const Lifecycle: Story = {
+  parameters: { layout: 'centered' },
+  render: function LifecycleDemo() {
+    const [placement, setPlacement] = useState<TooltipPlacement>('bottom');
+    return (
+      <div style={{ padding: 64 }}>
+        <label>
+          Tooltip placement{' '}
+          <select
+            value={placement}
+            onChange={(event) =>
+              setPlacement(event.target.value as TooltipPlacement)
+            }
+          >
+            {[
+              'top',
+              'top-start',
+              'top-end',
+              'bottom',
+              'bottom-start',
+              'bottom-end',
+              'left',
+              'left-start',
+              'left-end',
+              'right',
+              'right-start',
+              'right-end',
+            ].map((value) => (
+              <option key={value}>{value}</option>
+            ))}
+          </select>
+        </label>
+        <p id="existing-help">Existing account help.</p>
+        <Tooltip
+          content="Additional account help."
+          placement={placement}
+          enterDelay={0}
+          maxWidth={180}
+        >
+          <button aria-describedby="existing-help">Account help</button>
+        </Tooltip>
+        <button>Outside tooltip</button>
+      </div>
+    );
   },
 };

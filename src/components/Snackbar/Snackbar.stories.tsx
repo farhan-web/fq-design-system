@@ -94,7 +94,7 @@ export const WithAction: Story = {
 
 export const Interactive: Story = {
   name: 'Interactive (auto-hide 3s)',
-  render: () => {
+  render: function InteractiveDemo() {
     const [open, setOpen] = React.useState(false);
     return (
       <div style={{ display: 'flex', gap: 12 }}>

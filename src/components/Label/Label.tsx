@@ -59,6 +59,9 @@ export const Label = forwardRef<HTMLSpanElement, LabelProps>(
     },
     ref,
   ) => {
+    // Reserved compatibility prop; the supplied Countdown owns its callback.
+    void _onExpire;
+
     const cls = [
       'fq-label',
       `fq-label--${variant}`,
@@ -71,16 +74,34 @@ export const Label = forwardRef<HTMLSpanElement, LabelProps>(
       .join(' ');
 
     return (
-      <span {...props} ref={ref} className={cls}>
+      <span
+        {...props}
+        ref={ref}
+        className={cls}
+        aria-disabled={disabled || props['aria-disabled']}
+        aria-busy={loading || props['aria-busy']}
+      >
         {!loading && startIcon && (
           <span className="fq-label__icon" aria-hidden="true">
             {startIcon}
           </span>
         )}
-        {!loading && children}
-        {!loading && countdown && (
-          <span className="fq-label__countdown">{countdown}</span>
-        )}
+        {!loading &&
+          (variant.startsWith('gradient-') ? (
+            <span className="fq-label__text">
+              {children}
+              {countdown && (
+                <span className="fq-label__countdown">{countdown}</span>
+              )}
+            </span>
+          ) : (
+            <>
+              {children}
+              {countdown && (
+                <span className="fq-label__countdown">{countdown}</span>
+              )}
+            </>
+          ))}
       </span>
     );
   },

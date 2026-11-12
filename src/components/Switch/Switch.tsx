@@ -1,3 +1,4 @@
+import { getSlotProps, type FqSlotCustomization } from '../../types/slots';
 import { forwardRef, type InputHTMLAttributes } from 'react';
 
 import { useFieldContext } from '../Field/FieldContext';
@@ -7,7 +8,12 @@ import type { FormFieldProps } from '../../types/form';
 import './Switch.css';
 
 export interface SwitchProps
-  extends Omit<InputHTMLAttributes<HTMLInputElement>, 'type'>, FormFieldProps {}
+  extends
+    Omit<InputHTMLAttributes<HTMLInputElement>, 'type'>,
+    FormFieldProps,
+    FqSlotCustomization<
+      'root' | 'label' | 'input' | 'helperText' | 'control' | 'thumb'
+    > {}
 
 export const Switch = forwardRef<HTMLInputElement, SwitchProps>(
   (
@@ -18,11 +24,15 @@ export const Switch = forwardRef<HTMLInputElement, SwitchProps>(
       id,
       required,
       className,
+      style,
+      classNames,
+      slotProps,
       'aria-describedby': externalDescribedBy,
       ...props
     },
     ref,
   ) => {
+    const slots = { classNames, slotProps };
     const fieldContext = useFieldContext();
 
     const {
@@ -48,9 +58,13 @@ export const Switch = forwardRef<HTMLInputElement, SwitchProps>(
 
     return (
       <div
-        className={['fq-switch-field', error ? 'fq-switch-field--error' : '']
-          .filter(Boolean)
-          .join(' ')}
+        {...getSlotProps(
+          slots,
+          'root',
+          ['fq-switch-field', error ? 'fq-switch-field--error' : '']
+            .filter(Boolean)
+            .join(' '),
+        )}
       >
         <label className="fq-switch" htmlFor={switchId}>
           <input
@@ -60,22 +74,33 @@ export const Switch = forwardRef<HTMLInputElement, SwitchProps>(
             type="checkbox"
             role="switch"
             required={isRequired}
-            className={['fq-switch__input', className ?? '']
-              .filter(Boolean)
-              .join(' ')}
+            {...getSlotProps(
+              slots,
+              'input',
+              ['fq-switch__input', className ?? ''].filter(Boolean).join(' '),
+              style,
+            )}
             aria-invalid={invalid || undefined}
             aria-describedby={describedBy}
           />
 
-          <span className="fq-switch__control" aria-hidden="true">
-            <span className="fq-switch__thumb" />
+          <span
+            {...getSlotProps(slots, 'control', 'fq-switch__control')}
+            aria-hidden="true"
+          >
+            <span {...getSlotProps(slots, 'thumb', 'fq-switch__thumb')} />
           </span>
 
-          <span className="fq-switch__label">{label}</span>
+          <span {...getSlotProps(slots, 'label', 'fq-switch__label')}>
+            {label}
+          </span>
         </label>
 
         {message && (
-          <div id={messageId} className="fq-switch-field__message">
+          <div
+            id={messageId}
+            {...getSlotProps(slots, 'helperText', 'fq-switch-field__message')}
+          >
             {message}
           </div>
         )}

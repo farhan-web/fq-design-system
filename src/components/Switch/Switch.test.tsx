@@ -5,29 +5,18 @@ import { describe, expect, it, vi } from 'vitest';
 import { Switch } from './Switch';
 
 describe('Switch', () => {
-
   it('preserves custom className', () => {
-    render(
-      <Switch
-        label="Notifications"
-        className="custom-switch"
-      />,
-    );
+    render(<Switch label="Notifications" className="custom-switch" />);
 
     expect(
       screen.getByRole('switch', {
         name: 'Notifications',
       }),
-    ).toHaveClass(
-      'fq-switch__input',
-      'custom-switch',
-    );
+    ).toHaveClass('fq-switch__input', 'custom-switch');
   });
 
   it('renders label and switch', () => {
-    render(
-      <Switch label="Notifications" />,
-    );
+    render(<Switch label="Notifications" />);
 
     expect(
       screen.getByRole('switch', {
@@ -37,23 +26,16 @@ describe('Switch', () => {
   });
 
   it('associates label with switch', () => {
-    render(
-      <Switch label="Notifications" />,
-    );
+    render(<Switch label="Notifications" />);
 
-    const switchElement = screen.getByRole(
-      'switch',
-      {
-        name: 'Notifications',
-      },
-    );
+    const switchElement = screen.getByRole('switch', {
+      name: 'Notifications',
+    });
 
     expect(switchElement).toHaveAttribute('id');
 
     expect(
-      document.querySelector(
-        `label[for="${switchElement.id}"]`,
-      ),
+      document.querySelector(`label[for="${switchElement.id}"]`),
     ).toBeInTheDocument();
   });
 
@@ -79,13 +61,7 @@ describe('Switch', () => {
   });
 
   it('supports checked state', () => {
-    render(
-      <Switch
-        label="Notifications"
-        checked
-        readOnly
-      />,
-    );
+    render(<Switch label="Notifications" checked readOnly />);
 
     expect(
       screen.getByRole('switch', {
@@ -95,12 +71,7 @@ describe('Switch', () => {
   });
 
   it('supports disabled state', () => {
-    render(
-      <Switch
-        label="Notifications"
-        disabled
-      />,
-    );
+    render(<Switch label="Notifications" disabled />);
 
     expect(
       screen.getByRole('switch', {
@@ -110,12 +81,7 @@ describe('Switch', () => {
   });
 
   it('supports required state', () => {
-    render(
-      <Switch
-        label="Notifications"
-        required
-      />,
-    );
+    render(<Switch label="Notifications" required />);
 
     expect(
       screen.getByRole('switch', {
@@ -126,29 +92,18 @@ describe('Switch', () => {
 
   it('supports helper text', () => {
     render(
-      <Switch
-        label="Notifications"
-        helperText="Receive activity updates."
-      />,
+      <Switch label="Notifications" helperText="Receive activity updates." />,
     );
 
-    const switchElement = screen.getByRole(
-      'switch',
-      {
-        name: 'Notifications',
-      },
-    );
+    const switchElement = screen.getByRole('switch', {
+      name: 'Notifications',
+    });
 
-    const message = screen.getByText(
-      'Receive activity updates.',
-    );
+    const message = screen.getByText('Receive activity updates.');
 
     expect(message).toBeInTheDocument();
 
-    expect(switchElement).toHaveAttribute(
-      'aria-describedby',
-      message.id,
-    );
+    expect(switchElement).toHaveAttribute('aria-describedby', message.id);
   });
 
   it('exposes error state', () => {
@@ -159,26 +114,15 @@ describe('Switch', () => {
       />,
     );
 
-    const switchElement = screen.getByRole(
-      'switch',
-      {
-        name: 'Notifications',
-      },
-    );
+    const switchElement = screen.getByRole('switch', {
+      name: 'Notifications',
+    });
 
-    const message = screen.getByText(
-      'Notification preference is required.',
-    );
+    const message = screen.getByText('Notification preference is required.');
 
-    expect(switchElement).toHaveAttribute(
-      'aria-invalid',
-      'true',
-    );
+    expect(switchElement).toHaveAttribute('aria-invalid', 'true');
 
-    expect(switchElement).toHaveAttribute(
-      'aria-describedby',
-      message.id,
-    );
+    expect(switchElement).toHaveAttribute('aria-describedby', message.id);
   });
 
   it('prioritizes error message over helper text', () => {
@@ -191,86 +135,54 @@ describe('Switch', () => {
     );
 
     expect(
-      screen.getByText(
-        'Notification preference is required.',
-      ),
+      screen.getByText('Notification preference is required.'),
     ).toBeInTheDocument();
 
     expect(
-      screen.queryByText(
-        'Choose whether to receive updates.',
-      ),
+      screen.queryByText('Choose whether to receive updates.'),
     ).not.toBeInTheDocument();
   });
 
   it('supports ReactNode label', () => {
     render(
-      <Switch
-        label={
-          <span data-testid="switch-label">
-            Notifications
-          </span>
-        }
-      />,
+      <Switch label={<span data-testid="switch-label">Notifications</span>} />,
     );
 
-    expect(
-      screen.getByTestId('switch-label'),
-    ).toBeInTheDocument();
+    expect(screen.getByTestId('switch-label')).toBeInTheDocument();
   });
 
   it('supports ReactNode helper text', () => {
     render(
       <Switch
         label="Notifications"
-        helperText={
-          <span data-testid="switch-helper">
-            Receive updates.
-          </span>
-        }
+        helperText={<span data-testid="switch-helper">Receive updates.</span>}
       />,
     );
 
-    expect(
-      screen.getByTestId('switch-helper'),
-    ).toBeInTheDocument();
+    expect(screen.getByTestId('switch-helper')).toBeInTheDocument();
   });
 
   it('supports ReactNode error', () => {
     render(
       <Switch
         label="Notifications"
-        error={
-          <span data-testid="switch-error">
-            Preference is required.
-          </span>
-        }
+        error={<span data-testid="switch-error">Preference is required.</span>}
       />,
     );
 
-    expect(
-      screen.getByTestId('switch-error'),
-    ).toBeInTheDocument();
+    expect(screen.getByTestId('switch-error')).toBeInTheDocument();
 
     expect(
       screen.getByRole('switch', {
         name: 'Notifications',
       }),
-    ).toHaveAttribute(
-      'aria-invalid',
-      'true',
-    );
+    ).toHaveAttribute('aria-invalid', 'true');
   });
 
   it('forwards ref to the native switch', () => {
     const ref = createRef<HTMLInputElement>();
 
-    render(
-      <Switch
-        ref={ref}
-        label="Notifications"
-      />,
-    );
+    render(<Switch ref={ref} label="Notifications" />);
 
     expect(ref.current).toBe(
       screen.getByRole('switch', {
@@ -280,57 +192,31 @@ describe('Switch', () => {
   });
 
   it('uses switch semantics', () => {
-    render(
-      <Switch label="Notifications" />,
-    );
+    render(<Switch label="Notifications" />);
 
-    const switchElement = screen.getByRole(
-      'switch',
-      {
-        name: 'Notifications',
-      },
-    );
+    const switchElement = screen.getByRole('switch', {
+      name: 'Notifications',
+    });
 
-    expect(switchElement).toHaveAttribute(
-      'role',
-      'switch',
-    );
+    expect(switchElement).toHaveAttribute('role', 'switch');
 
-    expect(switchElement).toHaveAttribute(
-      'type',
-      'checkbox',
-    );
+    expect(switchElement).toHaveAttribute('type', 'checkbox');
   });
 
   it('forwards onChange event', () => {
     const handleChange = vi.fn();
 
-    render(
-      <Switch
-        label="Notifications"
-        onChange={handleChange}
-      />,
-    );
+    render(<Switch label="Notifications" onChange={handleChange} />);
 
-    fireEvent.click(
-      screen.getByRole('switch'),
-    );
+    fireEvent.click(screen.getByRole('switch'));
 
     expect(handleChange).toHaveBeenCalledTimes(1);
   });
 
-
   it('supports defaultChecked', () => {
-    render(
-      <Switch
-        label="Notifications"
-        defaultChecked
-      />,
-    );
+    render(<Switch label="Notifications" defaultChecked />);
 
-    expect(
-      screen.getByRole('switch'),
-    ).toBeChecked();
+    expect(screen.getByRole('switch')).toBeChecked();
   });
 
   it('supports controlled checked state', () => {
@@ -341,11 +227,7 @@ describe('Switch', () => {
     });
 
     render(
-      <Switch
-        label="Notifications"
-        checked={false}
-        onChange={handleChange}
-      />,
+      <Switch label="Notifications" checked={false} onChange={handleChange} />,
     );
 
     const switchElement = screen.getByRole('switch');
@@ -359,5 +241,4 @@ describe('Switch', () => {
 
     expect(switchElement).not.toBeChecked();
   });
-
 });

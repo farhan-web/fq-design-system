@@ -1,3 +1,4 @@
+import { getSlotProps, type FqSlotCustomization } from '../../types/slots';
 import { forwardRef, type InputHTMLAttributes } from 'react';
 
 import { useFieldContext } from '../Field/FieldContext';
@@ -7,7 +8,12 @@ import type { FormFieldProps } from '../../types/form';
 import './Radio.css';
 
 export interface RadioProps
-  extends Omit<InputHTMLAttributes<HTMLInputElement>, 'type'>, FormFieldProps {}
+  extends
+    Omit<InputHTMLAttributes<HTMLInputElement>, 'type'>,
+    FormFieldProps,
+    FqSlotCustomization<
+      'root' | 'label' | 'input' | 'helperText' | 'control'
+    > {}
 
 export const Radio = forwardRef<HTMLInputElement, RadioProps>(
   (
@@ -18,11 +24,15 @@ export const Radio = forwardRef<HTMLInputElement, RadioProps>(
       id,
       required,
       className,
+      style,
+      classNames,
+      slotProps,
       'aria-describedby': externalDescribedBy,
       ...props
     },
     ref,
   ) => {
+    const slots = { classNames, slotProps };
     const fieldContext = useFieldContext();
 
     const {
@@ -48,9 +58,13 @@ export const Radio = forwardRef<HTMLInputElement, RadioProps>(
 
     return (
       <div
-        className={['fq-radio-field', error ? 'fq-radio-field--error' : '']
-          .filter(Boolean)
-          .join(' ')}
+        {...getSlotProps(
+          slots,
+          'root',
+          ['fq-radio-field', error ? 'fq-radio-field--error' : '']
+            .filter(Boolean)
+            .join(' '),
+        )}
       >
         <label className="fq-radio" htmlFor={radioId}>
           <input
@@ -59,20 +73,31 @@ export const Radio = forwardRef<HTMLInputElement, RadioProps>(
             id={radioId}
             type="radio"
             required={isRequired}
-            className={['fq-radio__input', className ?? '']
-              .filter(Boolean)
-              .join(' ')}
+            {...getSlotProps(
+              slots,
+              'input',
+              ['fq-radio__input', className ?? ''].filter(Boolean).join(' '),
+              style,
+            )}
             aria-invalid={invalid || undefined}
             aria-describedby={describedBy}
           />
 
-          <span className="fq-radio__control" aria-hidden="true" />
+          <span
+            {...getSlotProps(slots, 'control', 'fq-radio__control')}
+            aria-hidden="true"
+          />
 
-          <span className="fq-radio__label">{label}</span>
+          <span {...getSlotProps(slots, 'label', 'fq-radio__label')}>
+            {label}
+          </span>
         </label>
 
         {message && (
-          <div id={messageId} className="fq-radio-field__message">
+          <div
+            id={messageId}
+            {...getSlotProps(slots, 'helperText', 'fq-radio-field__message')}
+          >
             {message}
           </div>
         )}

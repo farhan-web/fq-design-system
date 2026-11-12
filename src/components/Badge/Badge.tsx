@@ -56,8 +56,16 @@ export const Badge = forwardRef<HTMLSpanElement, BadgeProps>(
         ref={ref}
         className={cls}
         data-disabled={disabled || undefined}
+        aria-disabled={disabled || props['aria-disabled']}
+        aria-busy={loading || props['aria-busy']}
       >
-        {!dot && !loading && children}
+        {!dot &&
+          !loading &&
+          (variant.startsWith('gradient-') ? (
+            <span className="fq-badge__text">{children}</span>
+          ) : (
+            children
+          ))}
       </span>
     );
   },

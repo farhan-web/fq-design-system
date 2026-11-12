@@ -1,3 +1,4 @@
+import { getSlotProps, type FqSlotCustomization } from '../../types/slots';
 import { forwardRef, type ButtonHTMLAttributes, type ReactNode } from 'react';
 import { ButtonBase } from '@mui/material';
 
@@ -8,7 +9,10 @@ export type ButtonVariant =
 
 export type ButtonSize = 'sm' | 'md' | 'lg';
 
-export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+export interface ButtonProps
+  extends
+    ButtonHTMLAttributes<HTMLButtonElement>,
+    FqSlotCustomization<'root' | 'content' | 'spinner'> {
   variant?: ButtonVariant;
   size?: ButtonSize;
   loading?: boolean;
@@ -33,10 +37,14 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       type = 'button',
       children,
       className,
+      style,
+      classNames,
+      slotProps,
       ...props
     },
     ref,
   ) => {
+    const slots = { classNames, slotProps };
     const isDisabled = disabled || loading;
 
     const buttonClassName = [
@@ -56,19 +64,24 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         // ButtonBase defaults to <button> — keep explicit for clarity
         component="button"
         type={type}
-        className={buttonClassName}
         disabled={isDisabled}
         aria-busy={loading || undefined}
         disableRipple
         {...props}
+        {...getSlotProps(slots, 'root', buttonClassName, style)}
       >
         {loading ? (
-          <span className="fq-button__spinner" aria-hidden="true" />
+          <span
+            {...getSlotProps(slots, 'spinner', 'fq-button__spinner')}
+            aria-hidden="true"
+          />
         ) : (
           startIcon
         )}
 
-        <span className="fq-button__content">{children}</span>
+        <span {...getSlotProps(slots, 'content', 'fq-button__content')}>
+          {children}
+        </span>
 
         {!loading && endIcon}
       </ButtonBase>

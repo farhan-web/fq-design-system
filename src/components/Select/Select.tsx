@@ -1,3 +1,4 @@
+import { getSlotProps, type FqSlotCustomization } from '../../types/slots';
 import { forwardRef, type SelectHTMLAttributes } from 'react';
 
 import { useFieldContext } from '../Field/FieldContext';
@@ -7,7 +8,12 @@ import type { FormFieldProps } from '../../types/form';
 import './Select.css';
 
 export interface SelectProps
-  extends SelectHTMLAttributes<HTMLSelectElement>, FormFieldProps {}
+  extends
+    SelectHTMLAttributes<HTMLSelectElement>,
+    FormFieldProps,
+    FqSlotCustomization<
+      'root' | 'label' | 'required' | 'select' | 'helperText'
+    > {}
 
 export const Select = forwardRef<HTMLSelectElement, SelectProps>(
   (
@@ -18,12 +24,16 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
       id,
       required,
       className,
+      style,
+      classNames,
+      slotProps,
       children,
       'aria-describedby': externalDescribedBy,
       ...props
     },
     ref,
   ) => {
+    const slots = { classNames, slotProps };
     const fieldContext = useFieldContext();
 
     const {
@@ -49,16 +59,30 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
 
     return (
       <div
-        className={['fq-select-field', error ? 'fq-select-field--error' : '']
-          .filter(Boolean)
-          .join(' ')}
+        {...getSlotProps(
+          slots,
+          'root',
+          ['fq-select-field', error ? 'fq-select-field--error' : '']
+            .filter(Boolean)
+            .join(' '),
+        )}
       >
         {label && (
-          <label className="fq-select-field__label" htmlFor={selectId}>
+          <label
+            {...getSlotProps(slots, 'label', 'fq-select-field__label')}
+            htmlFor={selectId}
+          >
             {label}
 
             {isRequired && (
-              <span className="fq-select-field__required" aria-hidden="true">
+              <span
+                {...getSlotProps(
+                  slots,
+                  'required',
+                  'fq-select-field__required',
+                )}
+                aria-hidden="true"
+              >
                 *
               </span>
             )}
@@ -70,7 +94,12 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
           ref={ref}
           id={selectId}
           required={isRequired}
-          className={['fq-select', className ?? ''].filter(Boolean).join(' ')}
+          {...getSlotProps(
+            slots,
+            'select',
+            ['fq-select', className ?? ''].filter(Boolean).join(' '),
+            style,
+          )}
           aria-invalid={invalid || undefined}
           aria-describedby={describedBy}
         >
@@ -78,7 +107,10 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
         </select>
 
         {message && (
-          <div id={messageId} className="fq-select-field__message">
+          <div
+            id={messageId}
+            {...getSlotProps(slots, 'helperText', 'fq-select-field__message')}
+          >
             {message}
           </div>
         )}

@@ -37,8 +37,7 @@ export const Default: Story = {
 };
 
 export const Controlled: Story = {
-  render: () => {
-    // eslint-disable-next-line react-hooks/rules-of-hooks
+  render: function ControlledDemo() {
     const [value, setValue] = React.useState<string | number>('a');
     return (
       <Tabs value={value} onValueChange={setValue}>
@@ -77,6 +76,21 @@ export const ManualActivation: Story = {
       </TabPanel>
       <TabPanel value="hotels">Hotel panel selected.</TabPanel>
       <TabPanel value="trains">Train panel selected.</TabPanel>
+    </Tabs>
+  ),
+};
+
+export const DensityBadgeContract: Story = {
+  render: () => (
+    <Tabs defaultValue="flights">
+      <TabList>
+        <Tab value="flights" badge="4">
+          Flights
+        </Tab>
+        <Tab value="hotels">Hotels</Tab>
+      </TabList>
+      <TabPanel value="flights">Flights with a badge</TabPanel>
+      <TabPanel value="hotels">Hotels</TabPanel>
     </Tabs>
   ),
 };

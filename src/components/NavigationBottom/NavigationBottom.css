@@ -11,7 +11,7 @@
   padding: 0;
   padding-bottom: env(safe-area-inset-bottom, 0);
 
-  background: var(--color-background);
+  background: var(--fq-navigation-bottom-background, var(--color-background));
   box-shadow: var(--elevation-01);
 }
 
@@ -24,20 +24,59 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 4px;
+  gap: calc(
+    4px *
+      clamp(
+        0.75,
+        var(--fq-navigation-bottom-gap-scale, var(--fq-density-gap, 1)),
+        1.25
+      )
+  );
 
   flex: 1;
   min-width: 0;
   /* 12px top · 4px lr · 8px bottom — spec dimension */
-  padding: var(--spacing-12) var(--spacing-4) var(--spacing-8);
+  padding: calc(
+      var(--spacing-12) *
+        clamp(
+          0.75,
+          var(
+            --fq-navigation-bottom-padding-scale,
+            var(--fq-density-padding, 1)
+          ),
+          1.25
+        )
+    )
+    calc(
+      var(--spacing-4) *
+        clamp(
+          0.75,
+          var(
+            --fq-navigation-bottom-padding-scale,
+            var(--fq-density-padding, 1)
+          ),
+          1.25
+        )
+    )
+    calc(
+      var(--spacing-8) *
+        clamp(
+          0.75,
+          var(
+            --fq-navigation-bottom-padding-scale,
+            var(--fq-density-padding, 1)
+          ),
+          1.25
+        )
+    );
 
   border: none;
   background: transparent;
-  color: var(--color-text-low);
+  color: var(--fq-navigation-bottom-text-low, var(--color-text-low));
   overflow: hidden;
   position: relative;
 
-  font-family: var(--font-family);
+  font-family: var(--fq-navigation-bottom-font-family, var(--font-family));
   font-size: var(--text-body3-size);
   font-weight: var(--font-weight-regular);
   line-height: var(--text-body3-line-height);
@@ -49,12 +88,13 @@
 }
 
 .fq-nav-bottom__item:focus-visible {
-  outline: 2px solid var(--color-text-activity);
+  outline: 2px solid
+    var(--fq-navigation-bottom-text-activity, var(--color-text-activity));
   outline-offset: -2px;
 }
 
 .fq-nav-bottom__item:disabled {
-  color: var(--color-text-disabled);
+  color: var(--fq-navigation-bottom-text-disabled, var(--color-text-disabled));
   cursor: not-allowed;
   pointer-events: none;
 }
@@ -64,7 +104,7 @@
    ================================ */
 
 .fq-nav-bottom__item--active {
-  color: var(--color-text-activity);
+  color: var(--fq-navigation-bottom-text-activity, var(--color-text-activity));
 }
 
 /* ================================
@@ -119,4 +159,9 @@
   opacity: 0.15;
   pointer-events: none;
   animation: fq-nav-ripple 400ms ease-out forwards;
+}
+
+/* Token scopes supply inherited typography without changing legacy host inheritance. */
+:where([data-fq-theme]) .fq-nav-bottom {
+  font-family: var(--fq-navigation-bottom-font-family, var(--font-family));
 }

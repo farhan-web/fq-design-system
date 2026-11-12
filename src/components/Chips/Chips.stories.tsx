@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Badge } from '../Badge/Badge';
 import { Chips } from './Chips';
@@ -188,4 +189,23 @@ export const AllInvertStates: Story = {
       </Chips>
     </div>
   ),
+};
+
+export const DismissKeyboardContract: Story = {
+  render: function Contract() {
+    const [selected, setSelected] = useState(0);
+    const [dismissed, setDismissed] = useState(0);
+    return (
+      <div>
+        <Chips
+          onClick={() => setSelected((n) => n + 1)}
+          onDismiss={() => setDismissed((n) => n + 1)}
+        >
+          Filter
+        </Chips>
+        <output aria-label="Selected count">{selected}</output>
+        <output aria-label="Dismissed count">{dismissed}</output>
+      </div>
+    );
+  },
 };

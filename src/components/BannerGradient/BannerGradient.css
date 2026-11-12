@@ -5,7 +5,7 @@
 .fq-banner-gradient {
   width: 100%;
   overflow: hidden;
-  color: var(--color-text-inverse);
+  color: var(--fq-banner-gradient-text-inverse, var(--color-text-inverse));
 }
 
 /* ================================
@@ -17,19 +17,75 @@
   height: 48px;
   display: flex;
   align-items: center;
-  padding: 0 var(--space-5);
-  border-radius: var(--radius-md) var(--radius-md) 0 0;
+  padding: 0
+    calc(
+      var(--space-5) *
+        clamp(
+          0.75,
+          var(--fq-banner-gradient-padding-scale, var(--fq-density-padding, 1)),
+          1.25
+        )
+    );
+  border-radius: var(--fq-banner-gradient-radius-md, var(--radius-md))
+    var(--fq-banner-gradient-radius-md, var(--radius-md)) 0 0;
 }
 
 /* Big rounded — hug height, 16px radius top / 0 bottom, 12px top / 28px bottom padding */
 .fq-banner-gradient--big-rounded {
-  padding: var(--spacing-12) var(--space-5) 28px;
-  border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+  padding: calc(
+      var(--spacing-12) *
+        clamp(
+          0.75,
+          var(--fq-banner-gradient-padding-scale, var(--fq-density-padding, 1)),
+          1.25
+        )
+    )
+    calc(
+      var(--space-5) *
+        clamp(
+          0.75,
+          var(--fq-banner-gradient-padding-scale, var(--fq-density-padding, 1)),
+          1.25
+        )
+    )
+    calc(
+      28px *
+        clamp(
+          0.75,
+          var(--fq-banner-gradient-padding-scale, var(--fq-density-padding, 1)),
+          1.25
+        )
+    );
+  border-radius: var(--fq-banner-gradient-radius-xl, var(--radius-xl))
+    var(--fq-banner-gradient-radius-xl, var(--radius-xl)) 0 0;
 }
 
 /* Big rectangle — hug height, 0px radius, 12px top / 12px bottom padding */
 .fq-banner-gradient--big-rectangle {
-  padding: var(--spacing-12) var(--space-5) var(--spacing-12);
+  padding: calc(
+      var(--spacing-12) *
+        clamp(
+          0.75,
+          var(--fq-banner-gradient-padding-scale, var(--fq-density-padding, 1)),
+          1.25
+        )
+    )
+    calc(
+      var(--space-5) *
+        clamp(
+          0.75,
+          var(--fq-banner-gradient-padding-scale, var(--fq-density-padding, 1)),
+          1.25
+        )
+    )
+    calc(
+      var(--spacing-12) *
+        clamp(
+          0.75,
+          var(--fq-banner-gradient-padding-scale, var(--fq-density-padding, 1)),
+          1.25
+        )
+    );
   border-radius: 0;
 }
 
@@ -40,7 +96,14 @@
 .fq-banner-gradient__main {
   display: flex;
   align-items: center;
-  gap: var(--spacing-12);
+  gap: calc(
+    var(--spacing-12) *
+      clamp(
+        0.75,
+        var(--fq-banner-gradient-gap-scale, var(--fq-density-gap, 1)),
+        1.25
+      )
+  );
   width: 100%;
 }
 
@@ -86,7 +149,7 @@
 .fq-banner-gradient__text {
   flex: 1;
   min-width: 0;
-  font-family: var(--font-family);
+  font-family: var(--fq-banner-gradient-font-family, var(--font-family));
   font-size: var(--text-body3-size);
   font-weight: var(--text-body3-weight);
   line-height: var(--text-body3-line-height);
@@ -137,15 +200,25 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 4px;
+  gap: calc(
+    4px *
+      clamp(
+        0.75,
+        var(--fq-banner-gradient-gap-scale, var(--fq-density-gap, 1)),
+        1.25
+      )
+  );
   margin-top: var(--spacing-8);
 }
 
 .fq-banner-gradient__dot {
   height: 6px;
   width: 6px;
-  border-radius: var(--radius-full);
-  background: rgb(255 255 255 / 40%);
+  border-radius: var(--fq-banner-gradient-radius-full, var(--radius-full));
+  background: var(
+    --fq-banner-gradient-inverse-inactive,
+    var(--color-inverse-inactive)
+  );
   transition:
     width 200ms ease,
     background-color 200ms ease;
@@ -154,16 +227,19 @@
 
 .fq-banner-gradient__dot--active {
   width: 16px;
-  background: var(--color-neutral-0);
+  background: var(--fq-banner-gradient-neutral-0, var(--color-neutral-0));
 }
 
 /* Blue page control variant */
 .fq-banner-gradient__page-control--blue .fq-banner-gradient__dot {
-  background: rgb(0 124 255 / 30%);
+  background: var(
+    --fq-banner-gradient-accent-inactive,
+    var(--color-accent-inactive)
+  );
 }
 
 .fq-banner-gradient__page-control--blue .fq-banner-gradient__dot--active {
-  background: var(--color-primary);
+  background: var(--fq-banner-gradient-primary, var(--color-primary));
 }
 
 /* ================================
@@ -173,56 +249,99 @@
 .fq-banner-gradient--violet {
   background: linear-gradient(
     135deg,
-    var(--color-gradient-violet-100) 0%,
-    var(--color-gradient-violet-200) 100%
+    var(
+        --fq-banner-gradient-gradient-violet-100,
+        var(--color-gradient-violet-100)
+      )
+      0%,
+    var(
+        --fq-banner-gradient-gradient-violet-200,
+        var(--color-gradient-violet-200)
+      )
+      100%
   );
 }
 
 .fq-banner-gradient--green {
   background: linear-gradient(
     135deg,
-    var(--color-gradient-green-100) 0%,
-    var(--color-gradient-green-200) 100%
+    var(
+        --fq-banner-gradient-gradient-green-100,
+        var(--color-gradient-green-100)
+      )
+      0%,
+    var(
+        --fq-banner-gradient-gradient-green-200,
+        var(--color-gradient-green-200)
+      )
+      100%
   );
 }
 
 .fq-banner-gradient--orange {
   background: linear-gradient(
     135deg,
-    var(--color-gradient-orange-100) 0%,
-    var(--color-gradient-orange-200) 100%
+    var(
+        --fq-banner-gradient-gradient-orange-100,
+        var(--color-gradient-orange-100)
+      )
+      0%,
+    var(
+        --fq-banner-gradient-gradient-orange-200,
+        var(--color-gradient-orange-200)
+      )
+      100%
   );
 }
 
 .fq-banner-gradient--red {
   background: linear-gradient(
     135deg,
-    var(--color-gradient-red-100) 0%,
-    var(--color-gradient-red-200) 100%
+    var(--fq-banner-gradient-gradient-red-100, var(--color-gradient-red-100)) 0%,
+    var(--fq-banner-gradient-gradient-red-200, var(--color-gradient-red-200))
+      100%
   );
 }
 
 .fq-banner-gradient--tosca {
   background: linear-gradient(
     135deg,
-    var(--color-gradient-tosca-100) 0%,
-    var(--color-gradient-tosca-200) 100%
+    var(
+        --fq-banner-gradient-gradient-tosca-100,
+        var(--color-gradient-tosca-100)
+      )
+      0%,
+    var(
+        --fq-banner-gradient-gradient-tosca-200,
+        var(--color-gradient-tosca-200)
+      )
+      100%
   );
 }
 
 .fq-banner-gradient--blue {
   background: linear-gradient(
     135deg,
-    var(--color-gradient-blue-100) 0%,
-    var(--color-gradient-blue-200) 100%
+    var(--fq-banner-gradient-gradient-blue-100, var(--color-gradient-blue-100))
+      0%,
+    var(--fq-banner-gradient-gradient-blue-200, var(--color-gradient-blue-200))
+      100%
   );
 }
 
 .fq-banner-gradient--purple {
   background: linear-gradient(
     135deg,
-    var(--color-gradient-purple-100) 0%,
-    var(--color-gradient-purple-200) 100%
+    var(
+        --fq-banner-gradient-gradient-purple-100,
+        var(--color-gradient-purple-100)
+      )
+      0%,
+    var(
+        --fq-banner-gradient-gradient-purple-200,
+        var(--color-gradient-purple-200)
+      )
+      100%
   );
 }
 
@@ -230,8 +349,28 @@
 .fq-banner-gradient--light-blue {
   background: linear-gradient(
     135deg,
-    var(--color-gradient-light-blue-100) 0%,
-    var(--color-gradient-light-blue-200) 100%
+    var(
+        --fq-banner-gradient-gradient-light-blue-100,
+        var(--color-gradient-light-blue-100)
+      )
+      0%,
+    var(
+        --fq-banner-gradient-gradient-light-blue-200,
+        var(--color-gradient-light-blue-200)
+      )
+      100%
   );
-  color: var(--color-text-high);
+  color: var(--fq-banner-gradient-text-high, var(--color-text-high));
+}
+
+/* Token scopes supply inherited typography without changing legacy host inheritance. */
+:where([data-fq-theme]) .fq-banner-gradient {
+  font-family: var(--fq-banner-gradient-font-family, var(--font-family));
+}
+
+.fq-banner-gradient__text {
+  background: var(--color-surface-raised);
+  color: var(--fq-banner-gradient-text-inverse, var(--color-text-high));
+  box-shadow: 0 0 0 2px var(--color-surface-raised);
+  border-radius: var(--radius-xs);
 }

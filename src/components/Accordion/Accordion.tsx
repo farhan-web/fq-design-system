@@ -4,6 +4,7 @@ import {
   useCallback,
   useContext,
   useEffect,
+  useMemo,
   useRef,
   useState,
   type HTMLAttributes,
@@ -80,20 +81,17 @@ export const Accordion = forwardRef<HTMLDivElement, AccordionProps>(
     const [internalOpen, setInternalOpen] =
       useState<Set<string | number>>(initial);
 
-    const openItems: Set<string | number> = isControlled
-      ? new Set(
-          Array.isArray(expanded) ? expanded : [expanded as string | number],
-        )
-      : internalOpen;
-
-    // Stable ref so toggle callback never goes stale
-    const openItemsRef = useRef(openItems);
-    openItemsRef.current = openItems;
+    const openItems = useMemo(
+      () =>
+        expanded !== undefined
+          ? new Set(Array.isArray(expanded) ? expanded : [expanded])
+          : internalOpen,
+      [expanded, internalOpen],
+    );
 
     const toggle = useCallback(
       (id: string | number) => {
-        const current = openItemsRef.current;
-        const next = new Set(current);
+        const next = new Set(openItems);
         if (next.has(id)) {
           next.delete(id);
         } else {
@@ -103,7 +101,7 @@ export const Accordion = forwardRef<HTMLDivElement, AccordionProps>(
         if (!isControlled) setInternalOpen(next);
         onExpandedChange?.([...next]);
       },
-      [multiple, isControlled, onExpandedChange],
+      [openItems, multiple, isControlled, onExpandedChange],
     );
 
     return (

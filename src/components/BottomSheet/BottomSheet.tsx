@@ -1,4 +1,9 @@
 import {
+  usePortalScope,
+  type FqPortalContainer,
+} from '../../theme/portalScope';
+import { getSlotProps, type FqSlotCustomization } from '../../types/slots';
+import {
   forwardRef,
   useCallback,
   useEffect,
@@ -8,10 +13,10 @@ import {
   type HTMLAttributes,
   type ReactNode,
 } from 'react';
-import { createPortal } from 'react-dom';
-import { ButtonBase } from '@mui/material';
+import { ButtonBase, Modal } from '@mui/material';
 
 import './BottomSheet.css';
+import { useModalScrollLock } from '../../hooks/useModalScrollLock';
 
 export interface BottomSheetIconAction {
   icon: ReactNode;
@@ -19,7 +24,25 @@ export interface BottomSheetIconAction {
   onClick: () => void;
 }
 
-export interface BottomSheetProps extends HTMLAttributes<HTMLDivElement> {
+export interface BottomSheetProps
+  extends
+    HTMLAttributes<HTMLDivElement>,
+    FqSlotCustomization<
+      | 'root'
+      | 'backdrop'
+      | 'handle'
+      | 'handleBar'
+      | 'image'
+      | 'header'
+      | 'title'
+      | 'closeButton'
+      | 'actions'
+      | 'action'
+      | 'iconAction'
+      | 'body'
+    > {
+  /** Portal target. Prefer a callback when the target is created after mount. */
+  container?: FqPortalContainer;
   open: boolean;
   onClose: () => void;
   title?: string;
@@ -43,19 +66,35 @@ export interface BottomSheetProps extends HTMLAttributes<HTMLDivElement> {
   children?: ReactNode;
 }
 
-/** Selects all focusable elements inside a container, excluding aria-hidden ones. */
-function getFocusable(container: HTMLElement): HTMLElement[] {
-  return Array.from(
-    container.querySelectorAll<HTMLElement>(
-      'button:not(:disabled), [href], input:not(:disabled), select:not(:disabled), textarea:not(:disabled), [tabindex]:not([tabindex="-1"])',
-    ),
-  ).filter((el) => !el.closest('[aria-hidden="true"]'));
-}
+// Keep the existing backdrop visuals while MUI owns modal interaction/stacking.
+const SheetBackdrop = forwardRef<
+  HTMLDivElement,
+  HTMLAttributes<HTMLDivElement>
+>((props, ref) => (
+  <div
+    {...getSlotProps(
+      {
+        slotProps: {
+          root: {
+            ...props,
+            style: props.style ? { ...props.style } : undefined,
+          },
+        },
+      },
+      'root',
+    )}
+    ref={ref}
+    onClick={props.onClick}
+    aria-hidden="true"
+  />
+));
+SheetBackdrop.displayName = 'SheetBackdrop';
 
 export const BottomSheet = forwardRef<HTMLDivElement, BottomSheetProps>(
   (
     {
       open,
+      container,
       onClose,
       title,
       handle = true,
@@ -68,17 +107,34 @@ export const BottomSheet = forwardRef<HTMLDivElement, BottomSheetProps>(
       children,
       className,
       style,
+      classNames,
+      slotProps,
       ...props
     },
     ref,
   ) => {
+    const portalScope = usePortalScope();
+    const slots = { classNames, slotProps };
+    const modalRootRef = useRef<HTMLDivElement>(null);
+    const inlineContainer = useCallback(
+      () => modalRootRef.current?.parentElement ?? document.body,
+      [],
+    );
     const [visible, setVisible] = useState(false);
     const [mounted, setMounted] = useState(false);
+    useModalScrollLock(mounted);
     const [isScrolled, setIsScrolled] = useState(false);
     const [isDragging, setIsDragging] = useState(false);
     const [dragOffset, setDragOffset] = useState(0);
-    const closeButtonRef = useRef<HTMLButtonElement>(null);
-    const dialogRef = useRef<HTMLDivElement>(null);
+    const [dialogNode, setDialogNode] = useState<HTMLDivElement | null>(null);
+    const handleRef = useCallback(
+      (node: HTMLDivElement | null) => {
+        setDialogNode(node);
+        if (typeof ref === 'function') ref(node);
+        else if (ref) ref.current = node;
+      },
+      [ref],
+    );
     const bodyRef = useRef<HTMLDivElement>(null);
     const dragStartY = useRef<number | null>(null);
     const titleId = useId();
@@ -86,68 +142,57 @@ export const BottomSheet = forwardRef<HTMLDivElement, BottomSheetProps>(
     useEffect(() => {
       if (open) {
         setMounted(true);
-        requestAnimationFrame(() =>
-          requestAnimationFrame(() => setVisible(true)),
-        );
-      } else {
-        setVisible(false);
-        setIsScrolled(false);
-        const timer = setTimeout(() => setMounted(false), 280);
-        return () => clearTimeout(timer);
+        let secondFrame: number | undefined;
+        const firstFrame = requestAnimationFrame(() => {
+          secondFrame = requestAnimationFrame(() => setVisible(true));
+        });
+        return () => {
+          cancelAnimationFrame(firstFrame);
+          if (secondFrame !== undefined) cancelAnimationFrame(secondFrame);
+        };
       }
+      setVisible(false);
+      setIsScrolled(false);
+      setIsDragging(false);
+      setDragOffset(0);
+      dragStartY.current = null;
+      const timer = setTimeout(() => setMounted(false), 280);
+      return () => clearTimeout(timer);
     }, [open]);
 
-    // Escape + focus trap (Tab/Shift+Tab cycles within dialog)
+    // Run after the sheet has mounted, including titleless/empty sheets.
     useEffect(() => {
-      if (!open) return;
-
-      const onKeyDown = (e: KeyboardEvent) => {
-        if (e.key === 'Escape') {
-          onClose();
-          return;
+      if (!visible || !open) return;
+      const dialog = dialogNode;
+      const first = Array.from(
+        dialog?.querySelectorAll<HTMLElement>(
+          'button, [href], input, select, textarea, [tabindex]',
+        ) ?? [],
+      ).find((element) => {
+        if (
+          element.tabIndex < 0 ||
+          element.matches(':disabled') ||
+          element.closest('[hidden], [inert], [aria-hidden="true"]')
+        )
+          return false;
+        for (
+          let node: HTMLElement | null = element;
+          node;
+          node = node.parentElement
+        ) {
+          const computed = getComputedStyle(node);
+          if (computed.display === 'none' || computed.visibility === 'hidden')
+            return false;
+          if (node === dialog) break;
         }
-
-        if (e.key === 'Tab') {
-          const el = dialogRef.current;
-          if (!el) return;
-          const focusable = getFocusable(el);
-          if (focusable.length === 0) return;
-          const first = focusable[0];
-          const last = focusable[focusable.length - 1];
-
-          if (e.shiftKey) {
-            if (document.activeElement === first) {
-              e.preventDefault();
-              last.focus();
-            }
-          } else {
-            if (document.activeElement === last) {
-              e.preventDefault();
-              first.focus();
-            }
-          }
-        }
-      };
-
-      document.addEventListener('keydown', onKeyDown);
-      // Focus first focusable element (close button if present, otherwise first in body)
-      closeButtonRef.current?.focus();
-      return () => document.removeEventListener('keydown', onKeyDown);
-    }, [open, onClose]);
-
-    // Body scroll lock — prevent background scroll while sheet is open
-    useEffect(() => {
-      if (!open) return;
-      const prev = document.body.style.overflow;
-      document.body.style.overflow = 'hidden';
-      return () => {
-        document.body.style.overflow = prev;
-      };
-    }, [open]);
+        return true;
+      });
+      (first ?? dialog)?.focus();
+    }, [visible, open, dialogNode]);
 
     // Drag-to-dismiss: global listeners active only while dragging
     useEffect(() => {
-      if (!isDragging) return;
+      if (!isDragging || !open) return;
 
       const onMove = (e: TouchEvent) => {
         if (dragStartY.current === null) return;
@@ -170,7 +215,7 @@ export const BottomSheet = forwardRef<HTMLDivElement, BottomSheetProps>(
         document.removeEventListener('touchmove', onMove);
         document.removeEventListener('touchend', onEnd);
       };
-    }, [isDragging, onClose]);
+    }, [isDragging, onClose, open]);
 
     const handleBodyScroll = useCallback(() => {
       setIsScrolled((bodyRef.current?.scrollTop ?? 0) > 0);
@@ -183,34 +228,48 @@ export const BottomSheet = forwardRef<HTMLDivElement, BottomSheetProps>(
 
     if (!mounted) return null;
 
-    const sheet = (
-      <>
-        <div
-          className={[
-            'fq-bottom-sheet__overlay',
-            visible ? 'fq-bottom-sheet__overlay--visible' : '',
-          ]
-            .filter(Boolean)
-            .join(' ')}
-          aria-hidden="true"
-          onClick={backdropDismiss ? onClose : undefined}
-        />
+    return (
+      <Modal
+        {...portalScope}
+        ref={modalRootRef}
+        open={mounted}
+        disableScrollLock
+        container={disablePortal ? inlineContainer : container}
+        disablePortal={disablePortal}
+        onClose={(_event, reason) => {
+          if (open && (reason !== 'backdropClick' || backdropDismiss))
+            onClose();
+        }}
+        slots={{ backdrop: SheetBackdrop }}
+        slotProps={{
+          backdrop: {
+            ...getSlotProps(
+              slots,
+              'backdrop',
+              [
+                'fq-bottom-sheet__overlay',
+                visible ? 'fq-bottom-sheet__overlay--visible' : '',
+              ]
+                .filter(Boolean)
+                .join(' '),
+            ),
+          },
+        }}
+      >
         <div
           {...props}
-          ref={(node) => {
-            (
-              dialogRef as React.MutableRefObject<HTMLDivElement | null>
-            ).current = node;
-            if (typeof ref === 'function') ref(node);
-            else if (ref)
-              (ref as React.MutableRefObject<HTMLDivElement | null>).current =
-                node;
-          }}
+          {...getSlotProps(slots, 'root')}
+          ref={handleRef}
           role="dialog"
           aria-modal="true"
-          aria-labelledby={title ? titleId : undefined}
+          tabIndex={-1}
+          aria-labelledby={
+            props['aria-labelledby'] ??
+            (props['aria-label'] == null && title != null ? titleId : undefined)
+          }
           style={{
             maxHeight: maxHeight ?? '90vh',
+            ...slotProps?.root?.style,
             ...style,
             ...(isDragging && {
               transform: `translateY(${dragOffset}px)`,
@@ -222,32 +281,47 @@ export const BottomSheet = forwardRef<HTMLDivElement, BottomSheetProps>(
             visible ? 'fq-bottom-sheet--visible' : '',
             isScrolled ? 'fq-bottom-sheet--scrolled' : '',
             className,
+            classNames?.root,
+            slotProps?.root?.className,
           ]
             .filter(Boolean)
             .join(' ')}
         >
           {handle && (
             <div
-              className="fq-bottom-sheet__handle"
+              {...getSlotProps(slots, 'handle', 'fq-bottom-sheet__handle')}
               aria-hidden="true"
               onTouchStart={handleDragStart}
             >
-              <div className="fq-bottom-sheet__handle-bar" />
+              <div
+                {...getSlotProps(
+                  slots,
+                  'handleBar',
+                  'fq-bottom-sheet__handle-bar',
+                )}
+              />
             </div>
           )}
 
-          {image && <div className="fq-bottom-sheet__image">{image}</div>}
+          {image && (
+            <div {...getSlotProps(slots, 'image', 'fq-bottom-sheet__image')}>
+              {image}
+            </div>
+          )}
 
           {title != null && (
             <div
-              className="fq-bottom-sheet__header"
+              {...getSlotProps(slots, 'header', 'fq-bottom-sheet__header')}
               onTouchStart={handleDragStart}
             >
               <ButtonBase
                 component="button"
-                ref={closeButtonRef}
                 type="button"
-                className="fq-bottom-sheet__close"
+                {...getSlotProps(
+                  slots,
+                  'closeButton',
+                  'fq-bottom-sheet__close',
+                )}
                 aria-label="Close"
                 disableRipple
                 onClick={onClose}
@@ -266,16 +340,29 @@ export const BottomSheet = forwardRef<HTMLDivElement, BottomSheetProps>(
                 </svg>
               </ButtonBase>
 
-              <h2 id={titleId} className="fq-bottom-sheet__title">
+              <h2
+                id={titleId}
+                {...getSlotProps(slots, 'title', 'fq-bottom-sheet__title')}
+              >
                 {title}
               </h2>
 
-              <div className="fq-bottom-sheet__header-end">
+              <div
+                {...getSlotProps(
+                  slots,
+                  'actions',
+                  'fq-bottom-sheet__header-end',
+                )}
+              >
                 {action && (
                   <ButtonBase
                     component="button"
                     type="button"
-                    className="fq-bottom-sheet__action"
+                    {...getSlotProps(
+                      slots,
+                      'action',
+                      'fq-bottom-sheet__action',
+                    )}
                     disableRipple
                     onClick={action.onClick}
                   >
@@ -287,7 +374,11 @@ export const BottomSheet = forwardRef<HTMLDivElement, BottomSheetProps>(
                     component="button"
                     key={a.label}
                     type="button"
-                    className="fq-bottom-sheet__icon-action"
+                    {...getSlotProps(
+                      slots,
+                      'iconAction',
+                      'fq-bottom-sheet__icon-action',
+                    )}
                     aria-label={a.label}
                     disableRipple
                     onClick={a.onClick}
@@ -301,17 +392,14 @@ export const BottomSheet = forwardRef<HTMLDivElement, BottomSheetProps>(
 
           <div
             ref={bodyRef}
-            className="fq-bottom-sheet__body"
+            {...getSlotProps(slots, 'body', 'fq-bottom-sheet__body')}
             onScroll={handleBodyScroll}
           >
             {children}
           </div>
         </div>
-      </>
+      </Modal>
     );
-
-    if (disablePortal) return sheet;
-    return createPortal(sheet, document.body);
   },
 );
 

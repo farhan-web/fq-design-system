@@ -5,33 +5,18 @@ import { describe, expect, it, vi } from 'vitest';
 import { Radio } from './Radio';
 
 describe('Radio', () => {
-
   it('preserves custom className', () => {
-    render(
-      <Radio
-        label="Cash"
-        name="payment"
-        className="custom-radio"
-      />,
-    );
+    render(<Radio label="Cash" name="payment" className="custom-radio" />);
 
     expect(
       screen.getByRole('radio', {
         name: 'Cash',
       }),
-    ).toHaveClass(
-      'fq-radio__input',
-      'custom-radio',
-    );
+    ).toHaveClass('fq-radio__input', 'custom-radio');
   });
 
   it('renders label and radio', () => {
-    render(
-      <Radio
-        label="Cash"
-        name="payment"
-      />,
-    );
+    render(<Radio label="Cash" name="payment" />);
 
     expect(
       screen.getByRole('radio', {
@@ -41,12 +26,7 @@ describe('Radio', () => {
   });
 
   it('associates label with radio', () => {
-    render(
-      <Radio
-        label="Cash"
-        name="payment"
-      />,
-    );
+    render(<Radio label="Cash" name="payment" />);
 
     const radio = screen.getByRole('radio', {
       name: 'Cash',
@@ -55,24 +35,16 @@ describe('Radio', () => {
     expect(radio).toHaveAttribute('id');
 
     expect(
-      document.querySelector(
-        `label[for="${radio.id}"]`,
-      ),
+      document.querySelector(`label[for="${radio.id}"]`),
     ).toBeInTheDocument();
   });
 
   it('generates unique ids for multiple radios', () => {
     render(
       <>
-        <Radio
-          label="Cash"
-          name="payment"
-        />
+        <Radio label="Cash" name="payment" />
 
-        <Radio
-          label="Card"
-          name="payment"
-        />
+        <Radio label="Card" name="payment" />
       </>,
     );
 
@@ -92,17 +64,9 @@ describe('Radio', () => {
   it('groups radios by name', () => {
     render(
       <>
-        <Radio
-          label="Cash"
-          name="payment"
-          value="cash"
-        />
+        <Radio label="Cash" name="payment" value="cash" />
 
-        <Radio
-          label="Card"
-          name="payment"
-          value="card"
-        />
+        <Radio label="Card" name="payment" value="card" />
       </>,
     );
 
@@ -114,26 +78,13 @@ describe('Radio', () => {
       name: 'Card',
     });
 
-    expect(cash).toHaveAttribute(
-      'name',
-      'payment',
-    );
+    expect(cash).toHaveAttribute('name', 'payment');
 
-    expect(card).toHaveAttribute(
-      'name',
-      'payment',
-    );
+    expect(card).toHaveAttribute('name', 'payment');
   });
 
   it('supports checked state', () => {
-    render(
-      <Radio
-        label="Cash"
-        name="payment"
-        checked
-        readOnly
-      />,
-    );
+    render(<Radio label="Cash" name="payment" checked readOnly />);
 
     expect(
       screen.getByRole('radio', {
@@ -143,13 +94,7 @@ describe('Radio', () => {
   });
 
   it('supports disabled state', () => {
-    render(
-      <Radio
-        label="Cash"
-        name="payment"
-        disabled
-      />,
-    );
+    render(<Radio label="Cash" name="payment" disabled />);
 
     expect(
       screen.getByRole('radio', {
@@ -159,13 +104,7 @@ describe('Radio', () => {
   });
 
   it('supports required state', () => {
-    render(
-      <Radio
-        label="Cash"
-        name="payment"
-        required
-      />,
-    );
+    render(<Radio label="Cash" name="payment" required />);
 
     expect(
       screen.getByRole('radio', {
@@ -187,16 +126,11 @@ describe('Radio', () => {
       name: 'Cash',
     });
 
-    const message = screen.getByText(
-      'Pay when your order arrives.',
-    );
+    const message = screen.getByText('Pay when your order arrives.');
 
     expect(message).toBeInTheDocument();
 
-    expect(radio).toHaveAttribute(
-      'aria-describedby',
-      message.id,
-    );
+    expect(radio).toHaveAttribute('aria-describedby', message.id);
   });
 
   it('exposes error state', () => {
@@ -212,19 +146,11 @@ describe('Radio', () => {
       name: 'Cash',
     });
 
-    const message = screen.getByText(
-      'Please select a payment method.',
-    );
+    const message = screen.getByText('Please select a payment method.');
 
-    expect(radio).toHaveAttribute(
-      'aria-invalid',
-      'true',
-    );
+    expect(radio).toHaveAttribute('aria-invalid', 'true');
 
-    expect(radio).toHaveAttribute(
-      'aria-describedby',
-      message.id,
-    );
+    expect(radio).toHaveAttribute('aria-describedby', message.id);
   });
 
   it('prioritizes error message over helper text', () => {
@@ -238,15 +164,11 @@ describe('Radio', () => {
     );
 
     expect(
-      screen.getByText(
-        'Please select a payment method.',
-      ),
+      screen.getByText('Please select a payment method.'),
     ).toBeInTheDocument();
 
     expect(
-      screen.queryByText(
-        'Choose your preferred method.',
-      ),
+      screen.queryByText('Choose your preferred method.'),
     ).not.toBeInTheDocument();
   });
 
@@ -262,9 +184,7 @@ describe('Radio', () => {
       />,
     );
 
-    expect(
-      screen.getByText('method'),
-    ).toBeInTheDocument();
+    expect(screen.getByText('method')).toBeInTheDocument();
   });
 
   it('supports ReactNode helper text', () => {
@@ -280,9 +200,7 @@ describe('Radio', () => {
       />,
     );
 
-    expect(
-      screen.getByText('cash'),
-    ).toBeInTheDocument();
+    expect(screen.getByText('cash')).toBeInTheDocument();
   });
 
   it('supports ReactNode error', () => {
@@ -292,8 +210,7 @@ describe('Radio', () => {
         name="payment"
         error={
           <>
-            Invalid payment.{' '}
-            <a href="/help">Learn more</a>
+            Invalid payment. <a href="/help">Learn more</a>
           </>
         }
       />,
@@ -309,13 +226,7 @@ describe('Radio', () => {
   it('forwards ref to the native radio', () => {
     const ref = createRef<HTMLInputElement>();
 
-    render(
-      <Radio
-        ref={ref}
-        label="Cash"
-        name="payment"
-      />,
-    );
+    render(<Radio ref={ref} label="Cash" name="payment" />);
 
     expect(ref.current).toBe(
       screen.getByRole('radio', {
@@ -325,27 +236,15 @@ describe('Radio', () => {
   });
 
   it('preserves radio group name and value', () => {
-    render(
-      <Radio
-        label="Cash"
-        name="payment"
-        value="cash"
-      />,
-    );
+    render(<Radio label="Cash" name="payment" value="cash" />);
 
     const radio = screen.getByRole('radio', {
       name: 'Cash',
     });
 
-    expect(radio).toHaveAttribute(
-      'name',
-      'payment',
-    );
+    expect(radio).toHaveAttribute('name', 'payment');
 
-    expect(radio).toHaveAttribute(
-      'value',
-      'cash',
-    );
+    expect(radio).toHaveAttribute('value', 'cash');
   });
 
   it('forwards onChange event', () => {
@@ -366,29 +265,17 @@ describe('Radio', () => {
       />,
     );
 
-    fireEvent.click(
-      screen.getByRole('radio'),
-    );
+    fireEvent.click(screen.getByRole('radio'));
 
     expect(handleChange).toHaveBeenCalledTimes(1);
     expect(selectedValue).toBe('cash');
     expect(checked).toBe(true);
   });
 
-
   it('supports defaultChecked', () => {
-    render(
-      <Radio
-        label="Cash"
-        name="payment"
-        value="cash"
-        defaultChecked
-      />,
-    );
+    render(<Radio label="Cash" name="payment" value="cash" defaultChecked />);
 
-    expect(
-      screen.getByRole('radio'),
-    ).toBeChecked();
+    expect(screen.getByRole('radio')).toBeChecked();
   });
 
   it('supports controlled checked state', () => {
@@ -419,5 +306,4 @@ describe('Radio', () => {
 
     expect(radio).not.toBeChecked();
   });
-
 });

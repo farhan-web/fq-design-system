@@ -1,0 +1,11 @@
+/* Only the outer FQ boundary gets the typography formerly inherited from body.
+   Nested slots retain component inheritance; host elements remain untouched. */
+:where([class^='fq-'], [class*=' fq-']):not(
+  :where([class^='fq-'], [class*=' fq-']) *
+) {
+  font-family: var(--font-family);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-regular);
+  line-height: normal;
+  color: var(--color-text-high);
+}

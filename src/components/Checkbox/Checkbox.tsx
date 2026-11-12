@@ -1,3 +1,4 @@
+import { getSlotProps, type FqSlotCustomization } from '../../types/slots';
 import './Checkbox.css';
 
 import {
@@ -13,7 +14,10 @@ import { useFormField } from '../../hooks/useFormField';
 import type { FormFieldProps } from '../../types/form';
 
 export interface CheckboxProps
-  extends Omit<InputHTMLAttributes<HTMLInputElement>, 'size'>, FormFieldProps {
+  extends
+    Omit<InputHTMLAttributes<HTMLInputElement>, 'size'>,
+    FormFieldProps,
+    FqSlotCustomization<'root' | 'label' | 'input' | 'helperText'> {
   indeterminate?: boolean;
   readOnly?: boolean;
 }
@@ -30,11 +34,15 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
       disabled,
       required,
       className,
+      style,
+      classNames,
+      slotProps,
       'aria-describedby': externalDescribedBy,
       ...props
     },
     ref,
   ) => {
+    const slots = { classNames, slotProps };
     const fieldContext = useFieldContext();
 
     const {
@@ -70,13 +78,17 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
 
     return (
       <div
-        className={[
-          'fq-checkbox-field',
-          invalid ? 'fq-checkbox-field--error' : '',
-          readOnly ? 'fq-checkbox-field--readonly' : '',
-        ]
-          .filter(Boolean)
-          .join(' ')}
+        {...getSlotProps(
+          slots,
+          'root',
+          [
+            'fq-checkbox-field',
+            invalid ? 'fq-checkbox-field--error' : '',
+            readOnly ? 'fq-checkbox-field--readonly' : '',
+          ]
+            .filter(Boolean)
+            .join(' '),
+        )}
       >
         <label className="fq-checkbox" htmlFor={checkboxId}>
           <input
@@ -86,19 +98,29 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
             type="checkbox"
             disabled={disabled}
             required={isRequired}
-            className={['fq-checkbox__input', className ?? '']
-              .filter(Boolean)
-              .join(' ')}
+            {...getSlotProps(
+              slots,
+              'input',
+              ['fq-checkbox__input', className ?? ''].filter(Boolean).join(' '),
+              style,
+            )}
             aria-invalid={invalid || undefined}
             aria-readonly={readOnly || undefined}
             aria-describedby={describedBy}
           />
 
-          {label && <span className="fq-checkbox__label">{label}</span>}
+          {label && (
+            <span {...getSlotProps(slots, 'label', 'fq-checkbox__label')}>
+              {label}
+            </span>
+          )}
         </label>
 
         {message && (
-          <div id={messageId} className="fq-checkbox-field__message">
+          <div
+            id={messageId}
+            {...getSlotProps(slots, 'helperText', 'fq-checkbox-field__message')}
+          >
             {message}
           </div>
         )}

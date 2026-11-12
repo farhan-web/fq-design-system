@@ -140,10 +140,10 @@ const cellStyle: React.CSSProperties = {
 };
 const headerStyle: React.CSSProperties = {
   ...cellStyle,
-  background: '#f5f5f5',
+  background: 'var(--color-surface-raised)',
   fontWeight: 600,
   fontSize: 11,
-  color: '#666',
+  color: 'var(--color-text-medium)',
 };
 
 const ICON_ROWS = [
@@ -188,7 +188,7 @@ export const SizeGallery: Story = {
                   justifyContent: 'flex-start',
                   paddingLeft: 12,
                   fontSize: 12,
-                  color: '#444',
+                  color: 'var(--color-text-high)',
                 }}
               >
                 {name}
@@ -247,7 +247,9 @@ export const ColorGallery: Story = {
           <IconBase size="xl" color={color} aria-label={label}>
             <SearchIcon />
           </IconBase>
-          <span style={{ fontSize: 11, color: '#666' }}>{label}</span>
+          <span style={{ fontSize: 11, color: 'var(--color-text-medium)' }}>
+            {label}
+          </span>
         </div>
       ))}
     </div>

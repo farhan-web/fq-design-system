@@ -5,9 +5,7 @@ import { useFormField } from './useFormField';
 
 describe('useFormField', () => {
   it('generates an id when id is not provided', () => {
-    const { result } = renderHook(() =>
-      useFormField({}),
-    );
+    const { result } = renderHook(() => useFormField({}));
 
     expect(result.current.id).not.toBe('');
   });
@@ -25,9 +23,7 @@ describe('useFormField', () => {
     rerender();
 
     expect(result.current.id).toBe(firstId);
-    expect(result.current.messageId).toBe(
-      firstMessageId,
-    );
+    expect(result.current.messageId).toBe(firstMessageId);
   });
 
   it('uses the provided id', () => {
@@ -71,9 +67,7 @@ describe('useFormField', () => {
       }),
     );
 
-    expect(result.current.messageId).toBe(
-      'email-message',
-    );
+    expect(result.current.messageId).toBe('email-message');
   });
 
   it('combines external and internal descriptions', () => {
@@ -123,9 +117,7 @@ describe('useFormField', () => {
     );
 
     expect(result.current.invalid).toBe(true);
-    expect(result.current.message).toBe(
-      'Invalid email',
-    );
+    expect(result.current.message).toBe('Invalid email');
 
     rerender({
       error: undefined,

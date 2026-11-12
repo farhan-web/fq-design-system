@@ -19,16 +19,10 @@ export function useFormField({
 
   const message = error ?? helperText;
 
-  const messageId = message
-    ? `${fieldId}-message`
-    : undefined;
+  const messageId = message ? `${fieldId}-message` : undefined;
 
-  const combinedDescribedBy = [
-    describedBy,
-    messageId,
-  ]
-    .filter(Boolean)
-    .join(' ') || undefined;
+  const combinedDescribedBy =
+    [describedBy, messageId].filter(Boolean).join(' ') || undefined;
 
   return {
     id: fieldId,

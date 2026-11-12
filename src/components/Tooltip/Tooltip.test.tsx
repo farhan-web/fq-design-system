@@ -1,6 +1,13 @@
-import { fireEvent, render, screen, waitFor } from '@testing-library/react';
-import { describe, expect, it, vi } from 'vitest';
+import {
+  act,
+  fireEvent,
+  render,
+  screen,
+  waitFor,
+} from '@testing-library/react';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
+import { Dialog } from '../Dialog/Dialog';
 import { Tooltip } from './Tooltip';
 
 describe('Tooltip', () => {
@@ -312,5 +319,234 @@ describe('Tooltip', () => {
     );
     const tooltip = screen.getByRole('tooltip', { hidden: true });
     expect(tooltip).toHaveStyle({ maxWidth: '50vw' });
+  });
+});
+
+describe('Tooltip lifecycle regressions', () => {
+  beforeEach(() => vi.useFakeTimers());
+  afterEach(() => vi.useRealTimers());
+
+  it('preserves existing description IDs before, during and after disclosure', () => {
+    render(
+      <>
+        <p id="existing">Existing help</p>
+        <Tooltip content="Extra help" enterDelay={0}>
+          <button aria-describedby="existing">Help</button>
+        </Tooltip>
+      </>,
+    );
+    const button = screen.getByRole('button');
+    expect(button).toHaveAttribute('aria-describedby', 'existing');
+    fireEvent.mouseEnter(button);
+    act(() => vi.runAllTimers());
+    const tooltip = screen.getByRole('tooltip');
+    expect(button).toHaveAttribute(
+      'aria-describedby',
+      `existing ${tooltip.id}`,
+    );
+    expect(button).toHaveAccessibleDescription('Existing help Extra help');
+    fireEvent.mouseLeave(button);
+    act(() => vi.runAllTimers());
+    expect(button).toHaveAttribute('aria-describedby', 'existing');
+  });
+
+  it('clears delayed enter callbacks on unmount', () => {
+    const onOpen = vi.fn();
+    const { unmount } = render(
+      <Tooltip content="Help" enterDelay={100} onOpen={onOpen}>
+        <button>Help</button>
+      </Tooltip>,
+    );
+    fireEvent.mouseEnter(screen.getByRole('button'));
+    unmount();
+    act(() => vi.runAllTimers());
+    expect(onOpen).not.toHaveBeenCalled();
+  });
+
+  it('clears delayed leave callbacks on unmount', () => {
+    const onClose = vi.fn();
+    const { unmount } = render(
+      <Tooltip content="Help" enterDelay={0} leaveDelay={100} onClose={onClose}>
+        <button>Help</button>
+      </Tooltip>,
+    );
+    fireEvent.mouseEnter(screen.getByRole('button'));
+    act(() => vi.runAllTimers());
+    fireEvent.mouseLeave(screen.getByRole('button'));
+    unmount();
+    act(() => vi.runAllTimers());
+    expect(onClose).not.toHaveBeenCalled();
+  });
+
+  it('retains disclosure while focus remains after the pointer leaves', () => {
+    render(
+      <Tooltip content="Help" enterDelay={0}>
+        <button>Help</button>
+      </Tooltip>,
+    );
+    const button = screen.getByRole('button');
+    fireEvent.focus(button);
+    fireEvent.mouseEnter(button);
+    act(() => vi.runAllTimers());
+    fireEvent.mouseLeave(button);
+    act(() => vi.runAllTimers());
+    expect(screen.getByRole('tooltip')).toBeInTheDocument();
+    fireEvent.blur(button);
+    act(() => vi.runAllTimers());
+    expect(screen.queryByRole('tooltip')).not.toBeInTheDocument();
+  });
+
+  it('dismisses Escape immediately and preserves child key handlers', () => {
+    const onKeyDown = vi.fn();
+    const onClose = vi.fn();
+    render(
+      <Tooltip
+        content="Help"
+        enterDelay={0}
+        leaveDelay={1000}
+        onClose={onClose}
+      >
+        <button onKeyDown={onKeyDown}>Help</button>
+      </Tooltip>,
+    );
+    const button = screen.getByRole('button');
+    fireEvent.focus(button);
+    act(() => vi.runAllTimers());
+    fireEvent.keyDown(button, { key: 'Escape' });
+    expect(onKeyDown).toHaveBeenCalledTimes(1);
+    expect(onClose).toHaveBeenCalledTimes(1);
+    expect(screen.queryByRole('tooltip')).not.toBeInTheDocument();
+    fireEvent.mouseEnter(button);
+    act(() => vi.runAllTimers());
+    expect(screen.queryByRole('tooltip')).not.toBeInTheDocument();
+    fireEvent.mouseLeave(button);
+    fireEvent.blur(button);
+    act(() => vi.runAllTimers());
+    fireEvent.focus(button);
+    act(() => vi.runAllTimers());
+    expect(screen.getByRole('tooltip')).toBeInTheDocument();
+  });
+
+  it('cancels a pending open when Escape is pressed outside the trigger', () => {
+    const onOpen = vi.fn();
+    render(
+      <Tooltip content="Help" enterDelay={100} onOpen={onOpen}>
+        <button>Help</button>
+      </Tooltip>,
+    );
+    fireEvent.mouseEnter(screen.getByRole('button'));
+    fireEvent.keyDown(document.body, { key: 'Escape' });
+    act(() => vi.runAllTimers());
+    expect(onOpen).not.toHaveBeenCalled();
+    expect(screen.queryByRole('tooltip')).not.toBeInTheDocument();
+  });
+
+  it('requests controlled dismissal without overriding parent visibility', () => {
+    const onClose = vi.fn();
+    const { rerender } = render(
+      <Tooltip content="Help" open onClose={onClose}>
+        <button>Help</button>
+      </Tooltip>,
+    );
+    fireEvent.keyDown(screen.getByRole('button'), { key: 'Escape' });
+    expect(onClose).toHaveBeenCalledTimes(1);
+    expect(screen.getByRole('tooltip')).toBeInTheDocument();
+    rerender(
+      <Tooltip content="Help" open={false} onClose={onClose}>
+        <button>Help</button>
+      </Tooltip>,
+    );
+    expect(screen.queryByRole('tooltip')).not.toBeInTheDocument();
+  });
+
+  it('coalesces pending hover and focus and cancels stale controlled transitions', () => {
+    const onOpen = vi.fn();
+    const { rerender } = render(
+      <Tooltip content="Help" enterDelay={100} onOpen={onOpen}>
+        <button>Help</button>
+      </Tooltip>,
+    );
+    fireEvent.mouseEnter(screen.getByRole('button'));
+    fireEvent.focus(screen.getByRole('button'));
+    act(() => vi.runAllTimers());
+    expect(onOpen).toHaveBeenCalledTimes(1);
+    fireEvent.blur(screen.getByRole('button'));
+    fireEvent.mouseLeave(screen.getByRole('button'));
+    act(() => vi.runAllTimers());
+    fireEvent.mouseEnter(screen.getByRole('button'));
+    rerender(
+      <Tooltip content="Help" open={false} enterDelay={100} onOpen={onOpen}>
+        <button>Help</button>
+      </Tooltip>,
+    );
+    act(() => vi.runAllTimers());
+    expect(onOpen).toHaveBeenCalledTimes(1);
+  });
+
+  it('composes wrapper and child handlers and clears cancelled touch activity', () => {
+    const childEnter = vi.fn();
+    const rootEnter = vi.fn();
+    const touchCancel = vi.fn();
+    render(
+      <Tooltip
+        content="Help"
+        enterDelay={0}
+        onMouseEnter={rootEnter}
+        onTouchCancel={touchCancel}
+      >
+        <button onMouseEnter={childEnter}>Help</button>
+      </Tooltip>,
+    );
+    const button = screen.getByRole('button');
+    fireEvent.mouseEnter(button);
+    act(() => vi.runAllTimers());
+    expect(childEnter).toHaveBeenCalledTimes(1);
+    expect(rootEnter).toHaveBeenCalledTimes(1);
+    fireEvent.mouseLeave(button);
+    fireEvent.touchStart(button);
+    act(() => vi.runAllTimers());
+    fireEvent.touchCancel(button);
+    act(() => vi.runAllTimers());
+    expect(touchCancel).toHaveBeenCalledTimes(1);
+    expect(screen.queryByRole('tooltip')).not.toBeInTheDocument();
+  });
+  it('uses the latest callback without restarting an existing delay', () => {
+    const first = vi.fn();
+    const second = vi.fn();
+    const { rerender } = render(
+      <Tooltip content="Help" enterDelay={100} onOpen={first}>
+        <button>Help</button>
+      </Tooltip>,
+    );
+    fireEvent.mouseEnter(screen.getByRole('button'));
+    act(() => vi.advanceTimersByTime(50));
+    rerender(
+      <Tooltip content="Help" enterDelay={100} onOpen={second}>
+        <button>Help</button>
+      </Tooltip>,
+    );
+    act(() => vi.advanceTimersByTime(50));
+    expect(first).not.toHaveBeenCalled();
+    expect(second).toHaveBeenCalledTimes(1);
+  });
+
+  it('dismisses a tooltip before the containing Dialog receives Escape', () => {
+    const close = vi.fn();
+    render(
+      <Dialog open title="Review" onClose={close}>
+        <Tooltip content="Extra help" enterDelay={0}>
+          <button>Help</button>
+        </Tooltip>
+      </Dialog>,
+    );
+    const trigger = screen.getByRole('button', { name: 'Help' });
+    fireEvent.focus(trigger);
+    act(() => vi.advanceTimersByTime(0));
+    expect(screen.getByRole('tooltip')).toBeInTheDocument();
+    fireEvent.keyDown(trigger, { key: 'Escape' });
+    expect(screen.queryByRole('tooltip')).not.toBeInTheDocument();
+    expect(close).not.toHaveBeenCalled();
+    fireEvent.keyDown(trigger, { key: 'Escape' });
+    expect(close).toHaveBeenCalledTimes(1);
   });
 });

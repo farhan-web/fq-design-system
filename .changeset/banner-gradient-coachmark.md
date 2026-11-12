@@ -1,5 +1,5 @@
 ---
-"fq-design-system": minor
+'fq-design-system': minor
 ---
 
 Add BannerGradient and Coachmark components

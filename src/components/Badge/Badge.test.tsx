@@ -59,12 +59,16 @@ describe('Badge', () => {
 
   it('applies gradient-red variant class', () => {
     render(<Badge variant="gradient-red">New</Badge>);
-    expect(screen.getByText('New')).toHaveClass('fq-badge--gradient-red');
+    expect(screen.getByText('New').closest('.fq-badge')).toHaveClass(
+      'fq-badge--gradient-red',
+    );
   });
 
   it('applies gradient-green variant class', () => {
     render(<Badge variant="gradient-green">Active</Badge>);
-    expect(screen.getByText('Active')).toHaveClass('fq-badge--gradient-green');
+    expect(screen.getByText('Active').closest('.fq-badge')).toHaveClass(
+      'fq-badge--gradient-green',
+    );
   });
 
   it('disabled prop sets data-disabled attribute', () => {

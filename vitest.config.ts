@@ -8,8 +8,18 @@ export default defineConfig({
     coverage: {
       provider: 'v8',
       reporter: ['text', 'lcov'],
-      include: ['src/components/**', 'src/hooks/**'],
-      exclude: ['**/*.stories.tsx', '**/*.test.tsx', '**/index.ts'],
+      include: [
+        'src/components/**',
+        'src/hooks/**',
+        'src/theme/**',
+        'src/types/slots.ts',
+      ],
+      exclude: [
+        '**/*.stories.tsx',
+        '**/*.test.tsx',
+        '**/index.ts',
+        '**/*.json',
+      ],
       thresholds: {
         lines: 80,
         functions: 80,

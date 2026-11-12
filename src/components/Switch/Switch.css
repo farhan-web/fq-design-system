@@ -1,13 +1,19 @@
 .fq-switch-field {
   display: flex;
   flex-direction: column;
-  gap: var(--space-1-5);
+  gap: calc(
+    var(--space-1-5) *
+      clamp(0.75, var(--fq-switch-gap-scale, var(--fq-density-gap, 1)), 1.25)
+  );
 }
 
 .fq-switch {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
+  gap: calc(
+    var(--fq-switch-gap, 10px) *
+      clamp(0.75, var(--fq-switch-gap-scale, var(--fq-density-gap, 1)), 1.25)
+  );
   width: fit-content;
   cursor: pointer;
 }
@@ -28,8 +34,8 @@
   position: relative;
   width: 38px;
   height: 22px;
-  border-radius: var(--radius-full);
-  background: var(--color-border);
+  border-radius: var(--fq-switch-radius-full, var(--radius-full));
+  background: var(--fq-switch-border, var(--color-border));
   flex-shrink: 0;
   transition: background-color 120ms ease-in-out;
 }
@@ -43,35 +49,29 @@
   height: 16px;
   border-radius: 50%;
 
-  background: var(--color-background);
+  background: var(--fq-switch-background, var(--color-background));
 
   transition: transform 120ms ease-in-out;
 }
 
-.fq-switch__input:hover:not(:disabled)
-  + .fq-switch__control {
-  background: var(--color-border-strong);
+.fq-switch__input:hover:not(:disabled) + .fq-switch__control {
+  background: var(--fq-switch-border-strong, var(--color-border-strong));
 }
 
-.fq-switch__input:checked
-  + .fq-switch__control {
-  background: var(--color-primary);
+.fq-switch__input:checked + .fq-switch__control {
+  background: var(--fq-switch-primary, var(--color-primary));
 }
 
-.fq-switch__input:checked
-  + .fq-switch__control
-  .fq-switch__thumb {
+.fq-switch__input:checked + .fq-switch__control .fq-switch__thumb {
   transform: translateX(16px);
 }
 
-.fq-switch__input:focus-visible
-  + .fq-switch__control {
-  outline: 2px solid var(--color-primary);
+.fq-switch__input:focus-visible + .fq-switch__control {
+  outline: 2px solid var(--fq-switch-primary, var(--color-primary));
   outline-offset: 2px;
 }
 
-.fq-switch__input:disabled
-  + .fq-switch__control {
+.fq-switch__input:disabled + .fq-switch__control {
   opacity: 0.5;
 }
 
@@ -82,23 +82,29 @@
 .fq-switch__label {
   font-size: var(--text-body2-size);
   line-height: var(--text-body2-line-height);
-  color: var(--color-text-high);
+  color: var(--fq-switch-text-high, var(--color-text-high));
   user-select: none;
 }
 
 .fq-switch-field__message {
-  margin-left: 48px;
+  margin-left: calc(
+    38px + var(--fq-switch-gap, 10px) *
+      clamp(0.75, var(--fq-switch-gap-scale, var(--fq-density-gap, 1)), 1.25)
+  );
   font-size: var(--text-body3-size);
   line-height: var(--text-body3-line-height);
-  color: var(--color-text-low);
+  color: var(--fq-switch-text-low, var(--color-text-low));
 }
 
-.fq-switch-field--error
-  .fq-switch__control {
-  background: var(--color-danger);
+.fq-switch-field--error .fq-switch__control {
+  background: var(--fq-switch-danger, var(--color-danger));
 }
 
-.fq-switch-field--error
-  .fq-switch-field__message {
-  color: var(--color-danger);
+.fq-switch-field--error .fq-switch-field__message {
+  color: var(--fq-switch-danger, var(--color-text-alert));
+}
+
+/* Token scopes supply inherited typography without changing legacy host inheritance. */
+:where([data-fq-theme]) .fq-switch-field {
+  font-family: var(--fq-switch-font-family, var(--font-family));
 }

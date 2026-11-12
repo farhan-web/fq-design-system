@@ -60,7 +60,6 @@ export const NavigationBottom = forwardRef<HTMLElement, NavigationBottomProps>(
               key={item.value}
               type="button"
               aria-current={isActive ? 'page' : undefined}
-              aria-label={item.label}
               disabled={item.disabled}
               disableRipple
               className={[
@@ -74,10 +73,12 @@ export const NavigationBottom = forwardRef<HTMLElement, NavigationBottomProps>(
                 onValueChange(item.value);
               }}
             >
-              <span className="fq-nav-bottom__icon">
+              <span className="fq-nav-bottom__icon" aria-hidden="true">
                 {item.icon}
                 {item.badge && (
-                  <span className="fq-nav-bottom__badge">{item.badge}</span>
+                  <span className="fq-nav-bottom__badge" aria-hidden="true">
+                    {item.badge}
+                  </span>
                 )}
               </span>
               <span className="fq-nav-bottom__label">{item.label}</span>

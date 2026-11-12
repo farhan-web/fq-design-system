@@ -1,4 +1,5 @@
-.fq-tabs {}
+.fq-tabs {
+}
 
 /* ================================
    Tab list — scrollable strip
@@ -8,7 +9,7 @@
   display: flex;
   align-items: flex-end;
   gap: 0;
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--fq-tabs-border, var(--color-border));
   overflow-x: auto;
   scrollbar-width: none;
 }
@@ -28,18 +29,29 @@
   /* spec: align-left */
   justify-content: flex-start;
   /* icon-to-text gap = 8px per spec dimension */
-  gap: var(--spacing-8);
+  gap: calc(
+    var(--spacing-8) *
+      clamp(0.75, var(--fq-tabs-gap-scale, var(--fq-density-gap, 1)), 1.25)
+  );
 
   height: 52px;
   /* spec: 12px horizontal padding ("internal Tab list padding") */
-  padding: 0 var(--spacing-12);
+  padding: 0
+    calc(
+      var(--spacing-12) *
+        clamp(
+          0.75,
+          var(--fq-tabs-padding-scale, var(--fq-density-padding, 1)),
+          1.25
+        )
+    );
 
   border: none;
   background: transparent;
-  color: var(--color-text-low);
+  color: var(--fq-tabs-text-low, var(--color-text-low));
   min-width: 0;
 
-  font-family: var(--font-family);
+  font-family: var(--fq-tabs-font-family, var(--font-family));
   /* spec: body2-bold for ALL tabs (inactive and active) */
   font-size: var(--text-body2-size);
   font-weight: var(--font-weight-bold);
@@ -76,26 +88,26 @@
   width: 0;
   height: 3px;
   border-radius: 3px 3px 0 0;
-  background: var(--color-text-activity);
+  background: var(--fq-tabs-text-activity, var(--color-text-activity));
   transition: width 200ms ease;
 }
 
-.fq-tabs__trigger:hover:not(:disabled):not([aria-selected="true"]) {
-  color: var(--color-text-medium);
+.fq-tabs__trigger:hover:not(:disabled):not([aria-selected='true']) {
+  color: var(--fq-tabs-text-medium, var(--color-text-medium));
 }
 
 /* Active state: color = text-activity, font stays body2-bold */
-.fq-tabs__trigger[aria-selected="true"] {
-  color: var(--color-text-activity);
+.fq-tabs__trigger[aria-selected='true'] {
+  color: var(--fq-tabs-text-activity, var(--color-text-activity));
 }
 
 /* Active indicator: full width of tab */
-.fq-tabs__trigger[aria-selected="true"]::after {
+.fq-tabs__trigger[aria-selected='true']::after {
   width: 100%;
 }
 
 .fq-tabs__trigger:focus-visible {
-  outline: 2px solid var(--color-text-activity);
+  outline: 2px solid var(--fq-tabs-text-activity, var(--color-text-activity));
   outline-offset: -2px;
 }
 
@@ -140,7 +152,9 @@
 .fq-tabs__badge {
   display: inline-flex;
   flex-shrink: 0;
-  margin-left: -4px; /* gap is 8px, badge needs 4px → net 4px */
+  margin-left: calc(
+    -4px * clamp(0.75, var(--fq-tabs-gap-scale, var(--fq-density-gap, 1)), 1.25)
+  ); /* gap is 8px, badge needs 4px → net 4px */
 }
 
 /* ================================
@@ -149,27 +163,31 @@
    ================================ */
 
 .fq-tabs--invert .fq-tabs__list {
-  border-bottom-color: rgb(255 255 255 / 20%);
-  background: var(--color-neutral-800);
+  border-bottom-color: var(
+    --fq-tabs-inverse-border,
+    var(--color-inverse-border)
+  );
+  background: var(--fq-tabs-neutral-800, var(--color-neutral-800));
 }
 
 .fq-tabs--invert .fq-tabs__trigger {
   /* spec: Inactivated Invert Text Alpha 40% */
-  color: rgb(255 255 255 / 40%);
+  color: var(--fq-tabs-inverse-inactive, var(--color-inverse-inactive));
 }
 
-.fq-tabs--invert .fq-tabs__trigger:hover:not(:disabled):not([aria-selected="true"]) {
-  color: rgb(255 255 255 / 60%);
+.fq-tabs--invert
+  .fq-tabs__trigger:hover:not(:disabled):not([aria-selected='true']) {
+  color: var(--fq-tabs-inverse-hover, var(--color-inverse-hover));
 }
 
 /* spec: Activated Invert Text = N0 (text-inverse) */
-.fq-tabs--invert .fq-tabs__trigger[aria-selected="true"] {
-  color: var(--color-text-inverse);
+.fq-tabs--invert .fq-tabs__trigger[aria-selected='true'] {
+  color: var(--fq-tabs-text-inverse, var(--color-text-inverse));
 }
 
 /* spec: active indicator invert = N0 */
 .fq-tabs--invert .fq-tabs__trigger::after {
-  background: var(--color-text-inverse);
+  background: var(--fq-tabs-text-inverse, var(--color-text-inverse));
 }
 
 /* ================================
@@ -177,10 +195,22 @@
    ================================ */
 
 .fq-tabs__panel {
-  padding-top: var(--spacing-16);
+  padding-top: calc(
+    var(--spacing-16) *
+      clamp(
+        0.75,
+        var(--fq-tabs-padding-scale, var(--fq-density-padding, 1)),
+        1.25
+      )
+  );
 }
 
 .fq-tabs__panel:focus-visible {
-  outline: 2px solid var(--color-text-activity);
+  outline: 2px solid var(--fq-tabs-text-activity, var(--color-text-activity));
   outline-offset: 2px;
+}
+
+/* Token scopes supply inherited typography without changing legacy host inheritance. */
+:where([data-fq-theme]) .fq-tabs {
+  font-family: var(--fq-tabs-font-family, var(--font-family));
 }

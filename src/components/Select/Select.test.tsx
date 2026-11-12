@@ -12,29 +12,17 @@ const renderOptions = () => (
 );
 
 describe('Select', () => {
-
   it('preserves custom className', () => {
-    render(
-      <Select
-        className="custom-select"
-        aria-label="Country"
-      />,
-    );
+    render(<Select className="custom-select" aria-label="Country" />);
 
-    expect(
-      screen.getByRole('combobox'),
-    ).toHaveClass(
+    expect(screen.getByRole('combobox')).toHaveClass(
       'fq-select',
       'custom-select',
     );
   });
 
   it('renders label and select', () => {
-    render(
-      <Select label="Country">
-        {renderOptions()}
-      </Select>,
-    );
+    render(<Select label="Country">{renderOptions()}</Select>);
 
     expect(
       screen.getByRole('combobox', {
@@ -44,11 +32,7 @@ describe('Select', () => {
   });
 
   it('associates label with select', () => {
-    render(
-      <Select label="Country">
-        {renderOptions()}
-      </Select>,
-    );
+    render(<Select label="Country">{renderOptions()}</Select>);
 
     const select = screen.getByRole('combobox', {
       name: 'Country',
@@ -57,18 +41,13 @@ describe('Select', () => {
     expect(select.id).not.toBe('');
 
     expect(
-      document.querySelector(
-        `label[for="${select.id}"]`,
-      ),
+      document.querySelector(`label[for="${select.id}"]`),
     ).toBeInTheDocument();
   });
 
   it('supports custom id', () => {
     render(
-      <Select
-        id="country"
-        label="Country"
-      >
+      <Select id="country" label="Country">
         {renderOptions()}
       </Select>,
     );
@@ -83,9 +62,7 @@ describe('Select', () => {
   it('generates unique ids for multiple selects', () => {
     render(
       <>
-        <Select label="Country">
-          {renderOptions()}
-        </Select>
+        <Select label="Country">{renderOptions()}</Select>
 
         <Select label="Language">
           <option value="">Select a language</option>
@@ -110,10 +87,7 @@ describe('Select', () => {
 
   it('supports selected value', () => {
     render(
-      <Select
-        label="Country"
-        defaultValue="id"
-      >
+      <Select label="Country" defaultValue="id">
         {renderOptions()}
       </Select>,
     );
@@ -127,10 +101,7 @@ describe('Select', () => {
 
   it('supports required state', () => {
     render(
-      <Select
-        label="Country"
-        required
-      >
+      <Select label="Country" required>
         {renderOptions()}
       </Select>,
     );
@@ -144,10 +115,7 @@ describe('Select', () => {
 
   it('supports disabled state', () => {
     render(
-      <Select
-        label="Country"
-        disabled
-      >
+      <Select label="Country" disabled>
         {renderOptions()}
       </Select>,
     );
@@ -161,10 +129,7 @@ describe('Select', () => {
 
   it('supports helper text', () => {
     render(
-      <Select
-        label="Country"
-        helperText="Select your current country."
-      >
+      <Select label="Country" helperText="Select your current country.">
         {renderOptions()}
       </Select>,
     );
@@ -173,24 +138,16 @@ describe('Select', () => {
       name: 'Country',
     });
 
-    const message = screen.getByText(
-      'Select your current country.',
-    );
+    const message = screen.getByText('Select your current country.');
 
     expect(message).toBeInTheDocument();
 
-    expect(select).toHaveAttribute(
-      'aria-describedby',
-      message.id,
-    );
+    expect(select).toHaveAttribute('aria-describedby', message.id);
   });
 
   it('exposes error state', () => {
     render(
-      <Select
-        label="Country"
-        error="Country is required."
-      >
+      <Select label="Country" error="Country is required.">
         {renderOptions()}
       </Select>,
     );
@@ -199,19 +156,11 @@ describe('Select', () => {
       name: 'Country',
     });
 
-    const message = screen.getByText(
-      'Country is required.',
-    );
+    const message = screen.getByText('Country is required.');
 
-    expect(select).toHaveAttribute(
-      'aria-invalid',
-      'true',
-    );
+    expect(select).toHaveAttribute('aria-invalid', 'true');
 
-    expect(select).toHaveAttribute(
-      'aria-describedby',
-      message.id,
-    );
+    expect(select).toHaveAttribute('aria-describedby', message.id);
   });
 
   it('prioritizes error message over helper text', () => {
@@ -225,25 +174,16 @@ describe('Select', () => {
       </Select>,
     );
 
-    expect(
-      screen.getByText(
-        'Country is required.',
-      ),
-    ).toBeInTheDocument();
+    expect(screen.getByText('Country is required.')).toBeInTheDocument();
 
     expect(
-      screen.queryByText(
-        'Select your current country.',
-      ),
+      screen.queryByText('Select your current country.'),
     ).not.toBeInTheDocument();
   });
 
   it('preserves custom aria-describedby', () => {
     render(
-      <Select
-        label="Country"
-        aria-describedby="custom-description"
-      >
+      <Select label="Country" aria-describedby="custom-description">
         {renderOptions()}
       </Select>,
     );
@@ -252,18 +192,11 @@ describe('Select', () => {
       screen.getByRole('combobox', {
         name: 'Country',
       }),
-    ).toHaveAttribute(
-      'aria-describedby',
-      'custom-description',
-    );
+    ).toHaveAttribute('aria-describedby', 'custom-description');
   });
 
   it('renders provided options', () => {
-    render(
-      <Select label="Country">
-        {renderOptions()}
-      </Select>,
-    );
+    render(<Select label="Country">{renderOptions()}</Select>);
 
     expect(
       screen.getByRole('option', {
@@ -290,9 +223,7 @@ describe('Select', () => {
       </Select>,
     );
 
-    expect(
-      screen.getByText('selection'),
-    ).toBeInTheDocument();
+    expect(screen.getByText('selection')).toBeInTheDocument();
   });
 
   it('supports ReactNode helper text', () => {
@@ -309,9 +240,7 @@ describe('Select', () => {
       </Select>,
     );
 
-    expect(
-      screen.getByText('country'),
-    ).toBeInTheDocument();
+    expect(screen.getByText('country')).toBeInTheDocument();
   });
 
   it('supports ReactNode error', () => {
@@ -320,8 +249,7 @@ describe('Select', () => {
         label="Country"
         error={
           <>
-            Country is required.{' '}
-            <a href="/help">Learn more</a>
+            Country is required. <a href="/help">Learn more</a>
           </>
         }
       >
@@ -344,10 +272,7 @@ describe('Select', () => {
     };
 
     render(
-      <Select
-        ref={ref}
-        label="Country"
-      >
+      <Select ref={ref} label="Country">
         {renderOptions()}
       </Select>,
     );
@@ -359,7 +284,6 @@ describe('Select', () => {
     );
   });
 
-
   it('forwards onChange event', () => {
     let changedValue = '';
 
@@ -368,29 +292,21 @@ describe('Select', () => {
     });
 
     render(
-      <Select
-        aria-label="Country"
-        defaultValue=""
-        onChange={handleChange}
-      >
+      <Select aria-label="Country" defaultValue="" onChange={handleChange}>
         <option value="">Select</option>
         <option value="id">Indonesia</option>
       </Select>,
     );
 
-    fireEvent.change(
-      screen.getByRole('combobox'),
-      {
-        target: {
-          value: 'id',
-        },
+    fireEvent.change(screen.getByRole('combobox'), {
+      target: {
+        value: 'id',
       },
-    );
+    });
 
     expect(handleChange).toHaveBeenCalledTimes(1);
     expect(changedValue).toBe('id');
   });
-
 
   it('supports controlled value', () => {
     let changedValue = '';
@@ -400,11 +316,7 @@ describe('Select', () => {
     });
 
     render(
-      <Select
-        aria-label="Country"
-        value="id"
-        onChange={handleChange}
-      >
+      <Select aria-label="Country" value="id" onChange={handleChange}>
         <option value="">Select</option>
         <option value="id">Indonesia</option>
         <option value="sg">Singapore</option>
@@ -415,18 +327,14 @@ describe('Select', () => {
 
     expect(select).toHaveValue('id');
 
-    fireEvent.change(
-      select,
-      {
-        target: {
-          value: 'sg',
-        },
+    fireEvent.change(select, {
+      target: {
+        value: 'sg',
       },
-    );
+    });
 
     expect(handleChange).toHaveBeenCalledTimes(1);
     expect(changedValue).toBe('sg');
     expect(select).toHaveValue('id');
   });
-
 });

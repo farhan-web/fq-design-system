@@ -2,15 +2,26 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: var(--spacing-4);
+  gap: calc(
+    var(--spacing-4) *
+      clamp(0.75, var(--fq-badge-gap-scale, var(--fq-density-gap, 1)), 1.25)
+  );
 
   height: 18px;
-  padding: 2px 6px;
+  padding: 2px
+    calc(
+      6px *
+        clamp(
+          0.75,
+          var(--fq-badge-padding-scale, var(--fq-density-padding, 1)),
+          1.25
+        )
+    );
 
-  border-radius: var(--radius-full);
+  border-radius: var(--fq-badge-radius-full, var(--radius-full));
   border: 2px solid transparent;
 
-  font-family: var(--font-family);
+  font-family: var(--fq-badge-font-family, var(--font-family));
   font-size: var(--text-body3-size);
   font-weight: var(--font-weight-bold);
   line-height: 1;
@@ -22,33 +33,33 @@
    ================================ */
 
 .fq-badge--solid-primary {
-  background: var(--color-primary);
-  color: var(--color-text-inverse);
-  border-color: var(--color-background);
+  background: var(--fq-badge-primary, var(--color-primary));
+  color: var(--fq-badge-text-inverse, var(--color-text-inverse));
+  border-color: var(--fq-badge-background, var(--color-background));
 }
 
 .fq-badge--solid-success {
-  background: var(--color-success);
-  color: var(--color-text-inverse);
-  border-color: var(--color-background);
+  background: var(--fq-badge-success, var(--color-success));
+  color: var(--fq-badge-text-inverse, var(--color-text-inverse));
+  border-color: var(--fq-badge-background, var(--color-background));
 }
 
 .fq-badge--solid-danger {
-  background: var(--color-danger);
-  color: var(--color-text-inverse);
-  border-color: var(--color-background);
+  background: var(--fq-badge-danger, var(--color-danger));
+  color: var(--fq-badge-text-inverse, var(--color-text-inverse));
+  border-color: var(--fq-badge-background, var(--color-background));
 }
 
 .fq-badge--solid-warning {
-  background: var(--color-warning-solid);
-  color: var(--color-text-inverse);
-  border-color: var(--color-background);
+  background: var(--fq-badge-warning-solid, var(--color-warning-solid));
+  color: var(--fq-badge-text-inverse, var(--color-text-inverse));
+  border-color: var(--fq-badge-background, var(--color-background));
 }
 
 .fq-badge--solid-neutral {
-  background: var(--color-neutral-700);
-  color: var(--color-text-inverse);
-  border-color: var(--color-background);
+  background: var(--fq-badge-neutral-700, var(--color-neutral-700));
+  color: var(--fq-badge-text-inverse, var(--color-text-inverse));
+  border-color: var(--fq-badge-background, var(--color-background));
 }
 
 /* ================================
@@ -56,28 +67,28 @@
    ================================ */
 
 .fq-badge--soft-primary {
-  background: var(--color-primary-subtle);
-  color: var(--color-primary);
+  background: var(--fq-badge-primary-subtle, var(--color-primary-subtle));
+  color: var(--fq-badge-primary, var(--color-text-activity));
 }
 
 .fq-badge--soft-success {
-  background: var(--color-success-subtle);
-  color: var(--color-success);
+  background: var(--fq-badge-success-subtle, var(--color-success-subtle));
+  color: var(--fq-badge-success, var(--color-success));
 }
 
 .fq-badge--soft-danger {
-  background: var(--color-danger-subtle);
-  color: var(--color-danger);
+  background: var(--fq-badge-danger-subtle, var(--color-danger-subtle));
+  color: var(--fq-badge-danger, var(--color-text-alert));
 }
 
 .fq-badge--soft-warning {
-  background: var(--color-warning);
-  color: var(--color-warning-text);
+  background: var(--fq-badge-warning, var(--color-warning));
+  color: var(--fq-badge-warning-text, var(--color-warning-foreground));
 }
 
 .fq-badge--soft-neutral {
-  background: var(--color-surface);
-  color: var(--color-text-medium);
+  background: var(--fq-badge-surface, var(--color-surface));
+  color: var(--fq-badge-text-medium, var(--color-text-medium));
 }
 
 /* ================================
@@ -87,20 +98,20 @@
 .fq-badge--gradient-red {
   background: linear-gradient(
     135deg,
-    var(--color-gradient-red-100) 0%,
-    var(--color-gradient-red-200) 100%
+    var(--fq-badge-gradient-red-100, var(--color-gradient-red-100)) 0%,
+    var(--fq-badge-gradient-red-200, var(--color-gradient-red-200)) 100%
   );
-  color: var(--color-text-inverse);
+  color: var(--fq-badge-text-inverse, var(--color-text-inverse));
   border-color: transparent;
 }
 
 .fq-badge--gradient-green {
   background: linear-gradient(
     135deg,
-    var(--color-gradient-green-100) 0%,
-    var(--color-gradient-green-200) 100%
+    var(--fq-badge-gradient-green-100, var(--color-gradient-green-100)) 0%,
+    var(--fq-badge-gradient-green-200, var(--color-gradient-green-200)) 100%
   );
-  color: var(--color-text-inverse);
+  color: var(--fq-badge-text-inverse, var(--color-text-inverse));
   border-color: transparent;
 }
 
@@ -109,8 +120,8 @@
    ================================ */
 
 .fq-badge[data-disabled] {
-  background: var(--color-neutral-400);
-  color: var(--color-text-inverse);
+  background: var(--fq-badge-neutral-400, var(--color-neutral-400));
+  color: var(--fq-badge-text-inverse, var(--color-text-inverse));
   border-color: transparent;
   pointer-events: none;
 }
@@ -131,17 +142,21 @@
    ================================ */
 
 @keyframes fq-badge-shimmer {
-  0%   { background-position: -200% center; }
-  100% { background-position: 200% center; }
+  0% {
+    background-position: -200% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
 }
 
 .fq-badge--loading {
   color: transparent;
   background: linear-gradient(
     90deg,
-    var(--color-neutral-200) 25%,
-    var(--color-neutral-100) 50%,
-    var(--color-neutral-200) 75%
+    var(--fq-badge-neutral-200, var(--color-neutral-200)) 25%,
+    var(--fq-badge-neutral-100, var(--color-neutral-100)) 50%,
+    var(--fq-badge-neutral-200, var(--color-neutral-200)) 75%
   );
   background-size: 200% 100%;
   animation: fq-badge-shimmer 1.4s ease infinite;
@@ -155,5 +170,33 @@
 
 .fq-badge--count {
   min-width: 18px;
-  padding: 0 4px;
+  padding: 0
+    calc(
+      4px *
+        clamp(
+          0.75,
+          var(--fq-badge-padding-scale, var(--fq-density-padding, 1)),
+          1.25
+        )
+    );
+}
+
+.fq-badge--solid-neutral {
+  color: var(--fq-badge-text-inverse, var(--color-on-dark));
+}
+.fq-badge--solid-warning {
+  color: var(--fq-badge-text-inverse, var(--color-on-warning-solid));
+}
+.fq-badge__text {
+  padding-block: 2px;
+  margin-block: -2px;
+  display: inline-flex;
+  background: var(--color-surface-raised);
+  color: var(--fq-badge-text-inverse, var(--color-text-high));
+  border-radius: var(--radius-xs);
+}
+@media (prefers-reduced-motion: reduce) {
+  .fq-badge--loading {
+    animation: none;
+  }
 }

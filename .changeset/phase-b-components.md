@@ -1,5 +1,5 @@
 ---
-"fq-design-system": minor
+'fq-design-system': minor
 ---
 
 Add BottomSheet, NavigationBottom, and Countdown components

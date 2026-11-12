@@ -1,3 +1,4 @@
+import { getSlotProps, type FqSlotCustomization } from '../../types/slots';
 import {
   forwardRef,
   useCallback,
@@ -13,7 +14,23 @@ import type { FormFieldProps } from '../../types/form';
 import './Input.css';
 
 export interface InputProps
-  extends InputHTMLAttributes<HTMLInputElement>, FormFieldProps {
+  extends
+    InputHTMLAttributes<HTMLInputElement>,
+    FormFieldProps,
+    FqSlotCustomization<
+      | 'root'
+      | 'container'
+      | 'inner'
+      | 'row'
+      | 'label'
+      | 'input'
+      | 'helperText'
+      | 'prefix'
+      | 'startIcon'
+      | 'endIcon'
+      | 'clearButton'
+      | 'required'
+    > {
   /** Text prefix shown before input when focused/filled (e.g. "IDR" for currency) */
   prefix?: string;
   /** Icon on the left side inside the container */
@@ -39,6 +56,9 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
       readOnly,
       required,
       className,
+      style,
+      classNames,
+      slotProps,
       value,
       defaultValue,
       onChange,
@@ -50,6 +70,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
     },
     ref,
   ) => {
+    const slots = { classNames, slotProps };
     // ── Fill / focus state ───────────────────────────────────────────────────
     const isControlled = value !== undefined;
     const [uncontrolledFilled, setUncontrolledFilled] = useState(
@@ -137,12 +158,16 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
       .join(' ');
 
     return (
-      <div className="fq-input-field">
-        <div className={containerClass}>
+      <div {...getSlotProps(slots, 'root', 'fq-input-field')}>
+        <div {...getSlotProps(slots, 'container', containerClass)}>
           {/* ── Left icon ─────────────────────────────────────────── */}
           {startIcon && (
             <span
-              className="fq-input-field__icon fq-input-field__icon--start"
+              {...getSlotProps(
+                slots,
+                'startIcon',
+                'fq-input-field__icon fq-input-field__icon--start',
+              )}
               aria-hidden="true"
             >
               {startIcon}
@@ -150,21 +175,34 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
           )}
 
           {/* ── Inner: floating label + input row ─────────────────── */}
-          <div className="fq-input-container__inner">
+          <div {...getSlotProps(slots, 'inner', 'fq-input-container__inner')}>
             {label && (
-              <label className="fq-input__label" htmlFor={inputId}>
+              <label
+                {...getSlotProps(slots, 'label', 'fq-input__label')}
+                htmlFor={inputId}
+              >
                 {label}
                 {isRequired && (
-                  <span className="fq-input-field__required" aria-hidden="true">
+                  <span
+                    {...getSlotProps(
+                      slots,
+                      'required',
+                      'fq-input-field__required',
+                    )}
+                    aria-hidden="true"
+                  >
                     {' *'}
                   </span>
                 )}
               </label>
             )}
 
-            <div className="fq-input-container__row">
+            <div {...getSlotProps(slots, 'row', 'fq-input-container__row')}>
               {showPrefix && (
-                <span className="fq-input__prefix" aria-hidden="true">
+                <span
+                  {...getSlotProps(slots, 'prefix', 'fq-input__prefix')}
+                  aria-hidden="true"
+                >
                   {prefix}
                 </span>
               )}
@@ -172,7 +210,12 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
                 {...props}
                 ref={ref}
                 id={inputId}
-                className={['fq-input', className].filter(Boolean).join(' ')}
+                {...getSlotProps(
+                  slots,
+                  'input',
+                  ['fq-input', className].filter(Boolean).join(' '),
+                  style,
+                )}
                 disabled={disabled}
                 readOnly={readOnly}
                 required={isRequired}
@@ -190,13 +233,17 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
           {/* ── Right: clear button or end icon ───────────────────── */}
           {(showClearBtn || endIcon) && (
             <span
-              className="fq-input-field__icon fq-input-field__icon--end"
+              {...getSlotProps(
+                slots,
+                'endIcon',
+                'fq-input-field__icon fq-input-field__icon--end',
+              )}
               aria-hidden={!showClearBtn ? true : undefined}
             >
               {showClearBtn ? (
                 <button
                   type="button"
-                  className="fq-input__clear-btn"
+                  {...getSlotProps(slots, 'clearButton', 'fq-input__clear-btn')}
                   onClick={onClear}
                   aria-label="Clear"
                   tabIndex={-1}
@@ -222,12 +269,16 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
         {message && (
           <p
             id={messageId}
-            className={[
-              'fq-input-field__message',
-              error ? 'fq-input-field__message--error' : '',
-            ]
-              .filter(Boolean)
-              .join(' ')}
+            {...getSlotProps(
+              slots,
+              'helperText',
+              [
+                'fq-input-field__message',
+                error ? 'fq-input-field__message--error' : '',
+              ]
+                .filter(Boolean)
+                .join(' '),
+            )}
           >
             {message}
           </p>

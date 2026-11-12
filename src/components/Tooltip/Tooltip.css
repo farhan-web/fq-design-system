@@ -8,14 +8,21 @@
   z-index: var(--z-index-tooltip);
 
   max-width: 280px;
-  padding: var(--spacing-12);
+  padding: calc(
+    var(--spacing-12) *
+      clamp(
+        0.75,
+        var(--fq-tooltip-padding-scale, var(--fq-density-padding, 1)),
+        1.25
+      )
+  );
 
-  background: var(--color-neutral-800);
-  color: var(--color-text-inverse);
-  border-radius: var(--radius-md);
-  font-family: var(--font-family);
-  font-size: var(--text-body3-size);          /* body3 */
-  font-weight: var(--font-weight-regular);    /* body3-regular per spec */
+  background: var(--fq-tooltip-neutral-800, var(--color-neutral-800));
+  color: var(--fq-tooltip-neutral-0, var(--color-neutral-0));
+  border-radius: var(--fq-tooltip-radius-md, var(--radius-md));
+  font-family: var(--fq-tooltip-font-family, var(--font-family));
+  font-size: var(--text-body3-size); /* body3 */
+  font-weight: var(--font-weight-regular); /* body3-regular per spec */
   line-height: var(--text-body3-line-height);
   text-align: left;
   white-space: normal;
@@ -24,10 +31,13 @@
   pointer-events: none;
   opacity: 0;
   transform: scale(0.95);
-  transition: opacity 150ms ease, transform 150ms ease;
+  transition:
+    opacity 150ms ease,
+    transform 150ms ease;
 }
 
 .fq-tooltip__content--visible {
+  pointer-events: auto;
   opacity: 1;
   transform: scale(1);
 }
@@ -195,7 +205,7 @@
   top: 100%;
   left: 50%;
   transform: translateX(-50%);
-  border-top-color: var(--color-neutral-800);
+  border-top-color: var(--fq-tooltip-neutral-800, var(--color-neutral-800));
   border-bottom: none;
 }
 
@@ -206,7 +216,7 @@
   bottom: 100%;
   left: 50%;
   transform: translateX(-50%);
-  border-bottom-color: var(--color-neutral-800);
+  border-bottom-color: var(--fq-tooltip-neutral-800, var(--color-neutral-800));
   border-top: none;
 }
 
@@ -217,7 +227,7 @@
   left: 100%;
   top: 50%;
   transform: translateY(-50%);
-  border-left-color: var(--color-neutral-800);
+  border-left-color: var(--fq-tooltip-neutral-800, var(--color-neutral-800));
   border-right: none;
 }
 
@@ -228,7 +238,7 @@
   right: 100%;
   top: 50%;
   transform: translateY(-50%);
-  border-right-color: var(--color-neutral-800);
+  border-right-color: var(--fq-tooltip-neutral-800, var(--color-neutral-800));
   border-left: none;
 }
 
@@ -277,4 +287,38 @@
   top: auto;
   bottom: calc(var(--spacing-12) + 8px);
   transform: none;
+}
+
+/* A transparent bridge across the placement gap keeps pointer hover continuous. */
+.fq-tooltip__content--visible::before {
+  content: '';
+  position: absolute;
+}
+
+.fq-tooltip__content--visible[class*='fq-tooltip__content--top']::before {
+  top: 100%;
+  left: 0;
+  right: 0;
+  height: var(--spacing-12);
+}
+
+.fq-tooltip__content--visible[class*='fq-tooltip__content--bottom']::before {
+  bottom: 100%;
+  left: 0;
+  right: 0;
+  height: var(--spacing-12);
+}
+
+.fq-tooltip__content--visible[class*='fq-tooltip__content--left']::before {
+  left: 100%;
+  top: 0;
+  bottom: 0;
+  width: var(--spacing-12);
+}
+
+.fq-tooltip__content--visible[class*='fq-tooltip__content--right']::before {
+  right: 100%;
+  top: 0;
+  bottom: 0;
+  width: var(--spacing-12);
 }

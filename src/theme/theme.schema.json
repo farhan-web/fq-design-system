@@ -1,0 +1,4480 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "FQ theme configuration version 1",
+  "$comment": "Use parseFqTheme for CSS category validation and cross-token reference validation.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion"],
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "foundation": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "palette": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "--color-neutral-0": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "#FFFFFF"
+            },
+            "--color-neutral-100": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "#F4F7FE"
+            },
+            "--color-neutral-200": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "#D8DCE8"
+            },
+            "--color-neutral-400": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "#AEB2BE"
+            },
+            "--color-neutral-600": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "#6B6E77"
+            },
+            "--color-neutral-700": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "#4D4F56"
+            },
+            "--color-neutral-800": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "#303135"
+            },
+            "--color-blue-100": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "#E7F2FF"
+            },
+            "--color-blue-200": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "#A3CFFF"
+            },
+            "--color-blue-300": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "#5BAAFF"
+            },
+            "--color-blue-400": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "#0062CC"
+            },
+            "--color-green-100": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "#E2FBED"
+            },
+            "--color-green-500": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "#0BAE54"
+            },
+            "--color-yellow-100": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "#FEF8D0"
+            },
+            "--color-red-100": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "#FFDFDF"
+            },
+            "--color-red-200": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "#FFBCBC"
+            },
+            "--color-red-400": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "#F15C59"
+            },
+            "--color-orange-400": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "#FF5C00"
+            },
+            "--color-orange-500": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "#FF7200"
+            },
+            "--color-tosca-500": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "#10A4AF"
+            },
+            "--color-gradient-green-100": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "#01CF6C"
+            },
+            "--color-gradient-green-200": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "#02CD9C"
+            },
+            "--color-gradient-violet-100": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "#18DC9B"
+            },
+            "--color-gradient-violet-200": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "#6E54EF"
+            },
+            "--color-gradient-orange-100": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "#FF7A00"
+            },
+            "--color-gradient-orange-200": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "#FF3E65"
+            },
+            "--color-gradient-red-100": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "#FF4062"
+            },
+            "--color-gradient-red-200": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "#FF00B8"
+            },
+            "--color-gradient-tosca-100": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "#00CC9B"
+            },
+            "--color-gradient-tosca-200": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "#017CFF"
+            },
+            "--color-gradient-blue-100": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "#007BFF"
+            },
+            "--color-gradient-blue-200": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "#00C1EB"
+            },
+            "--color-gradient-purple-100": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "#FA00B4"
+            },
+            "--color-gradient-purple-200": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "#7600D2"
+            },
+            "--color-gradient-light-blue-100": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "#E7F2FF"
+            },
+            "--color-gradient-light-blue-200": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "#D9EAFE"
+            },
+            "--color-gradient-tier-silver-100": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "#47506F"
+            },
+            "--color-gradient-tier-silver-200": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "#CBD6EC"
+            },
+            "--color-gradient-tier-gold-100": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "#614500"
+            },
+            "--color-gradient-tier-gold-200": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "#EBBF4F"
+            },
+            "--color-gradient-tier-platinum-100": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "#0F0F0F"
+            },
+            "--color-gradient-tier-platinum-200": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "#838990"
+            },
+            "--color-gradient-tier-diamond-100": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "#000208"
+            },
+            "--color-gradient-tier-diamond-200": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "#1258C9"
+            },
+            "--color-blue-500": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "#0062CC"
+            }
+          }
+        },
+        "spacing": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "--spacing-4": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "4px"
+            },
+            "--spacing-8": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "8px"
+            },
+            "--spacing-12": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "12px"
+            },
+            "--spacing-16": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "16px"
+            },
+            "--spacing-24": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "24px"
+            },
+            "--spacing-32": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "32px"
+            },
+            "--spacing-48": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "48px"
+            },
+            "--spacing-64": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "64px"
+            },
+            "--spacing-96": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "96px"
+            },
+            "--spacing-128": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "128px"
+            },
+            "--spacing-xs": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "var(--spacing-4)"
+            },
+            "--spacing-sm": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "var(--spacing-8)"
+            },
+            "--spacing-md": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "var(--spacing-12)"
+            },
+            "--spacing-lg": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "var(--spacing-16)"
+            },
+            "--spacing-xl": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "var(--spacing-24)"
+            },
+            "--spacing-2xl": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "var(--spacing-32)"
+            },
+            "--spacing-3xl": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "var(--spacing-48)"
+            },
+            "--spacing-4xl": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "var(--spacing-64)"
+            },
+            "--spacing-6": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "6px"
+            },
+            "--spacing-20": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "20px"
+            },
+            "--spacing-36": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "36px"
+            },
+            "--spacing-40": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "40px"
+            }
+          }
+        },
+        "radius": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "--radius-xs": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "4px"
+            },
+            "--radius-sm": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "6px"
+            },
+            "--radius-md": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "8px"
+            },
+            "--radius-lg": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "12px"
+            },
+            "--radius-xl": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "16px"
+            },
+            "--radius-full": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "999px"
+            }
+          }
+        },
+        "typography": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "--font-family": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif"
+            },
+            "--font-size-2xs": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "9px"
+            },
+            "--font-size-xs": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "10px"
+            },
+            "--font-size-sm": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "12px"
+            },
+            "--font-size-md": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "14px"
+            },
+            "--font-size-lg": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "16px"
+            },
+            "--font-size-xl": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "18px"
+            },
+            "--font-size-2xl": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "22px"
+            },
+            "--font-size-3xl": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "28px"
+            },
+            "--font-size-4xl": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "32px"
+            },
+            "--font-size-5xl": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "38px"
+            },
+            "--font-size-6xl": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "56px"
+            },
+            "--font-weight-regular": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "400"
+            },
+            "--font-weight-medium": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "500"
+            },
+            "--font-weight-semibold": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "600"
+            },
+            "--font-weight-bold": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "700"
+            },
+            "--line-height-tight": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "1.2"
+            },
+            "--line-height-normal": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "1.5"
+            },
+            "--line-height-relaxed": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "1.75"
+            },
+            "--text-display-size": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "var(--font-size-4xl)"
+            },
+            "--text-display-weight": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "var(--font-weight-bold)"
+            },
+            "--text-display-line-height": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "38px"
+            },
+            "--text-h1-size": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "var(--font-size-2xl)"
+            },
+            "--text-h1-weight": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "var(--font-weight-bold)"
+            },
+            "--text-h1-line-height": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "28px"
+            },
+            "--text-h2-size": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "var(--font-size-xl)"
+            },
+            "--text-h2-weight": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "var(--font-weight-bold)"
+            },
+            "--text-h2-line-height": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "24px"
+            },
+            "--text-h3-size": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "var(--font-size-lg)"
+            },
+            "--text-h3-weight": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "var(--font-weight-bold)"
+            },
+            "--text-h3-alt-weight": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "var(--font-weight-regular)"
+            },
+            "--text-h3-line-height": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "22px"
+            },
+            "--text-body1-size": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "var(--font-size-md)"
+            },
+            "--text-body1-weight": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "var(--font-weight-regular)"
+            },
+            "--text-body1-line-height": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "20px"
+            },
+            "--text-body1-bold-weight": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "var(--font-weight-bold)"
+            },
+            "--text-body2-size": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "var(--font-size-sm)"
+            },
+            "--text-body2-weight": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "var(--font-weight-regular)"
+            },
+            "--text-body2-line-height": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "16px"
+            },
+            "--text-body2-bold-weight": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "var(--font-weight-bold)"
+            },
+            "--text-body3-size": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "var(--font-size-xs)"
+            },
+            "--text-body3-weight": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "var(--font-weight-semibold)"
+            },
+            "--text-body3-line-height": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "14px"
+            },
+            "--text-label-sm-size": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "var(--font-size-2xs)"
+            },
+            "--text-web-banner-size": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "var(--font-size-6xl)"
+            },
+            "--text-web-banner-weight": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "var(--font-weight-bold)"
+            },
+            "--text-web-banner-line-height": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "62px"
+            },
+            "--text-web-h1-size": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "var(--font-size-5xl)"
+            },
+            "--text-web-h1-weight": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "var(--font-weight-bold)"
+            },
+            "--text-web-h1-line-height": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "44px"
+            },
+            "--text-web-h2-size": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "var(--font-size-3xl)"
+            },
+            "--text-web-h2-weight": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "var(--font-weight-bold)"
+            },
+            "--text-web-h2-line-height": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "34px"
+            },
+            "--text-web-h3-size": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "var(--font-size-xl)"
+            },
+            "--text-web-h3-weight": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "var(--font-weight-bold)"
+            },
+            "--text-web-h3-alt-weight": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "var(--font-weight-regular)"
+            },
+            "--text-web-h3-line-height": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "24px"
+            },
+            "--text-web-body1-size": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "var(--font-size-lg)"
+            },
+            "--text-web-body1-weight": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "var(--font-weight-regular)"
+            },
+            "--text-web-body1-bold-weight": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "var(--font-weight-bold)"
+            },
+            "--text-web-body1-line-height": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "22px"
+            },
+            "--text-web-body2-size": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "var(--font-size-md)"
+            },
+            "--text-web-body2-weight": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "var(--font-weight-regular)"
+            },
+            "--text-web-body2-bold-weight": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "var(--font-weight-bold)"
+            },
+            "--text-web-body2-line-height": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "20px"
+            },
+            "--text-web-body3-size": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "var(--font-size-sm)"
+            },
+            "--text-web-body3-weight": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "var(--font-weight-semibold)"
+            },
+            "--text-web-body3-line-height": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "16px"
+            },
+            "--text-web-small-size": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "var(--font-size-xs)"
+            },
+            "--text-web-small-weight": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "var(--font-weight-regular)"
+            },
+            "--text-web-small-bold-weight": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "var(--font-weight-bold)"
+            },
+            "--text-web-small-line-height": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "14px"
+            },
+            "--font-weight-light": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "300"
+            }
+          }
+        },
+        "shadow": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "--shadow-sm": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "0 1px 2px rgb(0 0 0 / 5%)"
+            },
+            "--shadow-md": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "0 4px 12px rgb(0 0 0 / 8%)"
+            },
+            "--elevation-01": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "0 2px 8px rgb(0 0 0 / 8%), 0 0 1px rgb(0 0 0 / 6%)"
+            },
+            "--elevation-02": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "0 4px 16px rgb(0 0 0 / 12%), 0 0 2px rgb(0 0 0 / 6%)"
+            },
+            "--elevation-03": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "0 8px 24px rgb(0 0 0 / 16%), 0 0 2px rgb(0 0 0 / 8%)"
+            },
+            "--elevation-04": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "0 16px 48px rgb(0 0 0 / 24%), 0 0 4px rgb(0 0 0 / 8%)"
+            },
+            "--mui-shadow-0": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "none"
+            },
+            "--mui-shadow-1": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "0px 2px 1px -1px rgba(0,0,0,0.2),0px 1px 1px 0px rgba(0,0,0,0.14),0px 1px 3px 0px rgba(0,0,0,0.12)"
+            },
+            "--mui-shadow-2": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "0px 3px 1px -2px rgba(0,0,0,0.2),0px 2px 2px 0px rgba(0,0,0,0.14),0px 1px 5px 0px rgba(0,0,0,0.12)"
+            },
+            "--mui-shadow-3": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "0px 3px 3px -2px rgba(0,0,0,0.2),0px 3px 4px 0px rgba(0,0,0,0.14),0px 1px 8px 0px rgba(0,0,0,0.12)"
+            },
+            "--mui-shadow-4": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "0px 2px 4px -1px rgba(0,0,0,0.2),0px 4px 5px 0px rgba(0,0,0,0.14),0px 1px 10px 0px rgba(0,0,0,0.12)"
+            },
+            "--mui-shadow-5": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "0px 3px 5px -1px rgba(0,0,0,0.2),0px 5px 8px 0px rgba(0,0,0,0.14),0px 1px 14px 0px rgba(0,0,0,0.12)"
+            },
+            "--mui-shadow-6": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "0px 3px 5px -1px rgba(0,0,0,0.2),0px 6px 10px 0px rgba(0,0,0,0.14),0px 1px 18px 0px rgba(0,0,0,0.12)"
+            },
+            "--mui-shadow-7": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "0px 4px 5px -2px rgba(0,0,0,0.2),0px 7px 10px 1px rgba(0,0,0,0.14),0px 2px 16px 1px rgba(0,0,0,0.12)"
+            },
+            "--mui-shadow-8": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "0px 5px 5px -3px rgba(0,0,0,0.2),0px 8px 10px 1px rgba(0,0,0,0.14),0px 3px 14px 2px rgba(0,0,0,0.12)"
+            },
+            "--mui-shadow-9": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "0px 5px 6px -3px rgba(0,0,0,0.2),0px 9px 12px 1px rgba(0,0,0,0.14),0px 3px 16px 2px rgba(0,0,0,0.12)"
+            },
+            "--mui-shadow-10": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "0px 6px 6px -3px rgba(0,0,0,0.2),0px 10px 14px 1px rgba(0,0,0,0.14),0px 4px 18px 3px rgba(0,0,0,0.12)"
+            },
+            "--mui-shadow-11": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "0px 6px 7px -4px rgba(0,0,0,0.2),0px 11px 15px 1px rgba(0,0,0,0.14),0px 4px 20px 3px rgba(0,0,0,0.12)"
+            },
+            "--mui-shadow-12": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "0px 7px 8px -4px rgba(0,0,0,0.2),0px 12px 17px 2px rgba(0,0,0,0.14),0px 5px 22px 4px rgba(0,0,0,0.12)"
+            },
+            "--mui-shadow-13": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "0px 7px 8px -4px rgba(0,0,0,0.2),0px 13px 19px 2px rgba(0,0,0,0.14),0px 5px 24px 4px rgba(0,0,0,0.12)"
+            },
+            "--mui-shadow-14": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "0px 7px 9px -4px rgba(0,0,0,0.2),0px 14px 21px 2px rgba(0,0,0,0.14),0px 5px 26px 4px rgba(0,0,0,0.12)"
+            },
+            "--mui-shadow-15": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "0px 8px 9px -5px rgba(0,0,0,0.2),0px 15px 22px 2px rgba(0,0,0,0.14),0px 6px 28px 5px rgba(0,0,0,0.12)"
+            },
+            "--mui-shadow-16": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "0px 8px 10px -5px rgba(0,0,0,0.2),0px 16px 24px 2px rgba(0,0,0,0.14),0px 6px 30px 5px rgba(0,0,0,0.12)"
+            },
+            "--mui-shadow-17": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "0px 8px 11px -5px rgba(0,0,0,0.2),0px 17px 26px 2px rgba(0,0,0,0.14),0px 6px 32px 5px rgba(0,0,0,0.12)"
+            },
+            "--mui-shadow-18": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "0px 9px 11px -5px rgba(0,0,0,0.2),0px 18px 28px 2px rgba(0,0,0,0.14),0px 7px 34px 6px rgba(0,0,0,0.12)"
+            },
+            "--mui-shadow-19": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "0px 9px 12px -6px rgba(0,0,0,0.2),0px 19px 29px 2px rgba(0,0,0,0.14),0px 7px 36px 6px rgba(0,0,0,0.12)"
+            },
+            "--mui-shadow-20": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "0px 10px 13px -6px rgba(0,0,0,0.2),0px 20px 31px 3px rgba(0,0,0,0.14),0px 8px 38px 7px rgba(0,0,0,0.12)"
+            },
+            "--mui-shadow-21": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "0px 10px 13px -6px rgba(0,0,0,0.2),0px 21px 33px 3px rgba(0,0,0,0.14),0px 8px 40px 7px rgba(0,0,0,0.12)"
+            },
+            "--mui-shadow-22": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "0px 10px 14px -6px rgba(0,0,0,0.2),0px 22px 35px 3px rgba(0,0,0,0.14),0px 8px 42px 7px rgba(0,0,0,0.12)"
+            },
+            "--mui-shadow-23": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "0px 11px 14px -7px rgba(0,0,0,0.2),0px 23px 36px 3px rgba(0,0,0,0.14),0px 9px 44px 8px rgba(0,0,0,0.12)"
+            },
+            "--mui-shadow-24": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "0px 11px 15px -7px rgba(0,0,0,0.2),0px 24px 38px 3px rgba(0,0,0,0.14),0px 9px 46px 8px rgba(0,0,0,0.12)"
+            }
+          }
+        },
+        "layer": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "--z-index-base": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "0"
+            },
+            "--z-index-raised": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "100"
+            },
+            "--z-index-dropdown": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "200"
+            },
+            "--z-index-overlay": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "400"
+            },
+            "--z-index-overlay-content": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "401"
+            },
+            "--z-index-modal": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "500"
+            },
+            "--z-index-tooltip": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "1000"
+            },
+            "--mui-z-index-mobile-stepper": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "1000"
+            },
+            "--mui-z-index-fab": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "1050"
+            },
+            "--mui-z-index-speed-dial": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "1050"
+            },
+            "--mui-z-index-app-bar": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "1100"
+            },
+            "--mui-z-index-drawer": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "1200"
+            },
+            "--mui-z-index-modal": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "1300"
+            },
+            "--mui-z-index-snackbar": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "1400"
+            },
+            "--mui-z-index-tooltip": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "1500"
+            }
+          }
+        }
+      }
+    },
+    "semantic": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "light": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "--color-primary": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "var(--color-blue-400)"
+            },
+            "--color-primary-hover": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "#004B9C"
+            },
+            "--color-primary-subtle": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "var(--color-blue-100)"
+            },
+            "--color-success": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "#006E32"
+            },
+            "--color-success-subtle": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "var(--color-green-100)"
+            },
+            "--color-warning": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "var(--color-yellow-100)"
+            },
+            "--color-danger": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "#B52B2B"
+            },
+            "--color-danger-subtle": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "var(--color-red-100)"
+            },
+            "--color-text-high": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "var(--color-neutral-800)"
+            },
+            "--color-text-medium": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "var(--color-neutral-700)"
+            },
+            "--color-text-low": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "var(--color-neutral-600)"
+            },
+            "--color-text-disabled": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "var(--color-neutral-400)"
+            },
+            "--color-text-inverse": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "var(--color-neutral-0)"
+            },
+            "--color-text-activity": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "var(--color-primary)"
+            },
+            "--color-text-alert": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "var(--color-danger)"
+            },
+            "--color-text-positive": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "var(--color-success)"
+            },
+            "--color-text-analytic": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "var(--color-orange-500)"
+            },
+            "--color-text-usp": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "var(--color-tosca-500)"
+            },
+            "--color-warning-solid": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "#F5A623"
+            },
+            "--color-warning-text": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "#7C5A00"
+            },
+            "--color-warning-border": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "var(--color-yellow-100)"
+            },
+            "--color-background": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "var(--color-neutral-0)"
+            },
+            "--color-surface": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "var(--color-neutral-100)"
+            },
+            "--color-surface-raised": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "var(--color-neutral-0)"
+            },
+            "--color-border": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "var(--color-neutral-200)"
+            },
+            "--color-border-strong": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "var(--color-neutral-400)"
+            },
+            "--color-focus-ring": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "rgb(0 124 255 / 15%)"
+            },
+            "--color-error-ring": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "rgb(241 92 89 / 15%)"
+            },
+            "--color-inverse-border": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "rgb(255 255 255 / 20%)"
+            },
+            "--color-inverse-inactive": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "rgb(255 255 255 / 40%)"
+            },
+            "--color-inverse-hover": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "rgb(255 255 255 / 60%)"
+            },
+            "--color-hover-overlay": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "rgb(0 0 0 / 8%)"
+            },
+            "--color-pressed-overlay": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "rgb(0 0 0 / 16%)"
+            },
+            "--color-accent-inactive": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "rgb(0 124 255 / 30%)"
+            },
+            "--color-border-subtle": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "rgba(0, 0, 0, 0.08)"
+            },
+            "--color-overlay-backdrop": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "rgb(0 0 0 / 40%)"
+            },
+            "--color-toast-surface": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "#1a1a1a"
+            },
+            "--color-toast-action": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "#6eb3ff"
+            },
+            "--color-toast-info": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "#1565c0"
+            },
+            "--color-toast-success": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "#1b5e20"
+            },
+            "--color-toast-warning": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "#e65100"
+            },
+            "--color-toast-danger": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "#b71c1c"
+            },
+            "--color-inverse-selected-hover": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "rgba(255, 255, 255, 0.5)"
+            },
+            "--color-inverse-dismiss-hover": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "rgba(255, 255, 255, 0.15)"
+            },
+            "--color-on-dark": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "var(--color-neutral-0)"
+            },
+            "--color-on-warning-solid": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "var(--color-neutral-800)"
+            },
+            "--color-solid-orange": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "#A63F00"
+            },
+            "--color-warning-foreground": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "var(--color-warning-text)"
+            },
+            "--color-invert-selection-surface": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "#4D4F56"
+            },
+            "--color-invert-selection-hover": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "#5B5E67"
+            },
+            "--color-on-subtle-hover": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "var(--color-neutral-800)"
+            },
+            "--color-toast-warning-text": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "#111111"
+            }
+          }
+        },
+        "dark": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "--color-primary": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "var(--color-blue-300)"
+            },
+            "--color-primary-hover": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "var(--color-blue-200)"
+            },
+            "--color-primary-subtle": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "color-mix( in srgb, var(--color-blue-400) 15%, transparent )"
+            },
+            "--color-success": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "var(--color-green-100)"
+            },
+            "--color-success-subtle": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "color-mix(in srgb, var(--color-green-500) 15%, transparent)"
+            },
+            "--color-warning": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "color-mix(in srgb, var(--color-yellow-100) 15%, transparent)"
+            },
+            "--color-danger": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "var(--color-red-200)"
+            },
+            "--color-danger-subtle": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "color-mix(in srgb, var(--color-red-400) 15%, transparent)"
+            },
+            "--color-text-high": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "var(--color-neutral-0)"
+            },
+            "--color-text-medium": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "var(--color-neutral-200)"
+            },
+            "--color-text-low": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "var(--color-neutral-400)"
+            },
+            "--color-text-disabled": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "var(--color-neutral-600)"
+            },
+            "--color-text-inverse": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "var(--color-neutral-800)"
+            },
+            "--color-text-activity": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "var(--color-blue-200)"
+            },
+            "--color-text-alert": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "var(--color-danger)"
+            },
+            "--color-text-positive": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "var(--color-success)"
+            },
+            "--color-text-analytic": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "var(--color-orange-500)"
+            },
+            "--color-text-usp": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "var(--color-tosca-500)"
+            },
+            "--color-warning-solid": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "#F5A623"
+            },
+            "--color-warning-text": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "#7C5A00"
+            },
+            "--color-warning-border": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "var(--color-yellow-100)"
+            },
+            "--color-background": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "#0F172A"
+            },
+            "--color-surface": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "#1E293B"
+            },
+            "--color-surface-raised": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "#334155"
+            },
+            "--color-border": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "#334155"
+            },
+            "--color-border-strong": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "var(--color-neutral-600)"
+            },
+            "--color-focus-ring": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "rgb(91 170 255 / 20%)"
+            },
+            "--color-error-ring": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "rgb(241 92 89 / 20%)"
+            },
+            "--color-inverse-border": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "rgb(255 255 255 / 20%)"
+            },
+            "--color-inverse-inactive": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "rgb(255 255 255 / 40%)"
+            },
+            "--color-inverse-hover": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "rgb(255 255 255 / 60%)"
+            },
+            "--color-hover-overlay": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "rgb(0 0 0 / 8%)"
+            },
+            "--color-pressed-overlay": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "rgb(0 0 0 / 16%)"
+            },
+            "--color-accent-inactive": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "rgb(0 124 255 / 30%)"
+            },
+            "--color-border-subtle": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "rgba(0, 0, 0, 0.08)"
+            },
+            "--color-overlay-backdrop": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "rgb(0 0 0 / 40%)"
+            },
+            "--color-toast-surface": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "#1a1a1a"
+            },
+            "--color-toast-action": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "#6eb3ff"
+            },
+            "--color-toast-info": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "#1565c0"
+            },
+            "--color-toast-success": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "#1b5e20"
+            },
+            "--color-toast-warning": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "#e65100"
+            },
+            "--color-toast-danger": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "#b71c1c"
+            },
+            "--color-inverse-selected-hover": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "rgba(255, 255, 255, 0.5)"
+            },
+            "--color-inverse-dismiss-hover": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "rgba(255, 255, 255, 0.15)"
+            },
+            "--color-on-dark": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "var(--color-neutral-0)"
+            },
+            "--color-on-warning-solid": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "var(--color-neutral-800)"
+            },
+            "--color-solid-orange": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "#FFB88D"
+            },
+            "--color-warning-foreground": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "var(--color-yellow-100)"
+            },
+            "--color-invert-selection-surface": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "#4D4F56"
+            },
+            "--color-invert-selection-hover": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "#5B5E67"
+            },
+            "--color-on-subtle-hover": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "var(--color-neutral-800)"
+            },
+            "--color-toast-warning-text": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+              "default": "#111111"
+            }
+          }
+        }
+      }
+    },
+    "aliases": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "--space-1": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 1024,
+          "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+          "default": "var(--spacing-4)"
+        },
+        "--space-1-5": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 1024,
+          "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+          "default": "var(--spacing-6)"
+        },
+        "--space-2": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 1024,
+          "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+          "default": "var(--spacing-8)"
+        },
+        "--space-3": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 1024,
+          "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+          "default": "var(--spacing-12)"
+        },
+        "--space-4": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 1024,
+          "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+          "default": "var(--spacing-16)"
+        },
+        "--space-5": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 1024,
+          "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+          "default": "var(--spacing-20)"
+        },
+        "--space-6": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 1024,
+          "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+          "default": "var(--spacing-24)"
+        },
+        "--space-8": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 1024,
+          "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+          "default": "var(--spacing-32)"
+        },
+        "--space-9": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 1024,
+          "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+          "default": "var(--spacing-36)"
+        },
+        "--space-10": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 1024,
+          "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+          "default": "var(--spacing-40)"
+        },
+        "--space-12": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 1024,
+          "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$",
+          "default": "var(--spacing-48)"
+        }
+      }
+    },
+    "components": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "button": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "--fq-button-accent": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-button-radius": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-button-gap": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-button-padding-sm": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-button-padding-md": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-button-padding-lg": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-button-primary": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-button-primary-hover": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-button-radius-md": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-button-font-family": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-button-text-inverse": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-button-primary-subtle": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-button-blue-200": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-button-danger-subtle": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-button-danger": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-button-red-200": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-button-neutral-0": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-button-text-high": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-button-neutral-200": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            }
+          }
+        },
+        "input": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "--fq-input-radius": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-input-background": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-input-border": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-input-gap-scale": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-input-radius-md": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-input-text-activity": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-input-danger": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-input-surface": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-input-font-family": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-input-text-low": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-input-text-alert": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-input-text-high": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-input-text-disabled": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            }
+          }
+        },
+        "select": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "--fq-select-gap-scale": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-select-text-high": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-select-danger": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-select-padding-scale": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-select-border": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-select-radius-md": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-select-background": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-select-font-family": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-select-border-strong": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-select-primary": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-select-focus-ring": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-select-surface": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-select-text-disabled": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-select-text-low": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-select-error-ring": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            }
+          }
+        },
+        "textarea": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "--fq-textarea-gap-scale": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-textarea-text-high": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-textarea-danger": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-textarea-padding-scale": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-textarea-border": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-textarea-radius-md": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-textarea-background": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-textarea-font-family": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-textarea-text-disabled": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-textarea-border-strong": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-textarea-primary": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-textarea-focus-ring": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-textarea-surface": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-textarea-text-low": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-textarea-error-ring": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            }
+          }
+        },
+        "checkbox": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "--fq-checkbox-gap-scale": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-checkbox-border": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-checkbox-radius-sm": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-checkbox-background": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-checkbox-primary": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-checkbox-font-family": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-checkbox-text-high": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-checkbox-text-low": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-checkbox-danger": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-checkbox-neutral-100": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-checkbox-text-disabled": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            }
+          }
+        },
+        "radio": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "--fq-radio-font-family": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-radio-gap-scale": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-radio-border": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-radio-background": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-radio-primary": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-radio-text-high": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-radio-text-low": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-radio-danger": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            }
+          }
+        },
+        "switch": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "--fq-switch-gap": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-switch-font-family": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-switch-gap-scale": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-switch-radius-full": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-switch-border": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-switch-background": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-switch-border-strong": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-switch-primary": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-switch-text-high": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-switch-text-low": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-switch-danger": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            }
+          }
+        },
+        "checkboxGroup": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "--fq-checkbox-group-gap-scale": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-checkbox-group-font-family": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-checkbox-group-text-high": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-checkbox-group-danger": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-checkbox-group-text-low": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            }
+          }
+        },
+        "chips": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "--fq-chips-gap-scale": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-chips-padding-scale": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-chips-radius-full": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-chips-border": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-chips-background": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-chips-text-high": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-chips-font-family": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-chips-primary": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-chips-text-activity": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-chips-primary-subtle": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-chips-danger": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-chips-surface": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-chips-text-disabled": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-chips-border-strong": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-chips-neutral-800": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-chips-text-inverse": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-chips-neutral-700": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-chips-text-low": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-chips-inverse-inactive": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-chips-inverse-selected-hover": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-chips-hover-overlay": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-chips-inverse-dismiss-hover": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            }
+          }
+        },
+        "iconButton": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "--fq-icon-button-radius-md": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-icon-button-primary": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-icon-button-primary-subtle": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-icon-button-text-medium": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-icon-button-danger": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-icon-button-success": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-icon-button-warning-solid": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-icon-button-text-disabled": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-icon-button-neutral-100": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-icon-button-neutral-200": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-icon-button-border": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            }
+          }
+        },
+        "icon": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "--fq-icon-primary": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-icon-text-medium": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-icon-danger": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-icon-success": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-icon-warning-solid": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-icon-text-disabled": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            }
+          }
+        },
+        "tabs": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "--fq-tabs-border": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-tabs-gap-scale": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-tabs-padding-scale": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-tabs-text-low": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-tabs-font-family": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-tabs-text-activity": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-tabs-text-medium": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-tabs-inverse-border": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-tabs-neutral-800": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-tabs-inverse-inactive": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-tabs-inverse-hover": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-tabs-text-inverse": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            }
+          }
+        },
+        "accordion": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "--fq-accordion-gap-scale": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-accordion-background": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-accordion-border": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-accordion-radius-md": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-accordion-padding-scale": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-accordion-text-high": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-accordion-font-family": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-accordion-surface": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-accordion-primary": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-accordion-text-medium": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            }
+          }
+        },
+        "navigationBottom": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "--fq-navigation-bottom-background": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-navigation-bottom-gap-scale": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-navigation-bottom-padding-scale": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-navigation-bottom-text-low": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-navigation-bottom-font-family": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-navigation-bottom-text-activity": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-navigation-bottom-text-disabled": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            }
+          }
+        },
+        "badge": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "--fq-badge-gap-scale": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-badge-padding-scale": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-badge-radius-full": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-badge-font-family": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-badge-primary": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-badge-text-inverse": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-badge-background": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-badge-success": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-badge-danger": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-badge-warning-solid": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-badge-neutral-700": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-badge-primary-subtle": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-badge-success-subtle": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-badge-danger-subtle": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-badge-warning": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-badge-warning-text": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-badge-surface": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-badge-text-medium": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-badge-gradient-red-100": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-badge-gradient-red-200": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-badge-gradient-green-100": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-badge-gradient-green-200": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-badge-neutral-400": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-badge-neutral-200": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-badge-neutral-100": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            }
+          }
+        },
+        "label": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "--fq-label-padding-scale": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-label-radius-xs": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-label-font-family": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-label-primary-subtle": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-label-primary": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-label-success-subtle": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-label-success": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-label-danger-subtle": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-label-danger": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-label-warning": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-label-warning-text": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-label-surface": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-label-text-medium": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-label-border-strong": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-label-red-400": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-label-text-inverse": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-label-orange-500": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-label-green-500": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-label-blue-400": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-label-gradient-red-100": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-label-gradient-red-200": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-label-gradient-orange-100": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-label-gradient-orange-200": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-label-gradient-green-100": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-label-gradient-green-200": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-label-gradient-tosca-100": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-label-gradient-tosca-200": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-label-gradient-violet-100": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-label-gradient-violet-200": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-label-neutral-200": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-label-neutral-100": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-label-text-disabled": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            }
+          }
+        },
+        "banner": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "--fq-banner-gap-scale": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-banner-padding-scale": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-banner-radius-md": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-banner-primary-subtle": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-banner-text-high": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-banner-success-subtle": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-banner-warning": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-banner-danger-subtle": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-banner-primary": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-banner-success": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-banner-warning-text": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-banner-danger": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-banner-font-family": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-banner-text-activity": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-banner-text-low": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-banner-radius-sm": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-banner-hover-overlay": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-banner-pressed-overlay": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            }
+          }
+        },
+        "bannerGradient": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "--fq-banner-gradient-text-inverse": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-banner-gradient-padding-scale": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-banner-gradient-radius-md": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-banner-gradient-radius-xl": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-banner-gradient-gap-scale": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-banner-gradient-font-family": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-banner-gradient-radius-full": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-banner-gradient-inverse-inactive": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-banner-gradient-neutral-0": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-banner-gradient-accent-inactive": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-banner-gradient-primary": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-banner-gradient-gradient-violet-100": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-banner-gradient-gradient-violet-200": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-banner-gradient-gradient-green-100": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-banner-gradient-gradient-green-200": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-banner-gradient-gradient-orange-100": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-banner-gradient-gradient-orange-200": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-banner-gradient-gradient-red-100": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-banner-gradient-gradient-red-200": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-banner-gradient-gradient-tosca-100": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-banner-gradient-gradient-tosca-200": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-banner-gradient-gradient-blue-100": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-banner-gradient-gradient-blue-200": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-banner-gradient-gradient-purple-100": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-banner-gradient-gradient-purple-200": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-banner-gradient-gradient-light-blue-100": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-banner-gradient-gradient-light-blue-200": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-banner-gradient-text-high": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            }
+          }
+        },
+        "bannerInfo": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "--fq-banner-info-neutral-0": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-banner-info-radius-md": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-banner-info-padding-scale": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-banner-info-text-low": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-banner-info-radius-sm": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-banner-info-hover-overlay": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-banner-info-text-high": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-banner-info-pressed-overlay": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-banner-info-primary": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-banner-info-gap-scale": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-banner-info-font-family": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-banner-info-text-activity": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            }
+          }
+        },
+        "countdown": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "--fq-countdown-font-family": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-countdown-padding-scale": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-countdown-radius-xs": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-countdown-danger": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-countdown-text-inverse": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-countdown-warning": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-countdown-warning-text": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-countdown-surface": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-countdown-text-high": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-countdown-text-alert": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-countdown-text-medium": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-countdown-neutral-400": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            }
+          }
+        },
+        "dialog": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "--fq-dialog-surface-raised": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-dialog-border-subtle": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-dialog-text-high": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-dialog-text-medium": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-dialog-neutral-100": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-dialog-primary": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-dialog-gap-scale": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-dialog-padding-scale": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-dialog-font-family": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-dialog-radius-lg": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-dialog-radius-sm": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            }
+          }
+        },
+        "snackbar": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "--fq-snackbar-neutral-900": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-snackbar-neutral-0": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-snackbar-primary-light": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-snackbar-blue-700": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-snackbar-success-dark": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-snackbar-warning-dark": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-snackbar-danger-dark": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-snackbar-gap-scale": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-snackbar-padding-scale": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-snackbar-toast-surface": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-snackbar-radius-md": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-snackbar-font-family": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-snackbar-toast-action": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-snackbar-toast-info": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-snackbar-toast-success": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-snackbar-toast-warning": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-snackbar-toast-danger": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            }
+          }
+        },
+        "bottomSheet": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "--fq-bottom-sheet-overlay-backdrop": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-bottom-sheet-surface-raised": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-bottom-sheet-radius-xl": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-bottom-sheet-padding-scale": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-bottom-sheet-radius-full": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-bottom-sheet-border-strong": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-bottom-sheet-gap-scale": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-bottom-sheet-font-family": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-bottom-sheet-text-high": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-bottom-sheet-border": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-bottom-sheet-radius-sm": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-bottom-sheet-surface": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-bottom-sheet-primary": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            }
+          }
+        },
+        "tooltip": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "--fq-tooltip-padding-scale": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-tooltip-neutral-800": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-tooltip-neutral-0": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-tooltip-radius-md": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-tooltip-font-family": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            }
+          }
+        },
+        "coachmark": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "--fq-coachmark-padding-scale": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-coachmark-radius-md": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-coachmark-surface-raised": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-coachmark-text-high": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-coachmark-font-family": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-coachmark-text-low": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-coachmark-text-medium": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-coachmark-gap-scale": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-coachmark-primary": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-coachmark-radius-sm": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            },
+            "--fq-coachmark-text-inverse": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^[^;{}<>\\\\\\u0000-\\u001f]+$"
+            }
+          }
+        }
+      }
+    },
+    "density": {
+      "enum": ["compact", "comfortable", "spacious"],
+      "default": "comfortable"
+    }
+  }
+}

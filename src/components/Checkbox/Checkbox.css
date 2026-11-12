@@ -1,13 +1,19 @@
 .fq-checkbox-field {
   display: flex;
   flex-direction: column;
-  gap: var(--space-1-5);
+  gap: calc(
+    var(--space-1-5) *
+      clamp(0.75, var(--fq-checkbox-gap-scale, var(--fq-density-gap, 1)), 1.25)
+  );
 }
 
 .fq-checkbox {
   display: inline-flex;
   align-items: center;
-  gap: var(--space-2);
+  gap: calc(
+    var(--space-2) *
+      clamp(0.75, var(--fq-checkbox-gap-scale, var(--fq-density-gap, 1)), 1.25)
+  );
   width: fit-content;
   cursor: pointer;
 }
@@ -17,9 +23,9 @@
   width: 20px;
   height: 20px;
   margin: 0;
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-sm);
-  background: var(--color-background);
+  border: 1px solid var(--fq-checkbox-border, var(--color-border));
+  border-radius: var(--fq-checkbox-radius-sm, var(--radius-sm));
+  background: var(--fq-checkbox-background, var(--color-background));
   cursor: pointer;
 
   display: grid;
@@ -35,24 +41,17 @@
   transform: scale(0);
   transition: transform 120ms ease-in-out;
 
-  background: var(--color-background);
-  clip-path: polygon(
-    14% 44%,
-    0 59%,
-    40% 100%,
-    100% 15%,
-    84% 0,
-    37% 72%
-  );
+  background: var(--fq-checkbox-background, var(--color-background));
+  clip-path: polygon(14% 44%, 0 59%, 40% 100%, 100% 15%, 84% 0, 37% 72%);
 }
 
 .fq-checkbox__input:hover:not(:disabled) {
-  border-color: var(--color-primary);
+  border-color: var(--fq-checkbox-primary, var(--color-primary));
 }
 
 .fq-checkbox__input:checked {
-  background: var(--color-primary);
-  border-color: var(--color-primary);
+  background: var(--fq-checkbox-primary, var(--color-primary));
+  border-color: var(--fq-checkbox-primary, var(--color-primary));
 }
 
 .fq-checkbox__input:checked::before {
@@ -60,8 +59,8 @@
 }
 
 .fq-checkbox__input:indeterminate {
-  background: var(--color-primary);
-  border-color: var(--color-primary);
+  background: var(--fq-checkbox-primary, var(--color-primary));
+  border-color: var(--fq-checkbox-primary, var(--color-primary));
 }
 
 .fq-checkbox__input:indeterminate::before {
@@ -69,11 +68,11 @@
   clip-path: none;
   width: 10px;
   height: 2px;
-  background: var(--color-background);
+  background: var(--fq-checkbox-background, var(--color-background));
 }
 
 .fq-checkbox__input:focus-visible {
-  outline: 2px solid var(--color-primary);
+  outline: 2px solid var(--fq-checkbox-primary, var(--color-primary));
   outline-offset: 2px;
 }
 
@@ -88,11 +87,11 @@
 }
 
 .fq-checkbox__label {
-  font-family: var(--font-family);
+  font-family: var(--fq-checkbox-font-family, var(--font-family));
   font-size: var(--text-body2-size);
   font-weight: var(--font-weight-regular);
   line-height: var(--text-body2-line-height);
-  color: var(--color-text-high);
+  color: var(--fq-checkbox-text-high, var(--color-text-high));
   user-select: none;
 }
 
@@ -102,10 +101,13 @@
    ================================ */
 
 .fq-checkbox-field__message {
-  margin-left: 28px;
+  margin-left: calc(
+    20px + var(--space-2) *
+      clamp(0.75, var(--fq-checkbox-gap-scale, var(--fq-density-gap, 1)), 1.25)
+  );
   font-size: var(--text-body3-size);
   line-height: var(--line-height-normal);
-  color: var(--color-text-low);
+  color: var(--fq-checkbox-text-low, var(--color-text-low));
 }
 
 /* ================================
@@ -113,11 +115,11 @@
    ================================ */
 
 .fq-checkbox-field--error .fq-checkbox__input {
-  border-color: var(--color-danger);
+  border-color: var(--fq-checkbox-danger, var(--color-danger));
 }
 
 .fq-checkbox-field--error .fq-checkbox-field__message {
-  color: var(--color-danger);
+  color: var(--fq-checkbox-danger, var(--color-text-alert));
 }
 
 /* ================================
@@ -130,21 +132,26 @@
 }
 
 .fq-checkbox-field--readonly .fq-checkbox__input {
-  background: var(--color-neutral-100);
-  border-color: var(--color-border);
+  background: var(--fq-checkbox-neutral-100, var(--color-neutral-100));
+  border-color: var(--fq-checkbox-border, var(--color-border));
   cursor: default;
 }
 
 .fq-checkbox-field--readonly .fq-checkbox__input::before {
-  background: var(--color-text-disabled);
+  background: var(--fq-checkbox-text-disabled, var(--color-text-disabled));
 }
 
 .fq-checkbox-field--readonly .fq-checkbox__input:checked,
 .fq-checkbox-field--readonly .fq-checkbox__input:indeterminate {
-  background: var(--color-neutral-100);
-  border-color: var(--color-border);
+  background: var(--fq-checkbox-neutral-100, var(--color-neutral-100));
+  border-color: var(--fq-checkbox-border, var(--color-border));
 }
 
 .fq-checkbox-field--readonly .fq-checkbox__label {
-  color: var(--color-text-low);
+  color: var(--fq-checkbox-text-low, var(--color-text-low));
+}
+
+/* Token scopes supply inherited typography without changing legacy host inheritance. */
+:where([data-fq-theme]) .fq-checkbox-field {
+  font-family: var(--fq-checkbox-font-family, var(--font-family));
 }

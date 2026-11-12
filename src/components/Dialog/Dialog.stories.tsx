@@ -32,7 +32,7 @@ export const Default: Story = {
 
 export const WithActions: Story = {
   name: 'With Actions',
-  render: () => {
+  render: function WithActionsDemo() {
     const [open, setOpen] = React.useState(false);
     return (
       <>
@@ -68,7 +68,7 @@ export const WithActions: Story = {
 
 export const Sizes: Story = {
   name: 'Size Gallery',
-  render: () => {
+  render: function SizesDemo() {
     const [openSize, setOpenSize] = React.useState<DialogSize | null>(null);
     const sizes: DialogSize[] = ['sm', 'md', 'lg'];
     return (
@@ -105,7 +105,7 @@ export const Sizes: Story = {
 
 export const NoCloseButton: Story = {
   name: 'No Close Button (disableBackdropClick)',
-  render: () => {
+  render: function NoCloseButtonDemo() {
     const [open, setOpen] = React.useState(false);
     return (
       <>
@@ -136,7 +136,7 @@ export const NoCloseButton: Story = {
 
 export const Fullscreen: Story = {
   name: 'Fullscreen',
-  render: () => {
+  render: function FullscreenDemo() {
     const [open, setOpen] = React.useState(false);
     return (
       <>
@@ -158,5 +158,15 @@ export const Fullscreen: Story = {
         </Dialog>
       </>
     );
+  },
+};
+
+/** A dialog without a visible heading still needs an accessible name. */
+export const WithoutTitle: Story = {
+  args: {
+    open: true,
+    'aria-label': 'Review order',
+    'aria-describedby': 'order-description',
+    children: <p id="order-description">Check the delivery address.</p>,
   },
 };

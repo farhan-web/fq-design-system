@@ -1,8 +1,8 @@
 import {
   forwardRef,
   type ButtonHTMLAttributes,
-  type KeyboardEvent,
   type ReactNode,
+  type CSSProperties,
 } from 'react';
 
 import './Chips.css';
@@ -48,15 +48,7 @@ export const Chips = forwardRef<HTMLButtonElement, ChipsProps>(
       .filter(Boolean)
       .join(' ');
 
-    function handleDismissKey(e: KeyboardEvent<HTMLSpanElement>) {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        e.stopPropagation();
-        onDismiss?.();
-      }
-    }
-
-    return (
+    const button = (
       <button
         {...props}
         ref={ref}
@@ -87,36 +79,49 @@ export const Chips = forwardRef<HTMLButtonElement, ChipsProps>(
             {endIcon}
           </span>
         )}
-
-        {onDismiss && (
-          <span
-            role="button"
-            tabIndex={disabled ? -1 : 0}
-            className="fq-chips__dismiss"
-            aria-label="Remove"
-            onClick={(e) => {
-              e.stopPropagation();
-              onDismiss();
-            }}
-            onKeyDown={handleDismissKey}
-          >
-            <svg
-              width="12"
-              height="12"
-              viewBox="0 0 12 12"
-              fill="none"
-              aria-hidden="true"
-            >
-              <path
-                d="M9 3L3 9M3 3l6 6"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-              />
-            </svg>
-          </span>
-        )}
       </button>
+    );
+    if (!onDismiss) return button;
+    const variables = Object.fromEntries(
+      Object.entries(props.style ?? {}).filter(([key]) => key.startsWith('--')),
+    ) as CSSProperties;
+    return (
+      <span className="fq-chips-group" style={variables}>
+        {button}
+        <button
+          type="button"
+          className={[
+            'fq-chips fq-chips__dismiss',
+            active ? 'fq-chips--active' : '',
+            error ? 'fq-chips--error' : '',
+            invert ? 'fq-chips--invert' : '',
+            disabled ? 'fq-chips--disabled' : '',
+          ]
+            .filter(Boolean)
+            .join(' ')}
+          aria-label="Remove"
+          disabled={disabled}
+          onClick={(event) => {
+            event.stopPropagation();
+            onDismiss();
+          }}
+        >
+          <svg
+            width="12"
+            height="12"
+            viewBox="0 0 12 12"
+            fill="none"
+            aria-hidden="true"
+          >
+            <path
+              d="M9 3L3 9M3 3l6 6"
+              stroke="currentColor"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+            />
+          </svg>
+        </button>
+      </span>
     );
   },
 );

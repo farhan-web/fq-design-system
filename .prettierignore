@@ -1,0 +1,14 @@
+# Generated browser diagnostic reports; baseline JSON remains format-checked.
+verification/reports/
+
+# Build/test output, not authored source.
+dist/
+dist-ssr/
+storybook-static/
+coverage/
+
+# Local editor/AI scratch and historical design-reference notes.
+.idea/
+.claude/
+.aider*
+design-reference/

@@ -46,10 +46,7 @@ describe('Form', () => {
     });
 
     render(
-      <Form
-        aria-label="Login form"
-        onSubmit={handleSubmit}
-      >
+      <Form aria-label="Login form" onSubmit={handleSubmit}>
         <button type="submit">Submit</button>
       </Form>,
     );
@@ -68,12 +65,7 @@ describe('Form', () => {
       event.preventDefault();
     });
 
-    render(
-      <Form
-        aria-label="Login form"
-        onReset={handleReset}
-      />,
-    );
+    render(<Form aria-label="Login form" onReset={handleReset} />);
 
     fireEvent.reset(
       screen.getByRole('form', {
@@ -87,12 +79,7 @@ describe('Form', () => {
   it('forwards ref to native form', () => {
     const ref = createRef<HTMLFormElement>();
 
-    render(
-      <Form
-        ref={ref}
-        aria-label="Login form"
-      />,
-    );
+    render(<Form ref={ref} aria-label="Login form" />);
 
     expect(ref.current).toBe(
       screen.getByRole('form', {
@@ -102,12 +89,7 @@ describe('Form', () => {
   });
 
   it('supports custom className', () => {
-    render(
-      <Form
-        aria-label="Login form"
-        className="custom-form"
-      />,
-    );
+    render(<Form aria-label="Login form" className="custom-form" />);
 
     expect(
       screen.getByRole('form', {
@@ -131,23 +113,12 @@ describe('Form', () => {
       name: 'Login form',
     });
 
-    expect(form).toHaveAttribute(
-      'id',
-      'login-form',
-    );
+    expect(form).toHaveAttribute('id', 'login-form');
 
-    expect(form).toHaveAttribute(
-      'novalidate',
-    );
+    expect(form).toHaveAttribute('novalidate');
 
-    expect(form).toHaveAttribute(
-      'action',
-      '/login',
-    );
+    expect(form).toHaveAttribute('action', '/login');
 
-    expect(form).toHaveAttribute(
-      'method',
-      'post',
-    );
+    expect(form).toHaveAttribute('method', 'post');
   });
 });

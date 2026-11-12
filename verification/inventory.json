@@ -1,0 +1,1468 @@
+{
+  "publicEntry": "import './compat.css';\n\nexport {\n  Button,\n  type ButtonProps,\n  type ButtonSize,\n  type ButtonVariant,\n} from './components/Button/Button';\n\nexport { Checkbox, type CheckboxProps } from './components/Checkbox/Checkbox';\n\nexport {\n  CheckboxGroup,\n  type CheckboxGroupProps,\n} from './components/CheckboxGroup/CheckboxGroup';\n\nexport { Field, type FieldProps } from './components/Field/Field';\n\nexport {\n  FieldContext,\n  useFieldContext,\n  type FieldContextValue,\n} from './components/Field/FieldContext';\n\nexport { Form, type FormProps } from './components/Form/Form';\n\nexport { Input, type InputProps } from './components/Input/Input';\n\nexport { Radio, type RadioProps } from './components/Radio/Radio';\n\nexport { Select, type SelectProps } from './components/Select/Select';\n\nexport { Switch, type SwitchProps } from './components/Switch/Switch';\n\nexport { Textarea, type TextareaProps } from './components/Textarea/Textarea';\n\nexport {\n  Badge,\n  type BadgeProps,\n  type BadgeVariant,\n} from './components/Badge/Badge';\n\nexport { Chips, type ChipsProps } from './components/Chips/Chips';\n\nexport {\n  Label,\n  type LabelProps,\n  type LabelVariant,\n  type LabelSize,\n} from './components/Label/Label';\n\nexport {\n  Tabs,\n  TabList,\n  Tab,\n  TabPanel,\n  type TabsProps,\n  type TabListProps,\n  type TabProps,\n  type TabPanelProps,\n} from './components/Tabs/Tabs';\n\nexport {\n  Accordion,\n  AccordionItem,\n  AccordionTrigger,\n  AccordionContent,\n  type AccordionProps,\n  type AccordionItemProps,\n  type AccordionTriggerProps,\n  type AccordionContentProps,\n} from './components/Accordion/Accordion';\n\nexport {\n  Tooltip,\n  type TooltipProps,\n  type TooltipPlacement,\n  type TooltipArrowAlignment,\n} from './components/Tooltip/Tooltip';\n\nexport {\n  Banner,\n  type BannerProps,\n  type BannerVariant,\n  type BannerLayout,\n} from './components/Banner/Banner';\n\nexport {\n  BottomSheet,\n  type BottomSheetProps,\n  type BottomSheetIconAction,\n} from './components/BottomSheet/BottomSheet';\n\nexport {\n  NavigationBottom,\n  type NavigationBottomProps,\n  type NavItemProps,\n} from './components/NavigationBottom/NavigationBottom';\n\nexport {\n  Countdown,\n  type CountdownProps,\n  type CountdownVariant,\n  type CountdownDisplay,\n} from './components/Countdown/Countdown';\n\nexport {\n  BannerGradient,\n  type BannerGradientVariant,\n  type BannerGradientGradient,\n  type BannerGradientPageControl,\n  type BannerGradientProps,\n} from './components/BannerGradient/BannerGradient';\n\nexport {\n  BannerInfo,\n  type BannerInfoProps,\n} from './components/BannerInfo/BannerInfo';\n\nexport {\n  Coachmark,\n  type CoachmarkProps,\n  type CoachmarkPlacement,\n} from './components/Coachmark/Coachmark';\n\nexport { useFormField } from './hooks/useFormField';\n\nexport type { FormFieldProps } from './types/form';\n\n// ── Icons ─────────────────────────────────────────────────────────────────────\nexport {\n  IconBase,\n  type IconBaseProps,\n  type IconSize,\n  type IconColor,\n} from './components/Icon/IconBase';\n\nexport {\n  IconButton,\n  type IconButtonProps,\n  type IconButtonVariant,\n  type IconButtonSize,\n} from './components/IconButton/IconButton';\n\nexport {\n  Snackbar,\n  type SnackbarProps,\n  type SnackbarVariant,\n  type SnackbarPlacement,\n} from './components/Snackbar/Snackbar';\n\nexport {\n  Dialog,\n  type DialogProps,\n  type DialogSize,\n} from './components/Dialog/Dialog';\n\n// ── Theme (MUI integration) ──────────────────────────────────────────────────\nexport {\n  FqThemeProvider,\n  type FqThemeProviderProps,\n} from './theme/FqThemeProvider';\nexport { fqTheme, createFqTheme, type FqTheme } from './theme/fqTheme';\n\nexport {\n  parseFqTheme,\n  parseFqThemeJson,\n  themeCssVariables,\n  defaultFqThemeDefinition,\n  FqThemeValidationError,\n  densityScales,\n  type FqThemeConfig,\n  type FqThemeDefinition,\n  type FqThemeMode,\n  type FqDensity,\n} from './theme/tokenConfig';\n\nexport type {\n  FqSlotStyle,\n  FqSlotProps,\n  FqSlotCustomization,\n} from './types/slots';\n\nexport type { FqPortalContainer } from './theme/portalScope';\n",
+  "components": [
+    {
+      "name": "Accordion",
+      "directory": "src/components/Accordion",
+      "contracts": [
+        "export interface AccordionProps extends HTMLAttributes<HTMLDivElement> {\n  /** Allow multiple items open simultaneously */\n  multiple?: boolean;\n  /** Initial open item(s) for uncontrolled usage */\n  defaultOpen?: string | number | (string | number)[];\n  /**\n   * Controlled open items. When provided, open/close is driven externally.\n   * Use with onExpandedChange.\n   */\n  expanded?: string | number | (string | number)[];\n  /**\n   * Called when an item is toggled.\n   * Receives the full array of currently open item values.\n   * Also fires in uncontrolled mode as a change observer.\n   */\n  onExpandedChange?: (values: (string | number)[]) => void;\n  /**\n   * When true each item renders as an elevated card (shadow, no border).\n   * When false (default) each item has a 1px border, no shadow.\n   * Matches tiket.design \"Inside Card: True / False\" variants.\n   */\n  insideCard?: boolean;\n  children?: ReactNode;\n}",
+        "export interface AccordionItemProps extends HTMLAttributes<HTMLDivElement> {\n  value: string | number;\n  disabled?: boolean;\n  children?: ReactNode;\n}",
+        "export interface AccordionTriggerProps extends HTMLAttributes<HTMLButtonElement> {\n  value: string;\n  disabled?: boolean;\n  children?: ReactNode;\n}",
+        "export interface AccordionContentProps extends HTMLAttributes<HTMLDivElement> {\n  value: string;\n  children?: ReactNode;\n}"
+      ],
+      "stories": [
+        "Default",
+        "InsideCard",
+        "DynamicHeader",
+        "MultipleOpen",
+        "DefaultOpen",
+        "WithDisabledItem",
+        "Controlled"
+      ],
+      "tests": [
+        {
+          "file": "Accordion.test.tsx",
+          "cases": [
+            "renders triggers",
+            "panels are hidden by default",
+            "expands on trigger click",
+            "collapses on second click",
+            "closes other items in single mode",
+            "keeps multiple items open in multiple mode",
+            "defaultOpen pre-opens an item",
+            "trigger aria-controls points to panel id",
+            "ArrowDown moves focus to next trigger",
+            "ArrowDown wraps from last to first trigger",
+            "ArrowUp moves focus to previous trigger",
+            "Home moves focus to first trigger",
+            "End moves focus to last trigger",
+            "arrow keys do not expand/collapse (only Enter/Space/Click does)",
+            "controlled: respects expanded prop",
+            "controlled: clicking does not change state without updating expanded prop",
+            "controlled: calls onExpandedChange with next values",
+            "controlled: full two-way binding",
+            "uncontrolled: onExpandedChange fires as change observer",
+            "uses the latest externally controlled values when toggling multiple items",
+            "notifies once per repeated uncontrolled toggle in StrictMode",
+            "applies fq-accordion--inside-card class when insideCard=true",
+            "does not apply fq-accordion--inside-card when insideCard=false (default)",
+            "insideCard accordion still expands and collapses correctly"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Badge",
+      "directory": "src/components/Badge",
+      "contracts": [
+        "export type BadgeVariant =\n  | 'solid-primary'\n  | 'solid-success'\n  | 'solid-danger'\n  | 'solid-warning'\n  | 'solid-neutral'\n  | 'soft-primary'\n  | 'soft-success'\n  | 'soft-danger'\n  | 'soft-warning'\n  | 'soft-neutral'\n  | 'gradient-red'\n  | 'gradient-green';",
+        "export interface BadgeProps extends HTMLAttributes<HTMLSpanElement> {\n  variant?: BadgeVariant;\n  dot?: boolean;\n  count?: boolean;\n  loading?: boolean;\n  disabled?: boolean;\n  children?: ReactNode;\n}"
+      ],
+      "stories": [
+        "SolidPrimary",
+        "SolidSuccess",
+        "SolidDanger",
+        "SolidWarning",
+        "SolidNeutral",
+        "SoftPrimary",
+        "SoftSuccess",
+        "SoftDanger",
+        "SoftWarning",
+        "SoftNeutral",
+        "Count",
+        "Dot",
+        "GradientRed",
+        "GradientGreen",
+        "Loading",
+        "Disabled"
+      ],
+      "tests": [
+        {
+          "file": "Badge.test.tsx",
+          "cases": [
+            "renders children",
+            "applies default variant class",
+            "applies variant class",
+            "dot mode renders no children",
+            "applies count class",
+            "supports custom className",
+            "forwards ref",
+            "forwards native attributes",
+            "applies gradient-red variant class",
+            "applies gradient-green variant class",
+            "disabled prop sets data-disabled attribute",
+            "loading renders no children and applies shimmer class"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Banner",
+      "directory": "src/components/Banner",
+      "contracts": [
+        "export type BannerVariant = 'info' | 'success' | 'warning' | 'danger';",
+        "export type BannerLayout = 'sectional' | 'full-width';",
+        "export interface BannerProps extends HTMLAttributes<HTMLDivElement> {\n  variant?: BannerVariant;\n  /**\n   * Layout mode.\n   * - `sectional` (default): 8px radius, optional × dismiss button.\n   * - `full-width`: 0px radius, chevron on right, entire banner is tappable via `onClick`.\n   */\n  layout?: BannerLayout;\n  title?: string;\n  description?: ReactNode;\n  icon?: ReactNode;\n  /** Show × dismiss button. Only applies to `sectional` layout. */\n  dismissible?: boolean;\n  onDismiss?: () => void;\n  /** Text link CTA shown below description */\n  action?: { label: string; onClick: () => void };\n  children?: ReactNode;\n}"
+      ],
+      "stories": [
+        "Info",
+        "Success",
+        "Warning",
+        "Danger",
+        "Dismissible",
+        "WithAction",
+        "NoTitle",
+        "FullWidthInfo",
+        "FullWidthSuccess",
+        "FullWidthWithAction",
+        "AllVariants"
+      ],
+      "tests": [
+        {
+          "file": "Banner.test.tsx",
+          "cases": [
+            "renders title and description",
+            "has role=",
+            "applies variant class",
+            "shows dismiss button when dismissible",
+            "hides banner after dismiss click",
+            "calls onDismiss callback",
+            "does not show dismiss button by default",
+            "renders children as body content",
+            "forwards ref",
+            "renders action button",
+            "applies fq-banner--full-width class when layout=",
+            "does not apply full-width class by default",
+            "shows chevron for full-width layout",
+            "does not show chevron for sectional layout",
+            "does not show dismiss button for full-width even when dismissible=true",
+            "full-width banner is focusable (tabIndex=0)",
+            "sectional banner has no tabIndex by default",
+            "full-width Enter key fires onClick",
+            "full-width Space key fires onClick",
+            "sectional banner does not fire onClick on Enter keydown",
+            "consumer-supplied tabIndex overrides full-width default"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "BannerGradient",
+      "directory": "src/components/BannerGradient",
+      "contracts": [
+        "export type BannerGradientVariant = 'small' | 'big-rounded' | 'big-rectangle';",
+        "export type BannerGradientGradient =\n  | 'violet'\n  | 'green'\n  | 'orange'\n  | 'red'\n  | 'tosca'\n  | 'blue'\n  | 'purple'\n  | 'light-blue';",
+        "export interface BannerGradientPageControl {\n  /** Total number of pages */\n  count: number;\n  /** Currently active page index (0-based) */\n  current: number;\n  /** Dot color variant (default: 'white') */\n  variant?: 'white' | 'blue';\n}",
+        "export interface BannerGradientProps extends HTMLAttributes<HTMLDivElement> {\n  /** Shape and size variant (default: 'big-rounded') */\n  variant?: BannerGradientVariant;\n  /** Gradient color (default: 'violet') */\n  gradient?: BannerGradientGradient;\n  /** Left icon — unremovable per spec; strongly recommended */\n  icon?: ReactNode;\n  /** Main text content — body 3 style. Supports ReactNode for bold+regular mixed content. */\n  text: ReactNode;\n  /** Use bold weight instead of semibold (default: false) */\n  bold?: boolean;\n  /** Countdown slot — small variant only */\n  countdown?: ReactNode;\n  /**\n   * Show right chevron icon.\n   * Default: true for 'small', false for big variants.\n   */\n  showChevron?: boolean;\n  /** Page indicator dots — big-rounded and big-rectangle only */\n  pageControl?: BannerGradientPageControl;\n}"
+      ],
+      "stories": [
+        "SmallDefault",
+        "SmallBold",
+        "SmallWithCountdown",
+        "SmallNoChevron",
+        "BigRoundedDefault",
+        "BigRoundedWithChevron",
+        "BigRoundedWithPageControl",
+        "BigRoundedPageControlBlue",
+        "BigRectangleDefault",
+        "BigRectangleWithPageControl",
+        "GradientShowcase"
+      ],
+      "tests": [
+        {
+          "file": "BannerGradient.test.tsx",
+          "cases": [
+            "renders the text",
+            "renders rich text ReactNode",
+            "applies big-rounded variant class by default",
+            "applies small variant class",
+            "applies big-rectangle variant class",
+            "applies violet gradient class by default",
+            "applies the specified gradient class",
+            "renders icon when provided",
+            "applies bold class when bold prop is true",
+            "does not apply bold class by default",
+            "shows chevron by default for small variant",
+            "hides chevron by default for big-rounded variant",
+            "shows chevron when showChevron=true on big variant",
+            "hides chevron when showChevron=false on small variant",
+            "renders countdown slot in small variant",
+            "does not render countdown slot in big variant",
+            "renders page control dots for big-rounded variant",
+            "marks the current dot as active",
+            "applies blue page control class when variant is blue",
+            "does not render page control for small variant",
+            "applies extra className",
+            "forwards ref"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "BannerInfo",
+      "directory": "src/components/BannerInfo",
+      "contracts": [
+        "export interface BannerInfoProps extends HTMLAttributes<HTMLDivElement> {\n  /** Card title — body 1 bold */\n  title?: string;\n  /** Card body text — body 2 regular. Supports ReactNode for mixed content. */\n  description: ReactNode;\n  /** Text link CTA shown below description — body 3 bold, activity color */\n  action?: { label: string; onClick: () => void };\n  /** Callback for the × close button. When provided, the button is rendered. */\n  onClose?: () => void;\n  /** Left illustration slot — 80×80 container */\n  illustration?: ReactNode;\n  /**\n   * Decorative top-right super graphic — 96×93 absolute container.\n   * Behind the close button. Purely visual.\n   */\n  superGraphic?: ReactNode;\n}"
+      ],
+      "stories": [
+        "DescriptionOnly",
+        "WithTitle",
+        "WithAction",
+        "Closable",
+        "WithIllustration",
+        "IllustrationClosable",
+        "WithSuperGraphic",
+        "FullFeatured"
+      ],
+      "tests": [
+        {
+          "file": "BannerInfo.test.tsx",
+          "cases": [
+            "renders string description",
+            "renders ReactNode description",
+            "renders title when provided",
+            "does not render title element when omitted",
+            "renders action button when provided",
+            "does not render action when omitted",
+            "renders close button when onClose is provided",
+            "calls onClose when close button is clicked",
+            "does not render close button when onClose is omitted",
+            "applies fq-banner-info--closable class when onClose is provided",
+            "does not apply closable class when onClose is omitted",
+            "renders illustration when provided",
+            "illustration is not aria-hidden (consumer controls accessibility)",
+            "does not render illustration slot when omitted",
+            "renders super graphic when provided",
+            "does not render super graphic slot when omitted",
+            "applies extra className",
+            "forwards ref"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "BottomSheet",
+      "directory": "src/components/BottomSheet",
+      "contracts": [
+        "export interface BottomSheetIconAction {\n  icon: ReactNode;\n  label: string;\n  onClick: () => void;\n}",
+        "export interface BottomSheetProps\n  extends\n    HTMLAttributes<HTMLDivElement>,\n    FqSlotCustomization<\n      | 'root'\n      | 'backdrop'\n      | 'handle'\n      | 'handleBar'\n      | 'image'\n      | 'header'\n      | 'title'\n      | 'closeButton'\n      | 'actions'\n      | 'action'\n      | 'iconAction'\n      | 'body'\n    > {\n  /** Portal target. Prefer a callback when the target is created after mount. */\n  container?: FqPortalContainer;\n  open: boolean;\n  onClose: () => void;\n  title?: string;\n  /** Show the drag handle bar (default: true) */\n  handle?: boolean;\n  /** Dismiss when clicking the backdrop (default: true) */\n  backdropDismiss?: boolean;\n  /** Text link action shown in the header right side */\n  action?: { label: string; onClick: () => void };\n  /** Up to 2 icon-button actions shown in the header right side */\n  iconActions?: BottomSheetIconAction[];\n  /** Image slot rendered between handle and title (With Image variant) */\n  image?: ReactNode;\n  /** Override the maximum height of the sheet (default: '90vh') */\n  maxHeight?: string;\n  /**\n   * Disable portal rendering. When false (default), the sheet renders into\n   * document.body so it is never clipped by overflow:hidden ancestors.\n   */\n  disablePortal?: boolean;\n  children?: ReactNode;\n}"
+      ],
+      "stories": [
+        "Playground",
+        "Default",
+        "WithTitle",
+        "NoHandle",
+        "NoBackdropDismiss",
+        "WithAction",
+        "WithIconActions",
+        "WithImage",
+        "HalfHeight",
+        "WithScrollingContent",
+        "Lifecycle",
+        "InlineLifecycle"
+      ],
+      "tests": [
+        {
+          "file": "BottomSheet.test.tsx",
+          "cases": [
+            "does not render when closed",
+            "renders dialog when open",
+            "renders children",
+            "renders title",
+            "shows close button when title is set",
+            "calls onClose when close button clicked",
+            "calls onClose on Escape key",
+            "has aria-modal=",
+            "dialog is labelled by title via aria-labelledby",
+            "dialog has no aria-labelledby when title is absent",
+            "Tab key cycles focus forward within dialog",
+            "Shift+Tab cycles focus backward within dialog",
+            "forwards ref",
+            "renders image slot when image prop is provided",
+            "renders icon actions when iconActions prop is provided",
+            "calls onClose when handle is swiped down past threshold",
+            "does not call onClose when swipe delta is below threshold",
+            "applies custom maxHeight via inline style",
+            "renders link action button when action prop is provided",
+            "renders into document.body portal by default",
+            "renders inline when disablePortal=true",
+            "focuses the close button after mount and restores the trigger after exit",
+            "focuses titleless content or the empty sheet fallback",
+            "contains focus when there are no focusable children",
+            "shares Escape ownership and scroll lock with Dialog",
+            "cancels pending animation frames on rapid close and unmount",
+            "skips hidden, disabled and negative-tabindex initial focus targets",
+            "keeps a rapidly reopened sheet mounted past its previous exit timeout",
+            "keeps scroll locked when a lower sheet exits beneath a Dialog"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Button",
+      "directory": "src/components/Button",
+      "contracts": [
+        "export type ButtonVariant =\n  'primary' | 'secondary' | 'ghost' | 'danger' | 'invert';",
+        "export type ButtonSize = 'sm' | 'md' | 'lg';",
+        "export interface ButtonProps\n  extends\n    ButtonHTMLAttributes<HTMLButtonElement>,\n    FqSlotCustomization<'root' | 'content' | 'spinner'> {\n  variant?: ButtonVariant;\n  size?: ButtonSize;\n  loading?: boolean;\n  fullWidth?: boolean;\n  startIcon?: ReactNode;\n  endIcon?: ReactNode;\n  iconOnly?: boolean;\n  children?: ReactNode;\n}"
+      ],
+      "stories": [
+        "Primary",
+        "Secondary",
+        "Ghost",
+        "Danger",
+        "Invert",
+        "Small",
+        "Large",
+        "Loading",
+        "Disabled",
+        "WithStartIcon",
+        "WithEndIcon",
+        "WithBothIcons",
+        "IconOnly",
+        "DeleteIconOnly",
+        "FullWidth",
+        "Interaction",
+        "DisabledInteraction",
+        "LoadingInteraction",
+        "IconOnlyAccessibility",
+        "KeyboardInteraction"
+      ],
+      "tests": [
+        {
+          "file": "Button.test.tsx",
+          "cases": [
+            "renders children",
+            "uses button type by default",
+            "supports native button type",
+            "is disabled when disabled is true",
+            "is disabled when loading",
+            "does not expose aria-busy when not loading",
+            "supports an accessible name for icon-only buttons",
+            "supports variants",
+            "supports sizes",
+            "supports full width",
+            "supports start icon",
+            "supports end icon",
+            "supports ReactNode children",
+            "hides icons while loading",
+            "supports custom className",
+            "forwards ref to the native button",
+            "applies icon-only class",
+            "supports both start and end icons",
+            "forwards native attributes",
+            "remains disabled when both disabled and loading are true"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Checkbox",
+      "directory": "src/components/Checkbox",
+      "contracts": [
+        "export interface CheckboxProps\n  extends\n    Omit<InputHTMLAttributes<HTMLInputElement>, 'size'>,\n    FormFieldProps,\n    FqSlotCustomization<'root' | 'label' | 'input' | 'helperText'> {\n  indeterminate?: boolean;\n  readOnly?: boolean;\n}"
+      ],
+      "stories": [
+        "Default",
+        "Checked",
+        "Indeterminate",
+        "WithHelperText",
+        "WithError",
+        "ErrorChecked",
+        "Disabled",
+        "DisabledChecked",
+        "ReadOnly",
+        "ReadOnlyChecked",
+        "Required",
+        "LongLabel",
+        "AllStates"
+      ],
+      "tests": [
+        {
+          "file": "Checkbox.test.tsx",
+          "cases": [
+            "preserves custom className",
+            "renders label and checkbox",
+            "associates label with checkbox",
+            "generates unique ids for multiple checkboxes",
+            "supports checked state",
+            "supports disabled state",
+            "supports required state",
+            "supports helper text",
+            "exposes error state",
+            "prioritizes error message over helper text",
+            "supports indeterminate state",
+            "supports ReactNode label",
+            "supports ReactNode helper text",
+            "supports ReactNode error",
+            "forwards ref to the native checkbox",
+            "forwards onChange event",
+            "supports defaultChecked",
+            "supports controlled checked state"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "CheckboxGroup",
+      "directory": "src/components/CheckboxGroup",
+      "contracts": [
+        "export interface CheckboxGroupProps\n  extends\n    HTMLAttributes<HTMLFieldSetElement>,\n    FormFieldProps,\n    FqSlotCustomization<\n      'root' | 'legend' | 'required' | 'items' | 'helperText'\n    > {\n  required?: boolean;\n  disabled?: boolean;\n}"
+      ],
+      "stories": [
+        "Default",
+        "WithHelperText",
+        "WithError",
+        "Required",
+        "Disabled",
+        "NoLabel",
+        "AllStates"
+      ],
+      "tests": [
+        {
+          "file": "CheckboxGroup.test.tsx",
+          "cases": [
+            "renders legend when label is provided",
+            "does not render legend when label is omitted",
+            "renders required asterisk when required is true",
+            "does not render required asterisk when required is false",
+            "renders children inside items slot",
+            "renders helper text",
+            "connects helper text via aria-describedby",
+            "renders error message",
+            "sets aria-invalid when error is provided",
+            "does not set aria-invalid when no error",
+            "applies error CSS class when error is provided",
+            "does not apply error class when no error",
+            "prioritizes error over helperText",
+            "disables all child checkboxes when disabled",
+            "applies extra className",
+            "forwards ref to the fieldset element",
+            "does not render message element when neither error nor helperText",
+            "does not set aria-describedby when no message"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Chips",
+      "directory": "src/components/Chips",
+      "contracts": [
+        "export interface ChipsProps extends ButtonHTMLAttributes<HTMLButtonElement> {\n  active?: boolean;\n  error?: boolean;\n  invert?: boolean;\n  startIcon?: ReactNode;\n  endIcon?: ReactNode;\n  badge?: ReactNode;\n  /** Called when the dismiss (×) button is clicked or activated via keyboard. */\n  onDismiss?: () => void;\n  children?: ReactNode;\n}"
+      ],
+      "stories": [
+        "Default",
+        "Active",
+        "Disabled",
+        "Error",
+        "WithStartIcon",
+        "WithEndIcon",
+        "WithBothIcons",
+        "WithStartIconActive",
+        "WithBadge",
+        "WithBadgeActive",
+        "Dismissible",
+        "DismissibleActive",
+        "FullFeatured",
+        "AllStates",
+        "Invert",
+        "InvertActive",
+        "InvertDisabled",
+        "InvertError",
+        "InvertDismissible",
+        "AllInvertStates"
+      ],
+      "tests": [
+        {
+          "file": "Chips.test.tsx",
+          "cases": [
+            "renders children",
+            "has type=",
+            "sets aria-pressed when active",
+            "sets aria-pressed=false when inactive",
+            "applies active class",
+            "applies error class",
+            "is disabled when disabled prop is set",
+            "shows dismiss button when onDismiss is provided",
+            "calls onDismiss when dismiss is clicked",
+            "forwards ref"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Coachmark",
+      "directory": "src/components/Coachmark",
+      "contracts": [
+        "export type CoachmarkPlacement =\n  | 'top'\n  | 'top-start'\n  | 'top-end'\n  | 'bottom'\n  | 'bottom-start'\n  | 'bottom-end'\n  | 'left'\n  | 'left-start'\n  | 'left-end'\n  | 'right'\n  | 'right-start'\n  | 'right-end';",
+        "export interface CoachmarkProps extends HTMLAttributes<HTMLDivElement> {\n  open: boolean;\n  title: string;\n  body: ReactNode;\n  /** Optional illustration shown above the title */\n  illustration?: ReactNode;\n  step?: number;\n  totalSteps?: number;\n  nextLabel?: string;\n  doneLabel?: string;\n  skipLabel?: string;\n  onNext?: () => void;\n  onSkip?: () => void;\n  onDone?: () => void;\n  placement?: CoachmarkPlacement;\n  /** The target element to anchor the coachmark to */\n  children?: ReactNode;\n}"
+      ],
+      "stories": [
+        "Default",
+        "PlacementTop",
+        "PlacementLeft",
+        "PlacementRight",
+        "WithSteps",
+        "LastStep",
+        "WithIllustration",
+        "Interactive",
+        "AllPlacements"
+      ],
+      "tests": [
+        {
+          "file": "Coachmark.test.tsx",
+          "cases": [
+            "does not render popover when closed",
+            "renders popover when open",
+            "renders title and body",
+            "shows step indicator when step and totalSteps provided",
+            "hides step indicator when step props omitted",
+            "calls onNext when Next clicked",
+            "calls onSkip when Skip clicked",
+            "shows Done button on last step",
+            "calls onDone when Done clicked",
+            "applies placement class",
+            "renders children (anchor element)",
+            "forwards ref to the dialog element",
+            "applies bottom-start placement class",
+            "applies top-end placement class",
+            "applies right-start placement class",
+            "auto-focuses first button when opened",
+            "Escape key calls onSkip when provided"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Countdown",
+      "directory": "src/components/Countdown",
+      "contracts": [
+        "export type CountdownVariant = 'danger' | 'warning' | 'neutral';",
+        "export type CountdownDisplay = 'boxed' | 'unboxed' | 'unboxed-small';",
+        "export interface CountdownProps extends Omit<\n  HTMLAttributes<HTMLSpanElement>,\n  'children'\n> {\n  /** Target date/time to count down to */\n  targetDate?: Date;\n  /** Remaining seconds (alternative to targetDate) */\n  seconds?: number;\n  variant?: CountdownVariant;\n  /** Display mode: boxed (pill segments), unboxed (plain text), unboxed-small (plain text, smaller) */\n  display?: CountdownDisplay;\n  /** Show hours segment */\n  showHours?: boolean;\n  /** Show centiseconds (.xx) after seconds */\n  showMilliseconds?: boolean;\n  onExpire?: () => void;\n}"
+      ],
+      "stories": [
+        "Default",
+        "Danger",
+        "Warning",
+        "Neutral",
+        "WithHours",
+        "Expired",
+        "WithMilliseconds",
+        "WithTargetDate",
+        "AllVariants",
+        "Unboxed",
+        "UnboxedAllVariants",
+        "UnboxedWithMilliseconds",
+        "UnboxedSmall",
+        "UnboxedSmallAllVariants"
+      ],
+      "tests": [
+        {
+          "file": "Countdown.test.tsx",
+          "cases": [
+            "renders with seconds",
+            "displays minutes and seconds correctly",
+            "shows 00:00 when expired",
+            "calls onExpire when seconds reach 0",
+            "applies variant class",
+            "applies expired class when done",
+            "shows hours segment when showHours is true",
+            "has role=",
+            "forwards ref"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Dialog",
+      "directory": "src/components/Dialog",
+      "contracts": [
+        "export type DialogSize = 'sm' | 'md' | 'lg' | 'fullscreen';",
+        "export interface DialogProps\n  extends\n    Pick<AriaAttributes, 'aria-label' | 'aria-labelledby' | 'aria-describedby'>,\n    FqSlotCustomization<\n      | 'paper'\n      | 'backdrop'\n      | 'title'\n      | 'heading'\n      | 'closeButton'\n      | 'content'\n      | 'actions'\n    > {\n  /** Portal target. Prefer a callback when the target is created after mount. */\n  container?: FqPortalContainer;\n  /** Render inline. Inline overlays remain subject to ancestor clipping/stacking. */\n  disablePortal?: boolean;\n  open: boolean;\n  /** Called when the dialog requests to close (Escape or backdrop click). */\n  onClose?: () => void;\n  /** Heading text or element rendered in the header area. */\n  title?: ReactNode;\n  /** Main content of the dialog. */\n  children?: ReactNode;\n  /** Bottom action area — typically Button(s). */\n  actions?: ReactNode;\n  /** Controls the width of the dialog paper. Default: 'md'. */\n  size?: DialogSize;\n  /**\n   * When true, clicking the backdrop does not call onClose.\n   * Escape key still works.\n   */\n  disableBackdropClick?: boolean;\n  className?: string;\n  style?: CSSProperties;\n}"
+      ],
+      "stories": [
+        "Default",
+        "WithActions",
+        "Sizes",
+        "NoCloseButton",
+        "Fullscreen",
+        "WithoutTitle"
+      ],
+      "tests": [
+        {
+          "file": "Dialog.test.tsx",
+          "cases": [
+            "renders when open",
+            "names the dialog from its rendered heading",
+            "supports a titleless name and optional description",
+            "lets an explicit label override the visible title",
+            "uses an explicit label relationship before the default heading",
+            "does not create a dangling label reference without a title",
+            "does not render when closed",
+            "renders title text",
+            "renders children",
+            "renders actions slot",
+            "shows close button when title + onClose provided",
+            "calls onClose when close button clicked",
+            "calls onClose on Escape key",
+            "applies size class",
+            "defaults to size=",
+            "merges custom className",
+            "forwards ref to dialog paper element",
+            "does not show close button when onClose is absent",
+            "disableBackdropClick prevents backdrop close"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Field",
+      "directory": "src/components/Field",
+      "contracts": [
+        "export interface FieldProps extends FqSlotCustomization<\n  'root' | 'label' | 'required' | 'description' | 'error'\n> {\n  className?: string;\n  style?: CSSProperties;\n  id?: string;\n  label?: ReactNode;\n  description?: ReactNode;\n  error?: ReactNode;\n  required?: boolean;\n  children: ReactNode;\n}"
+      ],
+      "stories": ["Default", "LongContent"],
+      "tests": [
+        {
+          "file": "Field.test.tsx",
+          "cases": [
+            "renders label and control",
+            "associates label with control",
+            "renders description",
+            "renders error",
+            "generates an id for a control without one",
+            "preserves external aria-describedby",
+            "preserves control props",
+            "preserves control ref",
+            "renders required indicator",
+            "forwards required to child via context",
+            "accepts multiple children"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Form",
+      "directory": "src/components/Form",
+      "contracts": [
+        "export type FormProps = FormHTMLAttributes<HTMLFormElement>;"
+      ],
+      "stories": ["Default"],
+      "tests": [
+        {
+          "file": "Form.integration.test.tsx",
+          "cases": [
+            "composes Form, Field, and Input",
+            "submits composed form",
+            "preserves Field validation state inside Form",
+            "forwards required from Field to Input via context",
+            "Field accepts multiple children"
+          ]
+        },
+        {
+          "file": "Form.test.tsx",
+          "cases": [
+            "renders native form element",
+            "renders children",
+            "forwards onSubmit event",
+            "forwards onReset event",
+            "forwards ref to native form",
+            "supports custom className",
+            "forwards native form attributes"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Icon",
+      "directory": "src/components/Icon",
+      "contracts": [
+        "export type IconSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl';",
+        "export type IconColor =\n  | 'inherit'\n  | 'primary'\n  | 'secondary'\n  | 'error'\n  | 'success'\n  | 'warning'\n  | 'muted';",
+        "export interface IconBaseProps extends HTMLAttributes<HTMLSpanElement> {\n  /**\n   * Icon size token → actual px:\n   * xs=12 | sm=16 | md=20 | lg=24 (default) | xl=32 | 2xl=40 | 3xl=48\n   */\n  size?: IconSize;\n  /**\n   * Semantic color token. Defaults to `inherit` (uses the parent's color).\n   */\n  color?: IconColor;\n  /** Accessible label. When provided: role=\"img\". When omitted: aria-hidden=\"true\". */\n  'aria-label'?: string;\n  /** The SVG icon element (e.g. a lucide-react component or inline <svg>). */\n  children: ReactNode;\n}"
+      ],
+      "stories": ["Default", "SizeGallery", "ColorGallery", "Accessibility"],
+      "tests": [
+        {
+          "file": "IconBase.test.tsx",
+          "cases": [
+            "renders children inside a span",
+            "defaults to size=",
+            "does not add color class when color=",
+            "defaults to color=",
+            " ",
+            "adds role=",
+            "adds aria-hidden=",
+            "does not add aria-hidden when aria-label is provided",
+            "forwards ref to the span element",
+            "merges custom className",
+            "passes additional HTML attributes to the span"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "IconButton",
+      "directory": "src/components/IconButton",
+      "contracts": [
+        "export type IconButtonVariant = 'standard' | 'filled' | 'outlined' | 'ghost';",
+        "export type IconButtonSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';",
+        "export interface IconButtonProps extends Omit<\n  ButtonBaseProps<'button'>,\n  'component' | 'color' | 'children'\n> {\n  /** Visual variant */\n  variant?: IconButtonVariant;\n  /** Button + icon size */\n  size?: IconButtonSize;\n  /** Semantic color for the icon (and tinted bg in filled/outlined variants) */\n  color?: IconColor;\n  /** Accessible label — required for icon-only controls */\n  'aria-label': string;\n  /** The SVG icon to render (lucide-react or inline <svg>) */\n  children: ReactNode;\n}"
+      ],
+      "stories": [
+        "Default",
+        "VariantGallery",
+        "SizeGallery",
+        "ColorGallery",
+        "States",
+        "CommonPatterns"
+      ],
+      "tests": [
+        {
+          "file": "IconButton.test.tsx",
+          "cases": [
+            "renders a <button> element",
+            "renders with fq-icon-btn base class",
+            "defaults to size=",
+            "does NOT add a variant class for the default ",
+            "does NOT add a color class for the default ",
+            "exposes the aria-label on the button",
+            "renders the icon with aria-hidden inside",
+            "is disabled when disabled prop is true",
+            "does not fire onClick when disabled",
+            "forwards ref to the button element",
+            "merges custom className",
+            "calls onClick when clicked"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Input",
+      "directory": "src/components/Input",
+      "contracts": [
+        "export interface InputProps\n  extends\n    InputHTMLAttributes<HTMLInputElement>,\n    FormFieldProps,\n    FqSlotCustomization<\n      | 'root'\n      | 'container'\n      | 'inner'\n      | 'row'\n      | 'label'\n      | 'input'\n      | 'helperText'\n      | 'prefix'\n      | 'startIcon'\n      | 'endIcon'\n      | 'clearButton'\n      | 'required'\n    > {\n  /** Text prefix shown before input when focused/filled (e.g. \"IDR\" for currency) */\n  prefix?: string;\n  /** Icon on the left side inside the container */\n  startIcon?: ReactNode;\n  /** Icon on the right side inside the container (overrides built-in clear button) */\n  endIcon?: ReactNode;\n  /** When provided, a clear (✕) button appears inside the field while focused and value is non-empty */\n  onClear?: () => void;\n}"
+      ],
+      "stories": [
+        "Unfilled",
+        "Filled",
+        "WithHelperText",
+        "Required",
+        "Error",
+        "ErrorUnfilled",
+        "Disabled",
+        "ReadOnly",
+        "WithStartIcon",
+        "WithEndIcon",
+        "WithBothIcons",
+        "WithPrefix",
+        "WithPrefixFilled",
+        "WithClearButton",
+        "Interaction",
+        "DisabledInteraction",
+        "ErrorInteraction",
+        "KeyboardInteraction"
+      ],
+      "tests": [
+        {
+          "file": "Input.test.tsx",
+          "cases": [
+            "renders label and input",
+            "associates label with input",
+            "generates unique ids for multiple inputs",
+            "supports helper text",
+            "exposes error state",
+            "supports required state",
+            "supports disabled state",
+            "supports readOnly state",
+            "renders start icon",
+            "renders end icon",
+            "forwards ref to the native input",
+            "supports ReactNode label",
+            "supports ReactNode helper text",
+            "supports ReactNode error",
+            "forwards onChange event",
+            "forwards onBlur event",
+            "forwards onFocus event",
+            "supports defaultValue",
+            "supports controlled value"
+          ]
+        },
+        {
+          "file": "SlotContracts.test.tsx",
+          "cases": [
+            "merges decoration without admitting behavior from untyped callers",
+            "keeps Input native props/ref, contextual IDs and consumer callbacks",
+            " ",
+            "keeps loading Button disabled and refs on the button after customization",
+            "keeps Dialog paper ref, title relation and close handling",
+            "keeps Select/Textarea refs and state callbacks on native controls",
+            "merges CheckboxGroup root classes without serializing slot objects",
+            "keeps Tooltip relationship and Snackbar ref separate from content styling"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Label",
+      "directory": "src/components/Label",
+      "contracts": [
+        "export type LabelVariant =\n  | 'primary'\n  | 'success'\n  | 'danger'\n  | 'warning'\n  | 'neutral'\n  | 'outline-primary'\n  | 'outline-success'\n  | 'outline-danger'\n  | 'outline-neutral'\n  | 'solid-red'\n  | 'solid-orange'\n  | 'solid-green'\n  | 'solid-blue'\n  | 'gradient-red'\n  | 'gradient-orange'\n  | 'gradient-green'\n  | 'gradient-tosca'\n  | 'gradient-violet';",
+        "export type LabelSize = 'sm' | 'md';",
+        "export interface LabelProps extends HTMLAttributes<HTMLSpanElement> {\n  variant?: LabelVariant;\n  size?: LabelSize;\n  startIcon?: ReactNode;\n  loading?: boolean;\n  disabled?: boolean;\n  /**\n   * Countdown slot — rendered after text.\n   * Pass a `<Countdown display=\"unboxed-small\" />` for spec-aligned output.\n   */\n  countdown?: ReactNode;\n  /**\n   * Called when the embedded countdown expires.\n   * Wire this to the `onExpire` prop of the Countdown you pass as `countdown`.\n   */\n  onExpire?: () => void;\n  children?: ReactNode;\n}"
+      ],
+      "stories": [
+        "Primary",
+        "Success",
+        "Danger",
+        "Warning",
+        "Neutral",
+        "OutlinePrimary",
+        "OutlineSuccess",
+        "OutlineDanger",
+        "OutlineNeutral",
+        "SizeMd",
+        "SizeSm",
+        "Disabled",
+        "Loading",
+        "WithStartIcon",
+        "WithStartIconSmall",
+        "SolidRed",
+        "SolidOrange",
+        "SolidGreen",
+        "SolidBlue",
+        "AllSolidSubVariants",
+        "GradientRed",
+        "GradientOrange",
+        "GradientGreen",
+        "GradientTosca",
+        "GradientViolet",
+        "AllGradientSubVariants",
+        "WithCountdown",
+        "WithCountdownGradient",
+        "AllSubVariantsWithCountdown"
+      ],
+      "tests": [
+        {
+          "file": "Label.test.tsx",
+          "cases": [
+            "renders children",
+            "applies default variant and size",
+            "applies variant class",
+            "applies outline variant class",
+            "applies size class",
+            "supports custom className",
+            "forwards ref",
+            "forwards native attributes"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "NavigationBottom",
+      "directory": "src/components/NavigationBottom",
+      "contracts": [
+        "export interface NavItemProps {\n  value: string;\n  label: string;\n  icon: ReactNode;\n  badge?: ReactNode;\n  disabled?: boolean;\n}",
+        "export interface NavigationBottomProps extends HTMLAttributes<HTMLElement> {\n  items: NavItemProps[];\n  value: string;\n  onValueChange: (value: string) => void;\n}"
+      ],
+      "stories": [
+        "Default",
+        "SecondActive",
+        "ThreeItems",
+        "FiveItems",
+        "WithBadge",
+        "WithDisabled"
+      ],
+      "tests": [
+        {
+          "file": "NavigationBottom.test.tsx",
+          "cases": [
+            "renders all nav items as buttons",
+            "marks active item with aria-current=",
+            "inactive items do not have aria-current",
+            "applies active class to selected item",
+            "calls onValueChange when item is clicked",
+            "renders as nav landmark",
+            "disabled item cannot be clicked",
+            "forwards ref"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Radio",
+      "directory": "src/components/Radio",
+      "contracts": [
+        "export interface RadioProps\n  extends\n    Omit<InputHTMLAttributes<HTMLInputElement>, 'type'>,\n    FormFieldProps,\n    FqSlotCustomization<\n      'root' | 'label' | 'input' | 'helperText' | 'control'\n    > {}"
+      ],
+      "stories": [
+        "Default",
+        "Checked",
+        "Disabled",
+        "Error",
+        "WithHelperText",
+        "Required",
+        "PaymentMethods"
+      ],
+      "tests": [
+        {
+          "file": "Radio.test.tsx",
+          "cases": [
+            "preserves custom className",
+            "renders label and radio",
+            "associates label with radio",
+            "generates unique ids for multiple radios",
+            "groups radios by name",
+            "supports checked state",
+            "supports disabled state",
+            "supports required state",
+            "supports helper text",
+            "exposes error state",
+            "prioritizes error message over helper text",
+            "supports ReactNode label",
+            "supports ReactNode helper text",
+            "supports ReactNode error",
+            "forwards ref to the native radio",
+            "preserves radio group name and value",
+            "forwards onChange event",
+            "supports defaultChecked",
+            "supports controlled checked state"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Select",
+      "directory": "src/components/Select",
+      "contracts": [
+        "export interface SelectProps\n  extends\n    SelectHTMLAttributes<HTMLSelectElement>,\n    FormFieldProps,\n    FqSlotCustomization<\n      'root' | 'label' | 'required' | 'select' | 'helperText'\n    > {}"
+      ],
+      "stories": [
+        "Default",
+        "Selected",
+        "Required",
+        "Disabled",
+        "WithHelperText",
+        "Error",
+        "WithOptGroup"
+      ],
+      "tests": [
+        {
+          "file": "Select.test.tsx",
+          "cases": [
+            "preserves custom className",
+            "renders label and select",
+            "associates label with select",
+            "supports custom id",
+            "generates unique ids for multiple selects",
+            "supports selected value",
+            "supports required state",
+            "supports disabled state",
+            "supports helper text",
+            "exposes error state",
+            "prioritizes error message over helper text",
+            "preserves custom aria-describedby",
+            "renders provided options",
+            "supports ReactNode label",
+            "supports ReactNode helper text",
+            "supports ReactNode error",
+            "forwards ref to the native select",
+            "forwards onChange event",
+            "supports controlled value"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Snackbar",
+      "directory": "src/components/Snackbar",
+      "contracts": [
+        "export type SnackbarVariant =\n  'default' | 'info' | 'success' | 'warning' | 'error';",
+        "export type SnackbarPlacement = {\n  vertical?: 'top' | 'bottom';\n  horizontal?: 'left' | 'center' | 'right';\n};",
+        "export interface SnackbarProps extends FqSlotCustomization<\n  'root' | 'content' | 'message' | 'action'\n> {\n  /** Portal target. Prefer a callback when the target is created after mount. */\n  container?: FqPortalContainer;\n  /** Render inline. Inline overlays remain subject to ancestor clipping/stacking. */\n  disablePortal?: boolean;\n  open: boolean;\n  message: ReactNode;\n  /** Visual intent. Default: 'default' (neutral dark). */\n  variant?: SnackbarVariant;\n  /** Optional action element shown on the right (e.g. an Undo button). */\n  action?: ReactNode;\n  /** Milliseconds before auto-hide. Pass null to disable. Default: 4000. */\n  autoHideDuration?: number | null;\n  /** Called when the snackbar requests to close. */\n  onClose?: (\n    event: SyntheticEvent | Event,\n    reason: SnackbarCloseReason,\n  ) => void;\n  /** Screen position. Default: bottom-center. */\n  anchorOrigin?: SnackbarPlacement;\n  className?: string;\n  style?: CSSProperties;\n}"
+      ],
+      "stories": ["Default", "Variants", "WithAction", "Interactive"],
+      "tests": [
+        {
+          "file": "Snackbar.test.tsx",
+          "cases": [
+            "renders message when open",
+            "does not render visible content when closed",
+            "applies no extra class for default variant",
+            "renders action when provided",
+            "does not render action slot when action is absent",
+            "calls onClose with reason ",
+            "does not auto-hide when autoHideDuration=null",
+            "has role=",
+            "has aria-live=",
+            "merges custom className",
+            "calls onClose with reason "
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Switch",
+      "directory": "src/components/Switch",
+      "contracts": [
+        "export interface SwitchProps\n  extends\n    Omit<InputHTMLAttributes<HTMLInputElement>, 'type'>,\n    FormFieldProps,\n    FqSlotCustomization<\n      'root' | 'label' | 'input' | 'helperText' | 'control' | 'thumb'\n    > {}"
+      ],
+      "stories": [
+        "Default",
+        "On",
+        "Disabled",
+        "DisabledOn",
+        "Required",
+        "WithHelperText",
+        "Error"
+      ],
+      "tests": [
+        {
+          "file": "Switch.test.tsx",
+          "cases": [
+            "preserves custom className",
+            "renders label and switch",
+            "associates label with switch",
+            "generates unique ids for multiple switches",
+            "supports checked state",
+            "supports disabled state",
+            "supports required state",
+            "supports helper text",
+            "exposes error state",
+            "prioritizes error message over helper text",
+            "supports ReactNode label",
+            "supports ReactNode helper text",
+            "supports ReactNode error",
+            "forwards ref to the native switch",
+            "uses switch semantics",
+            "forwards onChange event",
+            "supports defaultChecked",
+            "supports controlled checked state"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Tabs",
+      "directory": "src/components/Tabs",
+      "contracts": [
+        "export interface TabsProps extends HTMLAttributes<HTMLDivElement> {\n  /** Controlled selected tab value */\n  value?: string | number;\n  /** Default selected tab for uncontrolled usage */\n  defaultValue?: string | number;\n  onValueChange?: (value: string | number) => void;\n  /**\n   * How arrow-key navigation activates tabs.\n   * - 'auto' (default): focus + immediately selects the tab (ARIA recommended).\n   * - 'manual': focus only — user must press Enter/Space to activate.\n   */\n  activationMode?: 'auto' | 'manual';\n  /** Dark/inverted surface variant */\n  invert?: boolean;\n  children?: ReactNode;\n}",
+        "export interface TabListProps extends HTMLAttributes<HTMLDivElement> {\n  /** Distribute tabs equally across full width (Equally Distributed: True per spec) */\n  equallyDistributed?: boolean;\n  children?: ReactNode;\n}",
+        "export interface TabProps extends HTMLAttributes<HTMLButtonElement> {\n  value: string | number;\n  disabled?: boolean;\n  icon?: ReactNode;\n  badge?: ReactNode;\n  children?: ReactNode;\n}",
+        "export interface TabPanelProps extends HTMLAttributes<HTMLDivElement> {\n  value: string | number;\n  children?: ReactNode;\n}"
+      ],
+      "stories": [
+        "Default",
+        "Controlled",
+        "ManualActivation",
+        "DensityBadgeContract"
+      ],
+      "tests": [
+        {
+          "file": "Tabs.test.tsx",
+          "cases": [
+            "renders tabs and shows default panel",
+            "switches panel on tab click",
+            "marks selected tab with aria-selected",
+            "disabled tab is not clickable",
+            "links tab to panel via aria-controls",
+            "ArrowRight moves focus to next tab",
+            "ArrowLeft wraps to last tab",
+            "calls onValueChange when tab is selected",
+            "works as controlled component",
+            "auto mode: ArrowRight selects the focused tab",
+            "manual mode: ArrowRight only moves focus, does not activate tab",
+            "default activationMode is auto"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Textarea",
+      "directory": "src/components/Textarea",
+      "contracts": [
+        "export interface TextareaProps\n  extends\n    TextareaHTMLAttributes<HTMLTextAreaElement>,\n    FormFieldProps,\n    FqSlotCustomization<\n      | 'root'\n      | 'label'\n      | 'required'\n      | 'textarea'\n      | 'footer'\n      | 'helperText'\n      | 'count'\n    > {\n  /** Show character count below the textarea (uses maxLength if provided) */\n  showCount?: boolean;\n}"
+      ],
+      "stories": [
+        "Default",
+        "WithValue",
+        "Required",
+        "Disabled",
+        "ReadOnly",
+        "WithHelperText",
+        "Error",
+        "CustomRows",
+        "Interaction",
+        "DisabledInteraction",
+        "ErrorInteraction",
+        "KeyboardInteraction"
+      ],
+      "tests": [
+        {
+          "file": "Textarea.test.tsx",
+          "cases": [
+            "renders label and textarea",
+            "associates label with textarea",
+            "supports custom id",
+            "generates unique ids for multiple textareas",
+            "supports custom className",
+            "supports placeholder",
+            "supports required state",
+            "supports disabled state",
+            "supports readOnly state",
+            "supports helper text",
+            "exposes error state",
+            "prioritizes error message over helper text",
+            "preserves custom aria-describedby",
+            "supports ReactNode label",
+            "supports ReactNode helper text",
+            "supports ReactNode error",
+            "forwards ref to the native textarea",
+            "forwards onChange event",
+            "forwards onBlur event",
+            "forwards onFocus event",
+            "supports defaultValue",
+            "supports controlled value"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Tooltip",
+      "directory": "src/components/Tooltip",
+      "contracts": [
+        "export type TooltipPlacement =\n  | 'top'\n  | 'top-start'\n  | 'top-end'\n  | 'bottom'\n  | 'bottom-start'\n  | 'bottom-end'\n  | 'left'\n  | 'left-start'\n  | 'left-end'\n  | 'right'\n  | 'right-start'\n  | 'right-end';",
+        "export type TooltipArrowAlignment = 'start' | 'center' | 'end';",
+        "export interface TooltipProps\n  extends\n    Omit<HTMLAttributes<HTMLDivElement>, 'content' | 'onOpen' | 'onClose'>,\n    FqSlotCustomization<'root' | 'content' | 'arrow'> {\n  content: ReactNode;\n  placement?: TooltipPlacement;\n  /** Where the arrow sits along the tooltip edge. Default: 'center'. */\n  arrowAlignment?: TooltipArrowAlignment;\n  /** Delay before showing in ms. Default: 300. */\n  enterDelay?: number;\n  /** @deprecated Use enterDelay instead. */\n  delayMs?: number;\n  /** Delay before hiding in ms. Default: 0. */\n  leaveDelay?: number;\n  /** Use body3-bold font weight (spec: body3-regular default). */\n  bold?: boolean;\n  /** Show or hide the arrow. Default: true. */\n  arrow?: boolean;\n  /** Override the max-width of the tooltip bubble. */\n  maxWidth?: number | string;\n  /** Controlled open state. When provided, open/close is driven externally. */\n  open?: boolean;\n  /** Called when the tooltip requests to open (uncontrolled: also updates internal state). */\n  onOpen?: () => void;\n  /** Called when the tooltip requests to close (uncontrolled: also updates internal state). */\n  onClose?: () => void;\n  /** Disable hover (mouseenter/mouseleave) trigger. Default: false. */\n  disableHoverListener?: boolean;\n  /** Disable keyboard focus/blur trigger. Default: false. */\n  disableFocusListener?: boolean;\n  /** Disable touch (touchstart/touchend) trigger. Default: false. */\n  disableTouchListener?: boolean;\n  children: ReactElement;\n}"
+      ],
+      "stories": [
+        "Top",
+        "Bottom",
+        "Left",
+        "Right",
+        "AllPlacements",
+        "RegularText",
+        "BoldText",
+        "LongContent",
+        "CustomMaxWidth",
+        "NarrowMaxWidth",
+        "NoArrow",
+        "ArrowCenter",
+        "ArrowStart",
+        "ArrowEnd",
+        "WithLeaveDelay",
+        "Controlled",
+        "FocusOnly",
+        "HoverOnly",
+        "HoverInteraction",
+        "FocusInteraction",
+        "VisibleContract",
+        "Lifecycle"
+      ],
+      "tests": [
+        {
+          "file": "Tooltip.test.tsx",
+          "cases": [
+            "renders the trigger child",
+            "tooltip content exists in DOM but is hidden initially",
+            "shows tooltip on mouse enter (with enterDelay=0)",
+            "supports deprecated delayMs as alias for enterDelay",
+            "hides tooltip on mouse leave",
+            "applies placement class",
+            "applies new placement classes (top-start, bottom-end)",
+            "forwards ref",
+            "respects controlled open=true (visible immediately)",
+            "respects controlled open=false (stays hidden on hover)",
+            "calls onOpen when tooltip shows (uncontrolled)",
+            "calls onClose when tooltip hides (uncontrolled)",
+            "calls onOpen/onClose in controlled mode without changing visibility",
+            "does not show on hover when disableHoverListener=true",
+            "does not show on focus when disableFocusListener=true",
+            "does not show on touch when disableTouchListener=true",
+            "shows tooltip on touchstart",
+            "hides tooltip on touchend",
+            "renders arrow by default",
+            "hides arrow when arrow=false",
+            "applies maxWidth as px when number",
+            "applies maxWidth as string value",
+            "preserves existing description IDs before, during and after disclosure",
+            "clears delayed enter callbacks on unmount",
+            "clears delayed leave callbacks on unmount",
+            "retains disclosure while focus remains after the pointer leaves",
+            "dismisses Escape immediately and preserves child key handlers",
+            "cancels a pending open when Escape is pressed outside the trigger",
+            "requests controlled dismissal without overriding parent visibility",
+            "coalesces pending hover and focus and cancels stale controlled transitions",
+            "composes wrapper and child handlers and clears cancelled touch activity",
+            "uses the latest callback without restarting an existing delay",
+            "dismisses a tooltip before the containing Dialog receives Escape"
+          ]
+        }
+      ]
+    }
+  ],
+  "tokens": {
+    "colors.css": [
+      "--color-neutral-0",
+      "--color-neutral-100",
+      "--color-neutral-200",
+      "--color-neutral-400",
+      "--color-neutral-600",
+      "--color-neutral-700",
+      "--color-neutral-800",
+      "--color-blue-100",
+      "--color-blue-200",
+      "--color-blue-300",
+      "--color-blue-400",
+      "--color-green-100",
+      "--color-green-500",
+      "--color-yellow-100",
+      "--color-red-100",
+      "--color-red-200",
+      "--color-red-400",
+      "--color-orange-400",
+      "--color-orange-500",
+      "--color-tosca-500",
+      "--color-gradient-green-100",
+      "--color-gradient-green-200",
+      "--color-gradient-violet-100",
+      "--color-gradient-violet-200",
+      "--color-gradient-orange-100",
+      "--color-gradient-orange-200",
+      "--color-gradient-red-100",
+      "--color-gradient-red-200",
+      "--color-gradient-tosca-100",
+      "--color-gradient-tosca-200",
+      "--color-gradient-blue-100",
+      "--color-gradient-blue-200",
+      "--color-gradient-purple-100",
+      "--color-gradient-purple-200",
+      "--color-gradient-light-blue-100",
+      "--color-gradient-light-blue-200",
+      "--color-gradient-tier-silver-100",
+      "--color-gradient-tier-silver-200",
+      "--color-gradient-tier-gold-100",
+      "--color-gradient-tier-gold-200",
+      "--color-gradient-tier-platinum-100",
+      "--color-gradient-tier-platinum-200",
+      "--color-gradient-tier-diamond-100",
+      "--color-gradient-tier-diamond-200",
+      "--color-blue-500",
+      "--color-primary",
+      "--color-primary-hover",
+      "--color-primary-subtle",
+      "--color-success",
+      "--color-success-subtle",
+      "--color-warning",
+      "--color-danger",
+      "--color-danger-subtle",
+      "--color-text-high",
+      "--color-text-medium",
+      "--color-text-low",
+      "--color-text-disabled",
+      "--color-text-inverse",
+      "--color-text-activity",
+      "--color-text-alert",
+      "--color-text-positive",
+      "--color-text-analytic",
+      "--color-text-usp",
+      "--color-warning-solid",
+      "--color-warning-text",
+      "--color-warning-border",
+      "--color-background",
+      "--color-surface",
+      "--color-surface-raised",
+      "--color-border",
+      "--color-border-strong",
+      "--color-focus-ring",
+      "--color-error-ring",
+      "--color-inverse-border",
+      "--color-inverse-inactive",
+      "--color-inverse-hover",
+      "--color-hover-overlay",
+      "--color-pressed-overlay",
+      "--color-accent-inactive",
+      "--color-border-subtle",
+      "--color-overlay-backdrop",
+      "--color-toast-surface",
+      "--color-toast-action",
+      "--color-toast-info",
+      "--color-toast-success",
+      "--color-toast-warning",
+      "--color-toast-danger",
+      "--color-inverse-selected-hover",
+      "--color-inverse-dismiss-hover"
+    ],
+    "elevation.css": [
+      "--elevation-01",
+      "--elevation-02",
+      "--elevation-03",
+      "--elevation-04",
+      "--z-index-base",
+      "--z-index-raised",
+      "--z-index-dropdown",
+      "--z-index-overlay",
+      "--z-index-overlay-content",
+      "--z-index-modal",
+      "--z-index-tooltip",
+      "--mui-z-index-mobile-stepper",
+      "--mui-z-index-fab",
+      "--mui-z-index-speed-dial",
+      "--mui-z-index-app-bar",
+      "--mui-z-index-drawer",
+      "--mui-z-index-modal",
+      "--mui-z-index-snackbar",
+      "--mui-z-index-tooltip"
+    ],
+    "fonts.css": [],
+    "index.css": [],
+    "radius.css": [
+      "--radius-xs",
+      "--radius-sm",
+      "--radius-md",
+      "--radius-lg",
+      "--radius-xl",
+      "--radius-full"
+    ],
+    "shadows.css": [
+      "--shadow-sm",
+      "--shadow-md",
+      "--mui-shadow-0",
+      "--mui-shadow-1",
+      "--mui-shadow-2",
+      "--mui-shadow-3",
+      "--mui-shadow-4",
+      "--mui-shadow-5",
+      "--mui-shadow-6",
+      "--mui-shadow-7",
+      "--mui-shadow-8",
+      "--mui-shadow-9",
+      "--mui-shadow-10",
+      "--mui-shadow-11",
+      "--mui-shadow-12",
+      "--mui-shadow-13",
+      "--mui-shadow-14",
+      "--mui-shadow-15",
+      "--mui-shadow-16",
+      "--mui-shadow-17",
+      "--mui-shadow-18",
+      "--mui-shadow-19",
+      "--mui-shadow-20",
+      "--mui-shadow-21",
+      "--mui-shadow-22",
+      "--mui-shadow-23",
+      "--mui-shadow-24"
+    ],
+    "spacing.css": [
+      "--spacing-4",
+      "--spacing-8",
+      "--spacing-12",
+      "--spacing-16",
+      "--spacing-24",
+      "--spacing-32",
+      "--spacing-48",
+      "--spacing-64",
+      "--spacing-96",
+      "--spacing-128",
+      "--spacing-xs",
+      "--spacing-sm",
+      "--spacing-md",
+      "--spacing-lg",
+      "--spacing-xl",
+      "--spacing-2xl",
+      "--spacing-3xl",
+      "--spacing-4xl",
+      "--spacing-6",
+      "--spacing-20",
+      "--spacing-36",
+      "--spacing-40",
+      "--space-1",
+      "--space-1-5",
+      "--space-2",
+      "--space-3",
+      "--space-4",
+      "--space-5",
+      "--space-6",
+      "--space-8",
+      "--space-9",
+      "--space-10",
+      "--space-12"
+    ],
+    "typography.css": [
+      "--font-family",
+      "--font-size-2xs",
+      "--font-size-xs",
+      "--font-size-sm",
+      "--font-size-md",
+      "--font-size-lg",
+      "--font-size-xl",
+      "--font-size-2xl",
+      "--font-size-3xl",
+      "--font-size-4xl",
+      "--font-size-5xl",
+      "--font-size-6xl",
+      "--font-weight-regular",
+      "--font-weight-medium",
+      "--font-weight-semibold",
+      "--font-weight-bold",
+      "--line-height-tight",
+      "--line-height-normal",
+      "--line-height-relaxed",
+      "--text-display-size",
+      "--text-display-weight",
+      "--text-display-line-height",
+      "--text-h1-size",
+      "--text-h1-weight",
+      "--text-h1-line-height",
+      "--text-h2-size",
+      "--text-h2-weight",
+      "--text-h2-line-height",
+      "--text-h3-size",
+      "--text-h3-weight",
+      "--text-h3-alt-weight",
+      "--text-h3-line-height",
+      "--text-body1-size",
+      "--text-body1-weight",
+      "--text-body1-line-height",
+      "--text-body1-bold-weight",
+      "--text-body2-size",
+      "--text-body2-weight",
+      "--text-body2-line-height",
+      "--text-body2-bold-weight",
+      "--text-body3-size",
+      "--text-body3-weight",
+      "--text-body3-line-height",
+      "--text-label-sm-size",
+      "--text-web-banner-size",
+      "--text-web-banner-weight",
+      "--text-web-banner-line-height",
+      "--text-web-h1-size",
+      "--text-web-h1-weight",
+      "--text-web-h1-line-height",
+      "--text-web-h2-size",
+      "--text-web-h2-weight",
+      "--text-web-h2-line-height",
+      "--text-web-h3-size",
+      "--text-web-h3-weight",
+      "--text-web-h3-alt-weight",
+      "--text-web-h3-line-height",
+      "--text-web-body1-size",
+      "--text-web-body1-weight",
+      "--text-web-body1-bold-weight",
+      "--text-web-body1-line-height",
+      "--text-web-body2-size",
+      "--text-web-body2-weight",
+      "--text-web-body2-bold-weight",
+      "--text-web-body2-line-height",
+      "--text-web-body3-size",
+      "--text-web-body3-weight",
+      "--text-web-body3-line-height",
+      "--text-web-small-size",
+      "--text-web-small-weight",
+      "--text-web-small-bold-weight",
+      "--text-web-small-line-height",
+      "--font-weight-light"
+    ]
+  }
+}

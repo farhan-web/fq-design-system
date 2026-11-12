@@ -1,37 +1,74 @@
 .fq-select-field {
   display: flex;
   flex-direction: column;
-  gap: var(--space-1-5);
+  gap: calc(
+    var(--space-1-5) *
+      clamp(0.75, var(--fq-select-gap-scale, var(--fq-density-gap, 1)), 1.25)
+  );
   width: 100%;
 }
 
 .fq-select-field__label {
   display: inline-flex;
   align-items: center;
-  gap: var(--space-1);
+  gap: calc(
+    var(--space-1) *
+      clamp(0.75, var(--fq-select-gap-scale, var(--fq-density-gap, 1)), 1.25)
+  );
 
   font-size: var(--text-body2-size);
   font-weight: var(--font-weight-bold);
   line-height: var(--text-body2-line-height);
-  color: var(--color-text-high);
+  color: var(--fq-select-text-high, var(--color-text-high));
 }
 
 .fq-select-field__required {
-  color: var(--color-danger);
+  color: var(--fq-select-danger, var(--color-text-alert));
 }
 
 .fq-select {
   width: 100%;
   min-height: 52px;
-  padding: var(--space-2) 36px var(--space-2) var(--space-3);
+  padding: calc(
+      var(--space-2) *
+        clamp(
+          0.75,
+          var(--fq-select-padding-scale, var(--fq-density-padding, 1)),
+          1.25
+        )
+    )
+    calc(
+      36px *
+        clamp(
+          0.75,
+          var(--fq-select-padding-scale, var(--fq-density-padding, 1)),
+          1.25
+        )
+    )
+    calc(
+      var(--space-2) *
+        clamp(
+          0.75,
+          var(--fq-select-padding-scale, var(--fq-density-padding, 1)),
+          1.25
+        )
+    )
+    calc(
+      var(--space-3) *
+        clamp(
+          0.75,
+          var(--fq-select-padding-scale, var(--fq-density-padding, 1)),
+          1.25
+        )
+    );
 
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-md);
+  border: 1px solid var(--fq-select-border, var(--color-border));
+  border-radius: var(--fq-select-radius-md, var(--radius-md));
 
-  background-color: var(--color-background);
-  color: var(--color-text-high);
+  background-color: var(--fq-select-background, var(--color-background));
+  color: var(--fq-select-text-high, var(--color-text-high));
 
-  font-family: var(--font-family);
+  font-family: var(--fq-select-font-family, var(--font-family));
   font-size: var(--text-body2-size);
   line-height: var(--text-body2-line-height);
 
@@ -44,37 +81,39 @@
 }
 
 .fq-select:hover:not(:disabled) {
-  border-color: var(--color-border-strong);
+  border-color: var(--fq-select-border-strong, var(--color-border-strong));
 }
 
 .fq-select:focus {
-  border-color: var(--color-primary);
-  box-shadow: 0 0 0 3px var(--color-focus-ring);
+  border-color: var(--fq-select-primary, var(--color-primary));
+  box-shadow: 0 0 0 3px var(--fq-select-focus-ring, var(--color-focus-ring));
 }
 
 .fq-select:disabled {
-  background: var(--color-surface);
-  color: var(--color-text-disabled);
+  background: var(--fq-select-surface, var(--color-surface));
+  color: var(--fq-select-text-disabled, var(--color-text-disabled));
   cursor: not-allowed;
 }
 
 .fq-select-field__message {
   font-size: var(--text-body3-size);
   line-height: var(--text-body3-line-height);
-  color: var(--color-text-low);
+  color: var(--fq-select-text-low, var(--color-text-low));
 }
 
-.fq-select-field--error
-  .fq-select {
-  border-color: var(--color-danger);
+.fq-select-field--error .fq-select {
+  border-color: var(--fq-select-danger, var(--color-danger));
 }
 
-.fq-select-field--error
-  .fq-select:focus {
-  box-shadow: 0 0 0 3px var(--color-error-ring);
+.fq-select-field--error .fq-select:focus {
+  box-shadow: 0 0 0 3px var(--fq-select-error-ring, var(--color-error-ring));
 }
 
-.fq-select-field--error
-  .fq-select-field__message {
-  color: var(--color-danger);
+.fq-select-field--error .fq-select-field__message {
+  color: var(--fq-select-danger, var(--color-text-alert));
+}
+
+/* Token scopes supply inherited typography without changing legacy host inheritance. */
+:where([data-fq-theme]) .fq-select-field {
+  font-family: var(--fq-select-font-family, var(--font-family));
 }

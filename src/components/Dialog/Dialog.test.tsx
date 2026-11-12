@@ -8,6 +8,51 @@ describe('Dialog', () => {
     expect(screen.getByRole('dialog')).toBeInTheDocument();
   });
 
+  it('names the dialog from its rendered heading', () => {
+    render(<Dialog open title={<span>Confirm Delete</span>} />);
+    const dialog = screen.getByRole('dialog', { name: 'Confirm Delete' });
+    expect(dialog.getAttribute('aria-labelledby')).toBe(
+      screen.getByRole('heading', { name: 'Confirm Delete' }).id,
+    );
+  });
+
+  it('supports a titleless name and optional description', () => {
+    render(
+      <Dialog open aria-label="Review order" aria-describedby="order-details">
+        <p id="order-details">Check the delivery address.</p>
+      </Dialog>,
+    );
+    const dialog = screen.getByRole('dialog', { name: 'Review order' });
+    expect(dialog).toHaveAccessibleDescription('Check the delivery address.');
+    expect(dialog).not.toHaveAttribute('aria-labelledby');
+  });
+
+  it('lets an explicit label override the visible title', () => {
+    render(<Dialog open title="Summary" aria-label="Order summary" />);
+    expect(
+      screen.getByRole('dialog', { name: 'Order summary' }),
+    ).not.toHaveAttribute('aria-labelledby');
+  });
+
+  it('uses an explicit label relationship before the default heading', () => {
+    render(
+      <Dialog open title="Summary" aria-labelledby="custom-heading">
+        <h3 id="custom-heading">Order details</h3>
+      </Dialog>,
+    );
+    expect(
+      screen.getByRole('dialog', { name: 'Order details' }),
+    ).toHaveAttribute('aria-labelledby', 'custom-heading');
+  });
+
+  it('does not create a dangling label reference without a title', () => {
+    render(<Dialog open />);
+    const labelledBy = screen
+      .getByRole('dialog')
+      .getAttribute('aria-labelledby');
+    expect(labelledBy).toBeNull();
+  });
+
   it('does not render when closed', () => {
     render(<Dialog open={false} onClose={vi.fn()} title="Hello" />);
     expect(screen.queryByRole('dialog')).not.toBeInTheDocument();

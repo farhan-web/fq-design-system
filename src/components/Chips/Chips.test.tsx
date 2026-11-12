@@ -69,4 +69,42 @@ describe('Chips', () => {
     render(<Chips ref={ref}>Chip</Chips>);
     expect(ref.current).toBe(screen.getByRole('button', { name: 'Chip' }));
   });
+  it('keeps the primary ref and native props while dismiss is a sibling action', () => {
+    const ref = { current: null } as { current: HTMLButtonElement | null };
+    const click = vi.fn();
+    const dismiss = vi.fn();
+    render(
+      <Chips
+        ref={ref}
+        id="filter"
+        name="filter"
+        onClick={click}
+        onDismiss={dismiss}
+      >
+        Filter
+      </Chips>,
+    );
+    const primary = screen.getByRole('button', { name: 'Filter' });
+    const remove = screen.getByRole('button', { name: 'Remove' });
+    expect(ref.current).toBe(primary);
+    expect(primary).toHaveAttribute('name', 'filter');
+    expect(primary).toHaveAttribute('id', 'filter');
+    expect(primary).not.toContainElement(remove);
+    expect(primary.nextElementSibling).toBe(remove);
+    fireEvent.click(remove);
+    expect(dismiss).toHaveBeenCalledTimes(1);
+    expect(click).not.toHaveBeenCalled();
+  });
+  it('disables both native actions', () => {
+    const dismiss = vi.fn();
+    render(
+      <Chips disabled onDismiss={dismiss}>
+        Filter
+      </Chips>,
+    );
+    for (const button of screen.getAllByRole('button'))
+      expect(button).toBeDisabled();
+    fireEvent.click(screen.getByRole('button', { name: 'Remove' }));
+    expect(dismiss).not.toHaveBeenCalled();
+  });
 });

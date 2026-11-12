@@ -1,5 +1,5 @@
 ---
-"fq-design-system": minor
+'fq-design-system': minor
 ---
 
 feat(Chips): align with tiket.design spec 1:1

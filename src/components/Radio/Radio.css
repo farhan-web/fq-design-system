@@ -1,13 +1,19 @@
 .fq-radio-field {
   display: flex;
   flex-direction: column;
-  gap: var(--space-1-5);
+  gap: calc(
+    var(--space-1-5) *
+      clamp(0.75, var(--fq-radio-gap-scale, var(--fq-density-gap, 1)), 1.25)
+  );
 }
 
 .fq-radio {
   display: inline-flex;
   align-items: flex-start;
-  gap: var(--space-2);
+  gap: calc(
+    var(--space-2) *
+      clamp(0.75, var(--fq-radio-gap-scale, var(--fq-density-gap, 1)), 1.25)
+  );
   width: fit-content;
   cursor: pointer;
 }
@@ -28,9 +34,9 @@
   width: 20px;
   height: 20px;
   margin-top: 2px;
-  border: 1px solid var(--color-border);
+  border: 1px solid var(--fq-radio-border, var(--color-border));
   border-radius: 50%;
-  background: var(--color-background);
+  background: var(--fq-radio-background, var(--color-background));
 
   display: grid;
   place-content: center;
@@ -42,35 +48,29 @@
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  background: var(--color-primary);
+  background: var(--fq-radio-primary, var(--color-primary));
   transform: scale(0);
   transition: transform 120ms ease-in-out;
 }
 
-.fq-radio:hover
-  .fq-radio__input:not(:disabled)
-  + .fq-radio__control {
-  border-color: var(--color-primary);
+.fq-radio:hover .fq-radio__input:not(:disabled) + .fq-radio__control {
+  border-color: var(--fq-radio-primary, var(--color-primary));
 }
 
-.fq-radio__input:checked
-  + .fq-radio__control {
-  border-color: var(--color-primary);
+.fq-radio__input:checked + .fq-radio__control {
+  border-color: var(--fq-radio-primary, var(--color-primary));
 }
 
-.fq-radio__input:checked
-  + .fq-radio__control::before {
+.fq-radio__input:checked + .fq-radio__control::before {
   transform: scale(1);
 }
 
-.fq-radio__input:focus-visible
-  + .fq-radio__control {
-  outline: 2px solid var(--color-primary);
+.fq-radio__input:focus-visible + .fq-radio__control {
+  outline: 2px solid var(--fq-radio-primary, var(--color-primary));
   outline-offset: 2px;
 }
 
-.fq-radio__input:disabled
-  + .fq-radio__control {
+.fq-radio__input:disabled + .fq-radio__control {
   opacity: 0.5;
 }
 
@@ -81,23 +81,29 @@
 .fq-radio__label {
   font-size: var(--text-body2-size);
   line-height: var(--text-body2-line-height);
-  color: var(--color-text-high);
+  color: var(--fq-radio-text-high, var(--color-text-high));
   user-select: none;
 }
 
 .fq-radio-field__message {
-  margin-left: 28px;
+  margin-left: calc(
+    20px + var(--space-2) *
+      clamp(0.75, var(--fq-radio-gap-scale, var(--fq-density-gap, 1)), 1.25)
+  );
   font-size: var(--text-body3-size);
   line-height: var(--text-body3-line-height);
-  color: var(--color-text-low);
+  color: var(--fq-radio-text-low, var(--color-text-low));
 }
 
-.fq-radio-field--error
-  .fq-radio__control {
-  border-color: var(--color-danger);
+.fq-radio-field--error .fq-radio__control {
+  border-color: var(--fq-radio-danger, var(--color-danger));
 }
 
-.fq-radio-field--error
-  .fq-radio-field__message {
-  color: var(--color-danger);
+.fq-radio-field--error .fq-radio-field__message {
+  color: var(--fq-radio-danger, var(--color-text-alert));
+}
+
+/* Token scopes supply inherited typography without changing legacy host inheritance. */
+:where([data-fq-theme]) .fq-radio-field {
+  font-family: var(--fq-radio-font-family, var(--font-family));
 }

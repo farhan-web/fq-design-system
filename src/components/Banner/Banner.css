@@ -1,9 +1,19 @@
 .fq-banner {
   display: flex;
   align-items: flex-start;
-  gap: var(--spacing-12);
-  padding: var(--spacing-12);
-  border-radius: var(--radius-md);
+  gap: calc(
+    var(--spacing-12) *
+      clamp(0.75, var(--fq-banner-gap-scale, var(--fq-density-gap, 1)), 1.25)
+  );
+  padding: calc(
+    var(--spacing-12) *
+      clamp(
+        0.75,
+        var(--fq-banner-padding-scale, var(--fq-density-padding, 1)),
+        1.25
+      )
+  );
+  border-radius: var(--fq-banner-radius-md, var(--radius-md));
 }
 
 /* ── Layout modifiers ─── */
@@ -16,23 +26,23 @@
 /* ── Variants ─── */
 
 .fq-banner--info {
-  background: var(--color-primary-subtle);
-  color: var(--color-text-high);
+  background: var(--fq-banner-primary-subtle, var(--color-primary-subtle));
+  color: var(--fq-banner-text-high, var(--color-text-high));
 }
 
 .fq-banner--success {
-  background: var(--color-success-subtle);
-  color: var(--color-text-high);
+  background: var(--fq-banner-success-subtle, var(--color-success-subtle));
+  color: var(--fq-banner-text-high, var(--color-text-high));
 }
 
 .fq-banner--warning {
-  background: var(--color-warning);
-  color: var(--color-text-high);
+  background: var(--fq-banner-warning, var(--color-warning));
+  color: var(--fq-banner-text-high, var(--color-text-high));
 }
 
 .fq-banner--danger {
-  background: var(--color-danger-subtle);
-  color: var(--color-text-high);
+  background: var(--fq-banner-danger-subtle, var(--color-danger-subtle));
+  color: var(--fq-banner-text-high, var(--color-text-high));
 }
 
 /* ── Icon — 24×24 ─── */
@@ -51,10 +61,18 @@
   height: 24px;
 }
 
-.fq-banner--info    .fq-banner__icon { color: var(--color-primary); }
-.fq-banner--success .fq-banner__icon { color: var(--color-success); }
-.fq-banner--warning .fq-banner__icon { color: var(--color-warning-text); }
-.fq-banner--danger  .fq-banner__icon { color: var(--color-danger); }
+.fq-banner--info .fq-banner__icon {
+  color: var(--fq-banner-primary, var(--color-text-activity));
+}
+.fq-banner--success .fq-banner__icon {
+  color: var(--fq-banner-success, var(--color-success));
+}
+.fq-banner--warning .fq-banner__icon {
+  color: var(--fq-banner-warning-text, var(--color-warning-text));
+}
+.fq-banner--danger .fq-banner__icon {
+  color: var(--fq-banner-danger, var(--color-text-alert));
+}
 
 /* ── Body ─── */
 
@@ -64,20 +82,20 @@
 }
 
 .fq-banner__title {
-  font-family: var(--font-family);
+  font-family: var(--fq-banner-font-family, var(--font-family));
   font-size: var(--text-body1-size);
   font-weight: var(--font-weight-bold);
   line-height: var(--text-body1-line-height);
-  color: var(--color-text-high);
+  color: var(--fq-banner-text-high, var(--color-text-high));
   margin: 0 0 2px;
 }
 
 .fq-banner__description {
-  font-family: var(--font-family);
+  font-family: var(--fq-banner-font-family, var(--font-family));
   font-size: var(--text-body3-size);
   font-weight: var(--text-body3-weight);
   line-height: var(--text-body3-line-height);
-  color: var(--color-text-high);
+  color: var(--fq-banner-text-high, var(--color-text-high));
   margin: 0;
 }
 
@@ -89,11 +107,11 @@
   padding: 0;
   border: none;
   background: transparent;
-  font-family: var(--font-family);
+  font-family: var(--fq-banner-font-family, var(--font-family));
   font-size: var(--text-body3-size);
   font-weight: var(--font-weight-bold);
   line-height: var(--text-body3-line-height);
-  color: var(--color-text-activity);
+  color: var(--fq-banner-text-activity, var(--color-text-activity));
   cursor: pointer;
   text-decoration: underline;
   text-underline-offset: 2px;
@@ -109,7 +127,7 @@
 }
 
 .fq-banner__action:focus-visible {
-  outline: 2px solid var(--color-primary);
+  outline: 2px solid var(--fq-banner-primary, var(--color-primary));
   outline-offset: 2px;
   border-radius: 2px;
 }
@@ -126,24 +144,26 @@
   padding: 0;
   border: none;
   background: transparent;
-  color: var(--color-text-low);
-  border-radius: var(--radius-sm);
+  color: var(--fq-banner-text-low, var(--color-text-low));
+  border-radius: var(--fq-banner-radius-sm, var(--radius-sm));
   cursor: pointer;
-  transition: background-color 120ms ease, color 120ms ease;
+  transition:
+    background-color 120ms ease,
+    color 120ms ease;
 }
 
 .fq-banner__dismiss:hover {
-  background: rgb(0 0 0 / 8%);
-  color: var(--color-text-high);
+  background: var(--fq-banner-hover-overlay, var(--color-hover-overlay));
+  color: var(--fq-banner-text-high, var(--color-text-high));
 }
 
 .fq-banner__dismiss:active {
-  background: rgb(0 0 0 / 16%);
-  color: var(--color-text-high);
+  background: var(--fq-banner-pressed-overlay, var(--color-pressed-overlay));
+  color: var(--fq-banner-text-high, var(--color-text-high));
 }
 
 .fq-banner__dismiss:focus-visible {
-  outline: 2px solid var(--color-primary);
+  outline: 2px solid var(--fq-banner-primary, var(--color-primary));
   outline-offset: 2px;
 }
 
@@ -153,5 +173,10 @@
   flex-shrink: 0;
   width: 24px;
   height: 24px;
-  color: var(--color-text-low);
+  color: var(--fq-banner-text-low, var(--color-text-low));
+}
+
+/* Token scopes supply inherited typography without changing legacy host inheritance. */
+:where([data-fq-theme]) .fq-banner {
+  font-family: var(--fq-banner-font-family, var(--font-family));
 }

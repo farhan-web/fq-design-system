@@ -5,7 +5,10 @@
 .fq-input-field {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-4);   /* 4px between container and helper text */
+  gap: calc(
+    var(--spacing-4) *
+      clamp(0.75, var(--fq-input-gap-scale, var(--fq-density-gap, 1)), 1.25)
+  ); /* 4px between container and helper text */
   width: 100%;
 }
 
@@ -18,10 +21,13 @@
   position: relative;
   display: flex;
   align-items: center;
-  height: 52px;                              /* spec: 52px fixed */
-  border: 1px solid var(--color-border);    /* N200 default */
-  border-radius: var(--radius-md);           /* 8px */
-  background: var(--color-background);      /* N0 */
+  height: 52px; /* spec: 52px fixed */
+  border: 1px solid var(--fq-input-border, var(--color-border)); /* N200 default */
+  border-radius: var(
+    --fq-input-radius,
+    var(--fq-input-radius-md, var(--radius-md))
+  ); /* 8px */
+  background: var(--fq-input-background, var(--color-background)); /* N0 */
   box-sizing: border-box;
   transition:
     border-color 0.15s ease,
@@ -30,16 +36,16 @@
 
 /* Focused / typing → B400 border */
 .fq-input-container--focused {
-  border-color: var(--color-text-activity);
+  border-color: var(--fq-input-text-activity, var(--color-text-activity));
 }
 
 /* Error → R400 border (overrides focused) */
 .fq-input-container--error {
-  border-color: var(--color-danger);
+  border-color: var(--fq-input-danger, var(--color-danger));
 }
 
 .fq-input-container--error.fq-input-container--focused {
-  border-color: var(--color-danger);
+  border-color: var(--fq-input-danger, var(--color-danger));
 }
 
 /* Disabled */
@@ -51,7 +57,7 @@
 
 /* Read-only → N50 ≈ --color-surface (N100 is closest available token) */
 .fq-input-container--readonly {
-  background: var(--color-surface);
+  background: var(--fq-input-surface, var(--color-surface));
 }
 
 /* ================================
@@ -66,9 +72,9 @@
   align-self: stretch;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;     /* input row at exactly 24px from top → 2px gap below floated label */
-  padding: 0 var(--spacing-16);   /* 16px horizontal per spec */
-  padding-top: 24px;              /* 8px label-top + 14px label-height + 2px gap */
+  justify-content: flex-start; /* input row at exactly 24px from top → 2px gap below floated label */
+  padding: 0 var(--spacing-16); /* 16px horizontal per spec */
+  padding-top: 24px; /* 8px label-top + 14px label-height + 2px gap */
   padding-bottom: var(--spacing-8); /* 8px bottom per spec */
   min-width: 0;
   overflow: hidden;
@@ -99,16 +105,18 @@
   transform: translateY(-50%);
   pointer-events: none;
 
-  font-family: var(--font-family);
-  font-size: var(--text-body3-size);         /* 10px */
-  font-weight: var(--font-weight-regular);   /* 400 — spec: body3-regular */
+  font-family: var(--fq-input-font-family, var(--font-family));
+  font-size: var(--text-body3-size); /* 10px */
+  font-weight: var(--font-weight-regular); /* 400 — spec: body3-regular */
   line-height: var(--text-body3-line-height); /* 14px */
-  color: var(--color-text-low);              /* text-LE = N600 */
+  color: var(--fq-input-text-low, var(--color-text-low)); /* text-LE = N600 */
 
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  transition: top 0.15s ease, transform 0.15s ease;
+  transition:
+    top 0.15s ease,
+    transform 0.15s ease;
 }
 
 /* Floated position: top 8px */
@@ -128,12 +136,12 @@
 
 /* Error state: label → text-alert */
 .fq-input-container--error .fq-input__label {
-  color: var(--color-text-alert);
+  color: var(--fq-input-text-alert, var(--color-text-alert));
 }
 
 /* Required asterisk */
 .fq-input-field__required {
-  color: var(--color-danger);
+  color: var(--fq-input-danger, var(--color-text-alert));
 }
 
 /* ================================
@@ -143,7 +151,9 @@
 .fq-input-container__row {
   display: flex;
   align-items: center;
-  gap: 2px;
+  gap: calc(
+    2px * clamp(0.75, var(--fq-input-gap-scale, var(--fq-density-gap, 1)), 1.25)
+  );
   min-width: 0;
   width: 100%;
 }
@@ -154,11 +164,11 @@
    ================================ */
 
 .fq-input__prefix {
-  font-family: var(--font-family);
-  font-size: var(--text-body2-size);          /* 12px */
-  font-weight: var(--font-weight-regular);    /* 400 */
+  font-family: var(--fq-input-font-family, var(--font-family));
+  font-size: var(--text-body2-size); /* 12px */
+  font-weight: var(--font-weight-regular); /* 400 */
   line-height: var(--text-body2-line-height); /* 16px */
-  color: var(--color-text-high);             /* text-HE */
+  color: var(--fq-input-text-high, var(--color-text-high)); /* text-HE */
   flex-shrink: 0;
   white-space: nowrap;
 }
@@ -177,22 +187,25 @@
   outline: none;
   padding: 0;
 
-  font-family: var(--font-family);
-  font-size: var(--text-body2-size);          /* 12px */
-  font-weight: var(--font-weight-regular);    /* 400 */
+  font-family: var(--fq-input-font-family, var(--font-family));
+  font-size: var(--text-body2-size); /* 12px */
+  font-weight: var(--font-weight-regular); /* 400 */
   line-height: var(--text-body2-line-height); /* 16px */
-  color: var(--color-text-low);              /* unfilled: text-LE */
+  color: var(
+    --fq-input-text-low,
+    var(--color-text-low)
+  ); /* unfilled: text-LE */
   box-sizing: border-box;
 }
 
 /* Filled → text-HE */
 .fq-input-container--filled .fq-input {
-  color: var(--color-text-high);
+  color: var(--fq-input-text-high, var(--color-text-high));
 }
 
 /* Error → text-alert (overrides filled) */
 .fq-input-container--error .fq-input {
-  color: var(--color-text-alert);
+  color: var(--fq-input-text-alert, var(--color-text-alert));
 }
 
 /* Placeholder: body3-regular, text-LE */
@@ -200,12 +213,12 @@
   font-size: var(--text-body2-size);
   font-weight: var(--font-weight-regular);
   line-height: var(--text-body2-line-height);
-  color: var(--color-text-low);
+  color: var(--fq-input-text-low, var(--color-text-low));
 }
 
 .fq-input:disabled {
   cursor: not-allowed;
-  color: var(--color-text-disabled);
+  color: var(--fq-input-text-disabled, var(--color-text-disabled));
 }
 
 /* ================================
@@ -220,7 +233,10 @@
   flex-shrink: 0;
   width: 20px;
   height: 20px;
-  color: var(--color-text-high);   /* icon-HE per spec */
+  color: var(
+    --fq-input-text-high,
+    var(--color-text-high)
+  ); /* icon-HE per spec */
   pointer-events: none;
 }
 
@@ -267,13 +283,18 @@
 
 .fq-input-field__message {
   margin: 0;
-  font-family: var(--font-family);
-  font-size: var(--text-body3-size);          /* 10px */
-  font-weight: var(--font-weight-regular);    /* 400 */
+  font-family: var(--fq-input-font-family, var(--font-family));
+  font-size: var(--text-body3-size); /* 10px */
+  font-weight: var(--font-weight-regular); /* 400 */
   line-height: var(--text-body3-line-height); /* 14px */
-  color: var(--color-text-low);              /* text-LE */
+  color: var(--fq-input-text-low, var(--color-text-low)); /* text-LE */
 }
 
 .fq-input-field__message--error {
-  color: var(--color-text-alert);            /* text-alert */
+  color: var(--fq-input-text-alert, var(--color-text-alert)); /* text-alert */
+}
+
+/* Token scopes supply inherited typography without changing legacy host inheritance. */
+:where([data-fq-theme]) .fq-input-field {
+  font-family: var(--fq-input-font-family, var(--font-family));
 }

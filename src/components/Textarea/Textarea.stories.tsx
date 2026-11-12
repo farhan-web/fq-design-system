@@ -57,8 +57,7 @@ export const Default: Story = {};
 
 export const WithValue: Story = {
   args: {
-    defaultValue:
-      'This is an example textarea value.',
+    defaultValue: 'This is an example textarea value.',
   },
 };
 
@@ -77,22 +76,19 @@ export const Disabled: Story = {
 export const ReadOnly: Story = {
   args: {
     readOnly: true,
-    defaultValue:
-      'This content cannot be edited.',
+    defaultValue: 'This content cannot be edited.',
   },
 };
 
 export const WithHelperText: Story = {
   args: {
-    helperText:
-      'Maximum 500 characters.',
+    helperText: 'Maximum 500 characters.',
   },
 };
 
 export const Error: Story = {
   args: {
-    error:
-      'Description is required.',
+    error: 'Description is required.',
   },
 };
 
@@ -110,23 +106,15 @@ export const Interaction: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    const textarea = canvas.getByRole(
-      'textbox',
-      {
-        name: 'Description',
-      },
-    );
+    const textarea = canvas.getByRole('textbox', {
+      name: 'Description',
+    });
 
     await expect(textarea).toBeEnabled();
 
-    await userEvent.type(
-      textarea,
-      'This is a test description.',
-    );
+    await userEvent.type(textarea, 'This is a test description.');
 
-    await expect(textarea).toHaveValue(
-      'This is a test description.',
-    );
+    await expect(textarea).toHaveValue('This is a test description.');
   },
 };
 
@@ -138,12 +126,9 @@ export const DisabledInteraction: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    const textarea = canvas.getByRole(
-      'textbox',
-      {
-        name: 'Description',
-      },
-    );
+    const textarea = canvas.getByRole('textbox', {
+      name: 'Description',
+    });
 
     await expect(textarea).toBeDisabled();
   },
@@ -151,33 +136,21 @@ export const DisabledInteraction: Story = {
 
 export const ErrorInteraction: Story = {
   args: {
-    error:
-      'Description is required.',
+    error: 'Description is required.',
   },
 
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    const textarea = canvas.getByRole(
-      'textbox',
-      {
-        name: 'Description',
-      },
-    );
+    const textarea = canvas.getByRole('textbox', {
+      name: 'Description',
+    });
 
-    const message = canvas.getByText(
-      'Description is required.',
-    );
+    const message = canvas.getByText('Description is required.');
 
-    await expect(textarea).toHaveAttribute(
-      'aria-invalid',
-      'true',
-    );
+    await expect(textarea).toHaveAttribute('aria-invalid', 'true');
 
-    await expect(textarea).toHaveAttribute(
-      'aria-describedby',
-      message.id,
-    );
+    await expect(textarea).toHaveAttribute('aria-describedby', message.id);
   },
 };
 
@@ -189,12 +162,9 @@ export const KeyboardInteraction: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    const textarea = canvas.getByRole(
-      'textbox',
-      {
-        name: 'Description',
-      },
-    );
+    const textarea = canvas.getByRole('textbox', {
+      name: 'Description',
+    });
 
     await userEvent.tab();
 

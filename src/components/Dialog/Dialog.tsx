@@ -1,8 +1,14 @@
+import {
+  usePortalScope,
+  type FqPortalContainer,
+} from '../../theme/portalScope';
+import { getSlotProps, type FqSlotCustomization } from '../../types/slots';
 /**
  * Dialog — MUI Dialog base + fq-* visual layer.
  *
- * MUI handles: portal, focus trap, scroll lock, backdrop,
+ * MUI handles: portal, focus trap, backdrop,
  *              Escape key, enter/exit transitions.
+ * Shared useModalScrollLock handles document scroll ownership.
  * Our CSS handles: layout, size, radius, colors, typography.
  *
  * Usage:
@@ -14,16 +20,40 @@
  *     </Dialog.Actions>
  *   </Dialog>
  */
-import { forwardRef, type ReactNode } from 'react';
+import {
+  forwardRef,
+  useCallback,
+  useRef,
+  useId,
+  type CSSProperties,
+  type AriaAttributes,
+  type ReactNode,
+} from 'react';
 import { Dialog as MuiDialog } from '@mui/material';
 
 import './Dialog.css';
+import { useModalScrollLock } from '../../hooks/useModalScrollLock';
 
 // ── Types ─────────────────────────────────────────────────────────────────────
 
 export type DialogSize = 'sm' | 'md' | 'lg' | 'fullscreen';
 
-export interface DialogProps {
+export interface DialogProps
+  extends
+    Pick<AriaAttributes, 'aria-label' | 'aria-labelledby' | 'aria-describedby'>,
+    FqSlotCustomization<
+      | 'paper'
+      | 'backdrop'
+      | 'title'
+      | 'heading'
+      | 'closeButton'
+      | 'content'
+      | 'actions'
+    > {
+  /** Portal target. Prefer a callback when the target is created after mount. */
+  container?: FqPortalContainer;
+  /** Render inline. Inline overlays remain subject to ancestor clipping/stacking. */
+  disablePortal?: boolean;
   open: boolean;
   /** Called when the dialog requests to close (Escape or backdrop click). */
   onClose?: () => void;
@@ -41,6 +71,7 @@ export interface DialogProps {
    */
   disableBackdropClick?: boolean;
   className?: string;
+  style?: CSSProperties;
 }
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
@@ -60,6 +91,8 @@ export const Dialog = forwardRef<HTMLDivElement, DialogProps>(
   (
     {
       open,
+      container,
+      disablePortal = false,
       onClose,
       title,
       children,
@@ -67,9 +100,24 @@ export const Dialog = forwardRef<HTMLDivElement, DialogProps>(
       size = 'md',
       disableBackdropClick = false,
       className,
+      style,
+      classNames,
+      slotProps,
+      'aria-label': ariaLabel,
+      'aria-labelledby': ariaLabelledBy,
+      'aria-describedby': ariaDescribedBy,
     },
     ref,
   ) => {
+    const modalRootRef = useRef<HTMLDivElement>(null);
+    const inlineContainer = useCallback(
+      () => modalRootRef.current?.parentElement ?? document.body,
+      [],
+    );
+    const portalScope = usePortalScope();
+    const slots = { classNames, slotProps };
+    const releaseScrollLock = useModalScrollLock(open, true);
+    const titleId = useId();
     const isFullscreen = size === 'fullscreen';
 
     const handleClose = (
@@ -86,20 +134,40 @@ export const Dialog = forwardRef<HTMLDivElement, DialogProps>(
 
     return (
       <MuiDialog
+        {...portalScope}
+        ref={modalRootRef}
+        container={disablePortal ? inlineContainer : container}
+        disablePortal={disablePortal}
         open={open}
+        disableScrollLock
+        TransitionProps={{ onExited: releaseScrollLock }}
         onClose={handleClose}
         fullScreen={isFullscreen}
         maxWidth={isFullscreen ? false : MUI_MAX_WIDTH[size]}
         fullWidth
-        PaperProps={{ ref, className: paperCls }}
+        BackdropProps={getSlotProps(slots, 'backdrop')}
+        PaperProps={{
+          ref,
+          ...getSlotProps(slots, 'paper', paperCls, style),
+          'aria-label': ariaLabel,
+          'aria-labelledby':
+            ariaLabelledBy ??
+            (ariaLabel == null && title != null ? titleId : undefined),
+          'aria-describedby': ariaDescribedBy,
+        }}
       >
         {title != null && (
-          <div className="fq-dialog__title">
-            <h2 className="fq-dialog__title-text">{title}</h2>
+          <div {...getSlotProps(slots, 'title', 'fq-dialog__title')}>
+            <h2
+              id={titleId}
+              {...getSlotProps(slots, 'heading', 'fq-dialog__title-text')}
+            >
+              {title}
+            </h2>
             {onClose && (
               <button
                 type="button"
-                className="fq-dialog__close"
+                {...getSlotProps(slots, 'closeButton', 'fq-dialog__close')}
                 aria-label="Close dialog"
                 onClick={onClose}
               >
@@ -120,9 +188,15 @@ export const Dialog = forwardRef<HTMLDivElement, DialogProps>(
           </div>
         )}
 
-        <div className="fq-dialog__content">{children}</div>
+        <div {...getSlotProps(slots, 'content', 'fq-dialog__content')}>
+          {children}
+        </div>
 
-        {actions != null && <div className="fq-dialog__actions">{actions}</div>}
+        {actions != null && (
+          <div {...getSlotProps(slots, 'actions', 'fq-dialog__actions')}>
+            {actions}
+          </div>
+        )}
       </MuiDialog>
     );
   },

@@ -60,23 +60,11 @@ export const PaymentMethods: Story = {
         gap: '12px',
       }}
     >
-      <Radio
-        name="payment"
-        value="cash"
-        label="Cash"
-      />
+      <Radio name="payment" value="cash" label="Cash" />
 
-      <Radio
-        name="payment"
-        value="card"
-        label="Credit Card"
-      />
+      <Radio name="payment" value="card" label="Credit Card" />
 
-      <Radio
-        name="payment"
-        value="transfer"
-        label="Bank Transfer"
-      />
+      <Radio name="payment" value="transfer" label="Bank Transfer" />
     </div>
   ),
 };

@@ -1,0 +1,3 @@
+/* Compatibility entry: preserves the original unlayered global reset. */
+@import './index.css';
+@import './reset.css';

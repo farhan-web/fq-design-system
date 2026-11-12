@@ -18,20 +18,46 @@
 
 /* ── Sizes ──────────────────────────────────────────────────────────────── */
 
-.fq-icon--xs  { --fq-icon-size: 12px; }
-.fq-icon--sm  { --fq-icon-size: 16px; }
-.fq-icon--md  { --fq-icon-size: 20px; }
-.fq-icon--lg  { --fq-icon-size: 24px; } /* default */
-.fq-icon--xl  { --fq-icon-size: 32px; }
-.fq-icon--2xl { --fq-icon-size: 40px; }
-.fq-icon--3xl { --fq-icon-size: 48px; }
+.fq-icon--xs {
+  --fq-icon-size: 12px;
+}
+.fq-icon--sm {
+  --fq-icon-size: 16px;
+}
+.fq-icon--md {
+  --fq-icon-size: 20px;
+}
+.fq-icon--lg {
+  --fq-icon-size: 24px;
+} /* default */
+.fq-icon--xl {
+  --fq-icon-size: 32px;
+}
+.fq-icon--2xl {
+  --fq-icon-size: 40px;
+}
+.fq-icon--3xl {
+  --fq-icon-size: 48px;
+}
 
 /* ── Colors ─────────────────────────────────────────────────────────────── */
 
-.fq-icon--primary   { color: var(--color-primary); }
-.fq-icon--secondary { color: var(--color-text-medium); }
-.fq-icon--error     { color: var(--color-danger); }
-.fq-icon--success   { color: var(--color-success); }
-.fq-icon--warning   { color: var(--color-warning-solid); }
-.fq-icon--muted     { color: var(--color-text-disabled); }
+.fq-icon--primary {
+  color: var(--fq-icon-primary, var(--color-text-activity));
+}
+.fq-icon--secondary {
+  color: var(--fq-icon-text-medium, var(--color-text-medium));
+}
+.fq-icon--error {
+  color: var(--fq-icon-danger, var(--color-text-alert));
+}
+.fq-icon--success {
+  color: var(--fq-icon-success, var(--color-success));
+}
+.fq-icon--warning {
+  color: var(--fq-icon-warning-solid, var(--color-warning-solid));
+}
+.fq-icon--muted {
+  color: var(--fq-icon-text-disabled, var(--color-text-disabled));
+}
 /* color="inherit" (default) — uses parent color, no extra class needed */

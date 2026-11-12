@@ -1,3 +1,4 @@
+import { getSlotProps, type FqSlotCustomization } from '../../types/slots';
 import {
   forwardRef,
   useState,
@@ -12,7 +13,18 @@ import type { FormFieldProps } from '../../types/form';
 import './Textarea.css';
 
 export interface TextareaProps
-  extends TextareaHTMLAttributes<HTMLTextAreaElement>, FormFieldProps {
+  extends
+    TextareaHTMLAttributes<HTMLTextAreaElement>,
+    FormFieldProps,
+    FqSlotCustomization<
+      | 'root'
+      | 'label'
+      | 'required'
+      | 'textarea'
+      | 'footer'
+      | 'helperText'
+      | 'count'
+    > {
   /** Show character count below the textarea (uses maxLength if provided) */
   showCount?: boolean;
 }
@@ -27,12 +39,16 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
       required,
       showCount = false,
       className,
+      style,
+      classNames,
+      slotProps,
       onChange,
       'aria-describedby': externalDescribedBy,
       ...props
     },
     ref,
   ) => {
+    const slots = { classNames, slotProps };
     const fieldContext = useFieldContext();
     const [charCount, setCharCount] = useState(
       () => String(props.defaultValue ?? props.value ?? '').length,
@@ -61,18 +77,29 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
 
     return (
       <div
-        className={[
-          'fq-textarea-field',
-          error ? 'fq-textarea-field--error' : '',
-        ]
-          .filter(Boolean)
-          .join(' ')}
+        {...getSlotProps(
+          slots,
+          'root',
+          ['fq-textarea-field', error ? 'fq-textarea-field--error' : '']
+            .filter(Boolean)
+            .join(' '),
+        )}
       >
-        <label className="fq-textarea-field__label" htmlFor={textareaId}>
+        <label
+          {...getSlotProps(slots, 'label', 'fq-textarea-field__label')}
+          htmlFor={textareaId}
+        >
           {label}
 
           {isRequired && (
-            <span className="fq-textarea-field__required" aria-hidden="true">
+            <span
+              {...getSlotProps(
+                slots,
+                'required',
+                'fq-textarea-field__required',
+              )}
+              aria-hidden="true"
+            >
               *
             </span>
           )}
@@ -83,7 +110,12 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
           ref={ref}
           id={textareaId}
           required={isRequired}
-          className={['fq-textarea', className ?? ''].filter(Boolean).join(' ')}
+          {...getSlotProps(
+            slots,
+            'textarea',
+            ['fq-textarea', className ?? ''].filter(Boolean).join(' '),
+            style,
+          )}
           aria-invalid={invalid || undefined}
           aria-describedby={describedBy}
           onChange={(e: ChangeEvent<HTMLTextAreaElement>) => {
@@ -92,14 +124,21 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
           }}
         />
 
-        <div className="fq-textarea-field__footer">
+        <div {...getSlotProps(slots, 'footer', 'fq-textarea-field__footer')}>
           {message && (
-            <div id={messageId} className="fq-textarea-field__message">
+            <div
+              id={messageId}
+              {...getSlotProps(
+                slots,
+                'helperText',
+                'fq-textarea-field__message',
+              )}
+            >
               {message}
             </div>
           )}
           {showCount && (
-            <span className="fq-textarea-field__count">
+            <span {...getSlotProps(slots, 'count', 'fq-textarea-field__count')}>
               {charCount}
               {props.maxLength != null ? `/${props.maxLength}` : ''}
             </span>

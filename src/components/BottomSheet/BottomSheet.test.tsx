@@ -1,6 +1,13 @@
-import { fireEvent, render, screen } from '@testing-library/react';
+import {
+  act,
+  fireEvent,
+  render,
+  screen,
+  waitFor,
+} from '@testing-library/react';
 import { describe, expect, it, vi } from 'vitest';
 
+import { Dialog } from '../Dialog/Dialog';
 import { BottomSheet } from './BottomSheet';
 
 describe('BottomSheet', () => {
@@ -67,7 +74,7 @@ describe('BottomSheet', () => {
         Body
       </BottomSheet>,
     );
-    fireEvent.keyDown(document, { key: 'Escape' });
+    fireEvent.keyDown(screen.getByRole('dialog'), { key: 'Escape' });
     expect(onClose).toHaveBeenCalledTimes(1);
   });
 
@@ -117,8 +124,14 @@ describe('BottomSheet', () => {
     const buttons = dialog.querySelectorAll('button:not(:disabled)');
     const last = buttons[buttons.length - 1] as HTMLElement;
 
-    last.focus();
-    fireEvent.keyDown(document, { key: 'Tab', shiftKey: false });
+    act(() => last.focus());
+    fireEvent.keyDown(last, { key: 'Tab', shiftKey: false });
+    // jsdom has no native Tab movement; move to MUI's end sentinel.
+    act(() =>
+      (
+        document.querySelector('[data-testid="sentinelEnd"]') as HTMLElement
+      ).focus(),
+    );
     // First button in dialog should receive focus (wraps from last)
     expect(document.activeElement).toBe(buttons[0]);
   });
@@ -136,8 +149,13 @@ describe('BottomSheet', () => {
     const first = allButtons[0];
     const last = allButtons[allButtons.length - 1];
 
-    first.focus();
-    fireEvent.keyDown(document, { key: 'Tab', shiftKey: true });
+    act(() => first.focus());
+    fireEvent.keyDown(first, { key: 'Tab', shiftKey: true });
+    act(() =>
+      (
+        document.querySelector('[data-testid="sentinelStart"]') as HTMLElement
+      ).focus(),
+    );
     // Focus wraps to last focusable element
     expect(document.activeElement).toBe(last);
   });
@@ -258,5 +276,137 @@ describe('BottomSheet', () => {
       </BottomSheet>,
     );
     expect(container.querySelector('[role="dialog"]')).toBeInTheDocument();
+    expect(screen.getByRole('dialog')).toBeInTheDocument();
+    expect(document.body.style.overflow).toBe('hidden');
+  });
+  it('focuses the close button after mount and restores the trigger after exit', async () => {
+    const trigger = document.createElement('button');
+    document.body.append(trigger);
+    trigger.focus();
+    const { rerender } = render(
+      <BottomSheet open onClose={vi.fn()} title="Filter" />,
+    );
+    await waitFor(() =>
+      expect(screen.getByRole('button', { name: 'Close' })).toHaveFocus(),
+    );
+    rerender(<BottomSheet open={false} onClose={vi.fn()} title="Filter" />);
+    await waitFor(() => expect(trigger).toHaveFocus());
+    trigger.remove();
+  });
+
+  it('focuses titleless content or the empty sheet fallback', async () => {
+    const { rerender } = render(
+      <BottomSheet open onClose={vi.fn()} aria-label="Options">
+        <button>Choose</button>
+      </BottomSheet>,
+    );
+    await waitFor(() =>
+      expect(screen.getByRole('button', { name: 'Choose' })).toHaveFocus(),
+    );
+    rerender(
+      <BottomSheet open={false} onClose={vi.fn()} aria-label="Options" />,
+    );
+  });
+
+  it('contains focus when there are no focusable children', () => {
+    render(
+      <BottomSheet open onClose={vi.fn()} aria-label="Notice">
+        Read this
+      </BottomSheet>,
+    );
+    expect(screen.getByRole('dialog', { name: 'Notice' })).toHaveFocus();
+    const outside = document.createElement('button');
+    document.body.append(outside);
+    act(() => outside.focus());
+    expect(screen.getByRole('dialog')).toHaveFocus();
+    outside.remove();
+  });
+
+  it('shares Escape ownership and scroll lock with Dialog', () => {
+    const sheetClose = vi.fn();
+    const dialogClose = vi.fn();
+    const initialOverflow = document.body.style.overflow;
+    const { rerender, unmount } = render(
+      <BottomSheet open onClose={sheetClose} title="Sheet" />,
+    );
+    rerender(
+      <>
+        <BottomSheet open onClose={sheetClose} title="Sheet" />
+        <Dialog open onClose={dialogClose} title="Top dialog" />
+      </>,
+    );
+    fireEvent.keyDown(screen.getByRole('dialog', { name: 'Top dialog' }), {
+      key: 'Escape',
+    });
+    expect(dialogClose).toHaveBeenCalledTimes(1);
+    expect(sheetClose).not.toHaveBeenCalled();
+    expect(document.body.style.overflow).toBe('hidden');
+    unmount();
+    expect(document.body.style.overflow).toBe(initialOverflow);
+  });
+
+  it('cancels pending animation frames on rapid close and unmount', () => {
+    const cancel = vi.spyOn(window, 'cancelAnimationFrame');
+    const { rerender, unmount } = render(
+      <BottomSheet open onClose={vi.fn()} />,
+    );
+    rerender(<BottomSheet open={false} onClose={vi.fn()} />);
+    expect(cancel).toHaveBeenCalled();
+    rerender(<BottomSheet open onClose={vi.fn()} />);
+    unmount();
+    expect(document.querySelector('.fq-bottom-sheet')).toBeNull();
+    cancel.mockRestore();
+  });
+  it('skips hidden, disabled and negative-tabindex initial focus targets', async () => {
+    render(
+      <BottomSheet open onClose={vi.fn()} aria-label="Options">
+        <button hidden>Hidden</button>
+        <div style={{ display: 'none' }}>
+          <button>Hidden ancestor</button>
+        </div>
+        <button disabled>Disabled</button>
+        <button tabIndex={-1}>Not tabbable</button>
+        <button>Available</button>
+      </BottomSheet>,
+    );
+    await waitFor(() =>
+      expect(screen.getByRole('button', { name: 'Available' })).toHaveFocus(),
+    );
+  });
+
+  it('keeps a rapidly reopened sheet mounted past its previous exit timeout', async () => {
+    const { rerender } = render(
+      <BottomSheet open title="Options" onClose={vi.fn()} />,
+    );
+    rerender(<BottomSheet open={false} title="Options" onClose={vi.fn()} />);
+    rerender(<BottomSheet open title="Options" onClose={vi.fn()} />);
+    await act(async () => {
+      await new Promise((resolve) => setTimeout(resolve, 320));
+    });
+    expect(screen.getByRole('dialog', { name: 'Options' })).toBeInTheDocument();
+    expect(document.body.style.overflow).toBe('hidden');
+  });
+
+  it('keeps scroll locked when a lower sheet exits beneath a Dialog', async () => {
+    const { rerender, unmount } = render(
+      <>
+        <BottomSheet open title="Lower sheet" onClose={vi.fn()} />
+        <Dialog open title="Upper dialog" />
+      </>,
+    );
+    rerender(
+      <>
+        <BottomSheet open={false} title="Lower sheet" onClose={vi.fn()} />
+        <Dialog open title="Upper dialog" />
+      </>,
+    );
+    await waitFor(() =>
+      expect(document.querySelector('.fq-bottom-sheet')).toBeNull(),
+    );
+    expect(
+      screen.getByRole('dialog', { name: 'Upper dialog' }),
+    ).toBeInTheDocument();
+    expect(document.body.style.overflow).toBe('hidden');
+    unmount();
   });
 });

@@ -1,6 +1,9 @@
+import { getSlotProps, type FqSlotCustomization } from '../../types/slots';
 import {
   cloneElement,
   forwardRef,
+  useCallback,
+  useEffect,
   useId,
   useRef,
   useState,
@@ -29,10 +32,10 @@ export type TooltipPlacement =
 export type TooltipArrowAlignment = 'start' | 'center' | 'end';
 
 // Omit 'content' because HTMLAttributes<HTMLDivElement> already has content?: string
-export interface TooltipProps extends Omit<
-  HTMLAttributes<HTMLDivElement>,
-  'content' | 'onOpen' | 'onClose'
-> {
+export interface TooltipProps
+  extends
+    Omit<HTMLAttributes<HTMLDivElement>, 'content' | 'onOpen' | 'onClose'>,
+    FqSlotCustomization<'root' | 'content' | 'arrow'> {
   content: ReactNode;
   placement?: TooltipPlacement;
   /** Where the arrow sits along the tooltip edge. Default: 'center'. */
@@ -84,6 +87,17 @@ export const Tooltip = forwardRef<HTMLDivElement, TooltipProps>(
       disableTouchListener = false,
       children,
       className,
+      style,
+      classNames,
+      slotProps,
+      onMouseEnter,
+      onMouseLeave,
+      onFocus,
+      onBlur,
+      onTouchStart,
+      onTouchEnd,
+      onTouchCancel,
+      onKeyDown,
       ...props
     },
     ref,
@@ -95,6 +109,37 @@ export const Tooltip = forwardRef<HTMLDivElement, TooltipProps>(
     const enterTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
     const leaveTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
     const tooltipId = useId();
+    const callbacks = useRef({ onOpen, onClose });
+    useEffect(() => {
+      callbacks.current = { onOpen, onClose };
+    }, [onOpen, onClose]);
+    const rootRef = useRef<HTMLDivElement | null>(null);
+    const handleRef = useCallback(
+      (node: HTMLDivElement | null) => {
+        rootRef.current = node;
+        if (typeof ref === 'function') ref(node);
+        else if (ref) ref.current = node;
+      },
+      [ref],
+    );
+    const activity = useRef({
+      hover: false,
+      focus: false,
+      touch: false,
+      dismissed: false,
+    });
+    const clearTimers = useCallback(() => {
+      if (enterTimerRef.current !== null) clearTimeout(enterTimerRef.current);
+      if (leaveTimerRef.current !== null) clearTimeout(leaveTimerRef.current);
+      enterTimerRef.current = null;
+      leaveTimerRef.current = null;
+    }, []);
+    const dismiss = useCallback(() => {
+      clearTimers();
+      activity.current.dismissed = true;
+      if (!isControlled) setInternalVisible(false);
+      callbacks.current.onClose?.();
+    }, [clearTimers, isControlled]);
 
     if (delayMs !== undefined && import.meta.env.DEV) {
       console.warn(
@@ -103,61 +148,63 @@ export const Tooltip = forwardRef<HTMLDivElement, TooltipProps>(
     }
     const resolvedEnterDelay = enterDelay ?? delayMs ?? 300;
 
+    useEffect(
+      () => clearTimers,
+      [clearTimers, open, resolvedEnterDelay, leaveDelay],
+    );
+
+    // Inside the wrapper, bubble so child key handlers still run. Outside it,
+    // capture so Escape dismisses a hovered tooltip before an enclosing modal.
+    useEffect(() => {
+      const handleEscape = (event: KeyboardEvent) => {
+        if (
+          event.key !== 'Escape' ||
+          event.defaultPrevented ||
+          rootRef.current?.contains(event.target as Node)
+        )
+          return;
+        if (visible || enterTimerRef.current !== null) {
+          dismiss();
+          event.preventDefault();
+          event.stopPropagation();
+        }
+      };
+      document.addEventListener('keydown', handleEscape, true);
+      return () => document.removeEventListener('keydown', handleEscape, true);
+    }, [visible, dismiss]);
+
     const show = () => {
-      if (leaveTimerRef.current) clearTimeout(leaveTimerRef.current);
+      clearTimers();
+      if (activity.current.dismissed || visible) return;
       enterTimerRef.current = setTimeout(() => {
+        enterTimerRef.current = null;
         if (!isControlled) setInternalVisible(true);
-        onOpen?.();
+        callbacks.current.onOpen?.();
       }, resolvedEnterDelay);
     };
 
     const hide = () => {
-      if (enterTimerRef.current) clearTimeout(enterTimerRef.current);
+      if (
+        activity.current.hover ||
+        activity.current.focus ||
+        activity.current.touch
+      )
+        return;
+      activity.current.dismissed = false;
+      clearTimers();
       leaveTimerRef.current = setTimeout(() => {
+        leaveTimerRef.current = null;
         if (!isControlled) setInternalVisible(false);
-        onClose?.();
+        callbacks.current.onClose?.();
       }, leaveDelay);
     };
 
-    // Cast to access props safely — cloneElement merges, not replaces
     const childProps = children.props as React.HTMLAttributes<HTMLElement>;
-
-    const extraProps: Record<string, unknown> = {
-      'aria-describedby': visible ? tooltipId : undefined,
-    };
-
-    if (!disableHoverListener) {
-      extraProps.onMouseEnter = (e: React.MouseEvent<HTMLElement>) => {
-        show();
-        childProps.onMouseEnter?.(e);
-      };
-      extraProps.onMouseLeave = (e: React.MouseEvent<HTMLElement>) => {
-        hide();
-        childProps.onMouseLeave?.(e);
-      };
-    }
-
-    if (!disableFocusListener) {
-      extraProps.onFocus = (e: React.FocusEvent<HTMLElement>) => {
-        show();
-        childProps.onFocus?.(e);
-      };
-      extraProps.onBlur = (e: React.FocusEvent<HTMLElement>) => {
-        hide();
-        childProps.onBlur?.(e);
-      };
-    }
-
-    if (!disableTouchListener) {
-      extraProps.onTouchStart = (e: React.TouchEvent<HTMLElement>) => {
-        show();
-        childProps.onTouchStart?.(e);
-      };
-      extraProps.onTouchEnd = (e: React.TouchEvent<HTMLElement>) => {
-        hide();
-        childProps.onTouchEnd?.(e);
-      };
-    }
+    const describedBy =
+      [childProps['aria-describedby'], visible ? tooltipId : undefined]
+        .filter(Boolean)
+        .join(' ') || undefined;
+    const extraProps = { 'aria-describedby': describedBy };
 
     const trigger = cloneElement(
       children as ReactElement<Record<string, unknown>>,
@@ -174,28 +221,105 @@ export const Tooltip = forwardRef<HTMLDivElement, TooltipProps>(
     return (
       <div
         {...props}
-        ref={ref}
-        className={['fq-tooltip', className].filter(Boolean).join(' ')}
+        ref={handleRef}
+        onMouseEnter={(event) => {
+          if (!disableHoverListener) {
+            activity.current.hover = true;
+            show();
+          }
+          onMouseEnter?.(event);
+        }}
+        onMouseLeave={(event) => {
+          if (!disableHoverListener) {
+            activity.current.hover = false;
+            hide();
+          }
+          onMouseLeave?.(event);
+        }}
+        onFocus={(event) => {
+          if (!disableFocusListener) {
+            activity.current.focus = true;
+            show();
+          }
+          onFocus?.(event);
+        }}
+        onBlur={(event) => {
+          if (
+            !disableFocusListener &&
+            !event.currentTarget.contains(event.relatedTarget)
+          ) {
+            activity.current.focus = false;
+            hide();
+          }
+          onBlur?.(event);
+        }}
+        onTouchStart={(event) => {
+          if (!disableTouchListener) {
+            activity.current.touch = true;
+            show();
+          }
+          onTouchStart?.(event);
+        }}
+        onTouchEnd={(event) => {
+          if (!disableTouchListener) {
+            activity.current.touch = false;
+            hide();
+          }
+          onTouchEnd?.(event);
+        }}
+        onTouchCancel={(event) => {
+          if (!disableTouchListener) {
+            activity.current.touch = false;
+            hide();
+          }
+          onTouchCancel?.(event);
+        }}
+        onKeyDown={(event) => {
+          onKeyDown?.(event);
+          if (
+            !event.defaultPrevented &&
+            event.key === 'Escape' &&
+            (visible || enterTimerRef.current !== null)
+          ) {
+            dismiss();
+            event.preventDefault();
+            event.stopPropagation();
+          }
+        }}
+        {...getSlotProps(
+          { classNames, slotProps },
+          'root',
+          ['fq-tooltip', className].filter(Boolean).join(' '),
+          style,
+        )}
       >
         {trigger}
         <div
           id={tooltipId}
           role="tooltip"
-          style={contentStyle}
-          className={[
-            'fq-tooltip__content',
-            `fq-tooltip__content--${placement}`,
-            visible ? 'fq-tooltip__content--visible' : '',
-            bold ? 'fq-tooltip__content--bold' : '',
-          ]
-            .filter(Boolean)
-            .join(' ')}
+          {...getSlotProps(
+            { classNames, slotProps },
+            'content',
+            [
+              'fq-tooltip__content',
+              `fq-tooltip__content--${placement}`,
+              visible ? 'fq-tooltip__content--visible' : '',
+              bold ? 'fq-tooltip__content--bold' : '',
+            ]
+              .filter(Boolean)
+              .join(' '),
+            contentStyle,
+          )}
           aria-hidden={!visible}
         >
           {content}
           {arrow && (
             <span
-              className={`fq-tooltip__arrow fq-tooltip__arrow--${arrowAlignment}`}
+              {...getSlotProps(
+                { classNames, slotProps },
+                'arrow',
+                `fq-tooltip__arrow fq-tooltip__arrow--${arrowAlignment}`,
+              )}
               aria-hidden="true"
             />
           )}

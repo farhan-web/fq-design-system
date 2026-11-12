@@ -1,4 +1,4 @@
-import './index.css';
+import './compat.css';
 
 export {
   Button,
@@ -160,4 +160,25 @@ export {
   FqThemeProvider,
   type FqThemeProviderProps,
 } from './theme/FqThemeProvider';
-export { fqTheme, type FqTheme } from './theme/fqTheme';
+export { fqTheme, createFqTheme, type FqTheme } from './theme/fqTheme';
+
+export {
+  parseFqTheme,
+  parseFqThemeJson,
+  themeCssVariables,
+  defaultFqThemeDefinition,
+  FqThemeValidationError,
+  densityScales,
+  type FqThemeConfig,
+  type FqThemeDefinition,
+  type FqThemeMode,
+  type FqDensity,
+} from './theme/tokenConfig';
+
+export type {
+  FqSlotStyle,
+  FqSlotProps,
+  FqSlotCustomization,
+} from './types/slots';
+
+export type { FqPortalContainer } from './theme/portalScope';

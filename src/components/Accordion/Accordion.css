@@ -1,13 +1,16 @@
 .fq-accordion {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-8);
+  gap: calc(
+    var(--spacing-8) *
+      clamp(0.75, var(--fq-accordion-gap-scale, var(--fq-density-gap, 1)), 1.25)
+  );
 }
 
 .fq-accordion__item {
-  background: var(--color-background);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-md);
+  background: var(--fq-accordion-background, var(--color-background));
+  border: 1px solid var(--fq-accordion-border, var(--color-border));
+  border-radius: var(--fq-accordion-radius-md, var(--radius-md));
   overflow: hidden;
 }
 
@@ -15,16 +18,26 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: var(--spacing-8);
+  gap: calc(
+    var(--spacing-8) *
+      clamp(0.75, var(--fq-accordion-gap-scale, var(--fq-density-gap, 1)), 1.25)
+  );
   width: 100%;
-  padding: var(--spacing-16);
+  padding: calc(
+    var(--spacing-16) *
+      clamp(
+        0.75,
+        var(--fq-accordion-padding-scale, var(--fq-density-padding, 1)),
+        1.25
+      )
+  );
 
   border: none;
   background: transparent;
-  color: var(--color-text-high);
+  color: var(--fq-accordion-text-high, var(--color-text-high));
   text-align: left;
 
-  font-family: var(--font-family);
+  font-family: var(--fq-accordion-font-family, var(--font-family));
   font-size: var(--text-body2-size);
   font-weight: var(--font-weight-bold);
 
@@ -33,11 +46,11 @@
 }
 
 .fq-accordion__trigger:hover:not(:disabled) {
-  background: var(--color-surface);
+  background: var(--fq-accordion-surface, var(--color-surface));
 }
 
 .fq-accordion__trigger:focus-visible {
-  outline: 2px solid var(--color-primary);
+  outline: 2px solid var(--fq-accordion-primary, var(--color-primary));
   outline-offset: -2px;
 }
 
@@ -50,7 +63,7 @@
   flex-shrink: 0;
   width: 20px;
   height: 20px;
-  color: var(--color-text-high);
+  color: var(--fq-accordion-text-high, var(--color-text-high));
   transition: transform 200ms ease;
 }
 
@@ -64,8 +77,24 @@
 }
 
 .fq-accordion__body {
-  padding: 0 var(--spacing-16) var(--spacing-16);
-  color: var(--color-text-medium);
+  padding: 0
+    calc(
+      var(--spacing-16) *
+        clamp(
+          0.75,
+          var(--fq-accordion-padding-scale, var(--fq-density-padding, 1)),
+          1.25
+        )
+    )
+    calc(
+      var(--spacing-16) *
+        clamp(
+          0.75,
+          var(--fq-accordion-padding-scale, var(--fq-density-padding, 1)),
+          1.25
+        )
+    );
+  color: var(--fq-accordion-text-medium, var(--color-text-medium));
   font-size: var(--text-body2-size);
   line-height: var(--line-height-normal);
 }
@@ -81,10 +110,49 @@
 }
 
 .fq-accordion--inside-card .fq-accordion__trigger {
-  padding: var(--spacing-16) var(--space-5);
-  gap: var(--spacing-12);
+  padding: calc(
+      var(--spacing-16) *
+        clamp(
+          0.75,
+          var(--fq-accordion-padding-scale, var(--fq-density-padding, 1)),
+          1.25
+        )
+    )
+    calc(
+      var(--space-5) *
+        clamp(
+          0.75,
+          var(--fq-accordion-padding-scale, var(--fq-density-padding, 1)),
+          1.25
+        )
+    );
+  gap: calc(
+    var(--spacing-12) *
+      clamp(0.75, var(--fq-accordion-gap-scale, var(--fq-density-gap, 1)), 1.25)
+  );
 }
 
 .fq-accordion--inside-card .fq-accordion__body {
-  padding: 0 var(--space-5) var(--spacing-16);
+  padding: 0
+    calc(
+      var(--space-5) *
+        clamp(
+          0.75,
+          var(--fq-accordion-padding-scale, var(--fq-density-padding, 1)),
+          1.25
+        )
+    )
+    calc(
+      var(--spacing-16) *
+        clamp(
+          0.75,
+          var(--fq-accordion-padding-scale, var(--fq-density-padding, 1)),
+          1.25
+        )
+    );
+}
+
+/* Token scopes supply inherited typography without changing legacy host inheritance. */
+:where([data-fq-theme]) .fq-accordion {
+  font-family: var(--fq-accordion-font-family, var(--font-family));
 }

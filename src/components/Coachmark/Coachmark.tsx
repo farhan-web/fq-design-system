@@ -152,6 +152,7 @@ export const Coachmark = forwardRef<HTMLDivElement, CoachmarkProps>(
             {showSteps && (
               <p
                 className="fq-coachmark__steps"
+                role="status"
                 aria-label={`Step ${step} of ${totalSteps}`}
                 aria-live="polite"
               >

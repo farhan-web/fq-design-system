@@ -21,11 +21,13 @@ export default defineConfig({
   ],
 
   build: {
+    copyPublicDir: false,
     lib: {
       entry: path.resolve(dirname, 'src/index.ts'),
       name: 'FQDesignSystem',
       formats: ['es'],
       fileName: 'fq-design-system',
+      cssFileName: 'fq-design-system',
     },
 
     rollupOptions: {

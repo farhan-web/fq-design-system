@@ -25,7 +25,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "build": "tsc -b && vite build && node scripts/bundle-types.mjs && node scripts/build-styles.mjs",
     "lint": "eslint .",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
@@ -35,21 +35,41 @@
     "test": "vitest run",
     "test:coverage": "vitest run --coverage",
     "test:watch": "vitest",
+    "preverify:browser": "node scripts/verification-build.mjs",
+    "preverify:browser:update": "node scripts/verification-build.mjs",
+    "verify:browser": "node scripts/verify-browser.mjs",
+    "verify:browser:update": "node scripts/verify-browser.mjs --update",
+    "steering:check": "node scripts/steering.mjs check",
+    "steering:refresh": "node scripts/steering.mjs refresh",
+    "test:steering": "node --test scripts/tests/*.checks.mjs",
     "changeset": "changeset",
-    "release": "npm run build && changeset publish"
+    "release": "npm run build && changeset publish",
+    "prepack": "npm run build",
+    "verify:package": "node scripts/verify-package.mjs",
+    "tokens:generate": "node scripts/generate-theme-tokens.mjs",
+    "tokens:check": "node scripts/generate-theme-tokens.mjs --check",
+    "prebuild": "npm run tokens:check && npm run tokens:inventory",
+    "prebuild-storybook": "npm run tokens:check && npm run tokens:inventory",
+    "tokens:inventory": "node scripts/inventory-component-tokens.mjs --report=verification/reports/component-token-inventory.json",
+    "build:verification": "node scripts/verification-build.mjs",
+    "preverify:a11y": "node scripts/verification-build.mjs",
+    "verify:a11y": "node scripts/verify-accessibility.mjs",
+    "verify:gates": "node scripts/verify-release-gates.mjs"
   },
-  "sideEffects": ["**/*.css"],
+  "sideEffects": [
+    "**/*.css"
+  ],
   "engines": {
-    "node": ">=18"
+    "node": "^20.19.0 || ^22.13.0 || >=24.0.0"
   },
   "devDependencies": {
-    "@emotion/react": "^11.14.0",
-    "@emotion/styled": "^11.14.0",
-    "@mui/material": "^6.4.0",
-    "lucide-react": "^1.30.0",
     "@changesets/cli": "^2.29.5",
     "@chromatic-com/storybook": "latest",
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.1",
     "@eslint/js": "^10.0.1",
+    "@microsoft/api-extractor": "^7.57.0",
+    "@mui/material": "^6.5.0",
     "@storybook/addon-a11y": "^10.5.7",
     "@storybook/addon-docs": "^10.5.7",
     "@storybook/addon-onboarding": "^10.5.7",
@@ -63,13 +83,16 @@
     "@vitejs/plugin-react": "^6.0.4",
     "@vitest/browser-playwright": "latest",
     "@vitest/coverage-v8": "latest",
+    "axe-core": "^4.13.0",
     "eslint": "^10.8.0",
     "eslint-plugin-react-hooks": "^7.1.1",
     "eslint-plugin-react-refresh": "^0.5.3",
     "eslint-plugin-storybook": "^10.5.7",
     "globals": "^17.7.0",
     "jsdom": "^29.1.1",
+    "lucide-react": "^1.30.0",
     "playwright": "latest",
+    "postcss": "^8.5.26",
     "prettier": "^3.5.3",
     "storybook": "^10.5.7",
     "typescript": "~6.0.2",
@@ -87,31 +110,20 @@
       "import": "./dist/fq-design-system.js",
       "default": "./dist/fq-design-system.js"
     },
-    "./style.css": "./dist/fq-design-system.css"
+    "./style.css": "./dist/fq-design-system.css",
+    "./theme-schema.json": "./dist/theme-schema.json",
+    "./isolated.css": "./dist/fq-design-system.isolated.css",
+    "./reset.css": "./dist/fq-design-system.reset.css",
+    "./compat.css": "./dist/fq-design-system.css"
   },
   "files": [
     "dist"
   ],
   "peerDependencies": {
-    "react": ">=18.0.0",
-    "react-dom": ">=18.0.0",
-    "@mui/material": ">=5.0.0",
-    "@emotion/react": ">=11.0.0",
-    "@emotion/styled": ">=11.0.0",
-    "lucide-react": ">=1.0.0"
-  },
-  "peerDependenciesMeta": {
-    "@mui/material": {
-      "optional": true
-    },
-    "@emotion/react": {
-      "optional": true
-    },
-    "@emotion/styled": {
-      "optional": true
-    },
-    "lucide-react": {
-      "optional": true
-    }
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.1",
+    "@mui/material": "^6.5.0",
+    "react": "^18.3.1 || ^19.2.8",
+    "react-dom": "^18.3.1 || ^19.2.8"
   }
 }

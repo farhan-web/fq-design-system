@@ -1,0 +1,5 @@
+{
+  "schemaVersion": 1,
+  "tags": ["wcag2a", "wcag2aa", "wcag21a", "wcag21aa", "wcag22aa"],
+  "extraRules": ["aria-dialog-name"]
+}
