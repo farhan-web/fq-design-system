@@ -91,7 +91,10 @@ from accepted receipts; no blanket baseline regeneration hid regressions.
 2. Refresh/check local handoff, copy the verified snapshot onto the isolated
    readiness/t10-release-gates clone and push that branch to execute hosted CI.
    main remains at073585e and unprotected per read-only admin audit; Actions is
-   enabled. The clone is outside the user's tree; no remote push has occurred yet.
+   enabled. The clone is outside the user's tree. Snapshot0dcd351 was pushed to that
+   remote branch; hosted CI found two omitted formatting-only reference JSON files; data
+   equality was checked and the corrected snapshot is being pushed. No main merge
+   or PR was created.
 3. Verify hosted jobs and aggregate result, fix actual failures, then activate/read
    back required Release gates on main, bound to the observed GitHub Actions app.
    Record actual run/protection evidence. No merge, publication or PR is needed.
